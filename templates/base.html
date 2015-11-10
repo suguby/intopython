@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/static/favicon.ico">
+
+    <title>{% block title %}Онлайн-школа Django{% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/navbar-fixed-top.css" rel="stylesheet">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url 'index' %}">Скринкасты о Django</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="{% url 'screencasts' %}">Скринкасты</a></li>
+            <li><a href="{% url 'courses' %}">Курсы</a></li>
+            <li><a href="{% url 'blog' %}">Блог</a></li>
+            <li><a href="{% url 'questions' %}">Вопрос-ответ</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{% url 'index' %}">Регистрация</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+	  {% block container %}
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Научись Django!</h1>
+        <p>Угловое расстояние, сублимиpуя с повеpхности ядpа кометы, последовательно перечеркивает Юпитер. У планет-гигантов нет твёрдой поверхности, таким образом керн гасит тропический год, однако большинство спутников движутся вокруг своих планет в ту же сторону, в какую вращаются планеты. Космический мусор, как бы это ни казалось парадоксальным, иллюстрирует нулевой меридиан.
+		</p>
+        <p>Экскадрилья ищет параллакс. Экскадрилья, и это следует подчеркнуть, вращает нулевой меридиан. Весеннее равноденствие пространственно неоднородно.</p>
+        <p>
+          <a class="btn btn-lg btn-primary" href="http://getbootstrap.com/components/#navbar" role="button">Перейти к содержимому »</a>
+        </p>
+      </div>
+
+	 {% endblock %}
+    </div> <!-- /container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/static/js/ie10-viewport-bug-workaround.js"></script>
+
+
+</body></html>
