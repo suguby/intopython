@@ -1,3 +1,7 @@
-from django.shortcuts import render
+# -*- coding: utf-8 -*-
 
-# Create your views here.
+from django.views.generic import TemplateView
+
+
+class ScreencastsListView(TemplateView):
+    template_name = 'screencasts/index.html'
