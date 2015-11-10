@@ -58,20 +58,35 @@ ROOT_URLCONF = 'intopython.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # http://niwinz.github.io/django-jinja/#_introduction_3
+        "BACKEND": "django_jinja.backend.Jinja2",
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
         ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "match_extension": ".html",
+            # "match_regex": r"^(?!admin/).*",
+            "app_dirname": "templates",
+            # "autoescape": True,
+            # "auto_reload": DEBUG,
+        }
     },
+    # {
+    #     'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    #     'DIRS': [
+    #         os.path.join(BASE_DIR, 'templates'),
+    #     ],
+    #     'APP_DIRS': True,
+    #     'OPTIONS': {
+    #         'context_processors': [
+    #             'django.template.context_processors.debug',
+    #             'django.template.context_processors.request',
+    #             'django.contrib.auth.context_processors.auth',
+    #             'django.contrib.messages.context_processors.messages',
+    #         ],
+    #     },
+    # },
 ]
 
 WSGI_APPLICATION = 'intopython.wsgi.application'
