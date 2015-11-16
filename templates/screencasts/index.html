@@ -1,3 +1,107 @@
 {% extends 'base.html' %}
 {% set active_page = 'screencasts' -%}
-{% block title %}Скринкасты!{% endblock %}
+{% block title %}Скринкасты{% endblock %}
+
+{% block container %}
+    <div class="row">
+
+    <!-- Blog Entries Column -->
+    <div class="col-md-8">
+        {% block content %}<br />
+        <h1 class="page-header">
+            Скринкасты о Джанго
+            <small>коротко о главном</small>
+        </h1>
+            {% for sc in screencasts %}
+        <!-- Blog Post -->
+        <h2>
+            <a href="#">{{ sc.title }}</a>
+        </h2>
+{#        <p class="lead">#}
+{#            by <a href="http://ironsummitmedia.github.io/startbootstrap-blog-home/index.php">Start Bootstrap</a>#}
+{#        </p>#}
+        <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:00 PM</p>
+        <hr>
+        <img class="img-responsive" src="Blog%20Home%20-%20Start%20Bootstrap%20Template_files/900x300.png" alt="">
+        <hr>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing
+elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam
+quia repellat ut tempore laborum possimus eum dicta id animi corrupti
+debitis ipsum officiis rerum.</p>
+        <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+
+        <hr>
+            {% endfor %}
+
+        <!-- Pager -->
+        <ul class="pager">
+            <li class="previous">
+                <a href="#">← Older</a>
+            </li>
+            <li class="next">
+                <a href="#">Newer →</a>
+            </li>
+        </ul>
+
+        {% endblock content %}
+    </div>
+
+    <!-- Blog Sidebar Widgets Column -->
+    <div class="col-md-4">
+
+        {% block search %}
+        <!-- Blog Search Well -->
+            <br /><br /><br />
+        <div class="well">
+            <h4>Поиск</h4>
+            <div class="input-group">
+                <input class="form-control" type="text">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <span class="glyphicon glyphicon-search"></span>
+                </button>
+                </span>
+            </div>
+            <!-- /.input-group -->
+        </div>
+        {% endblock search %}
+
+        {% block sections %}
+        <!-- Blog Categories Well -->
+        <div class="well">
+            <h4>Blog Categories</h4>
+            <div class="row">
+                <div class="col-lg-6">
+                    <ul class="list-unstyled">
+                        <li><a href="#">Category Name</a>
+                        </li>
+                        <li><a href="#">Category Name</a>
+                        </li>
+                        <li><a href="#">Category Name</a>
+                        </li>
+                        <li><a href="#">Category Name</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.col-lg-6 -->
+                <div class="col-lg-6">
+                    <ul class="list-unstyled">
+                        <li><a href="#">Category Name</a>
+                        </li>
+                        <li><a href="#">Category Name</a>
+                        </li>
+                        <li><a href="#">Category Name</a>
+                        </li>
+                        <li><a href="#">Category Name</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.col-lg-6 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        {% endblock sections %}
+
+
+    </div>
+{% endblock container %}
