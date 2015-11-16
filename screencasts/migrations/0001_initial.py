@@ -13,23 +13,28 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Screencast',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('title', models.CharField(verbose_name='Заголовок', default='', max_length=128)),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
+                ('title', models.CharField(verbose_name='Заголовок', max_length=128, default='')),
                 ('video', models.TextField(verbose_name='Видео', default='')),
                 ('summary', models.TextField(verbose_name='Конспект', null=True)),
-                ('status', models.CharField(choices=[('draft', 'Черновик'), ('publ', 'Опубликовано'), ('hided', 'Скрыто')], verbose_name='Статус', default='draft', max_length=16)),
-                ('created_at', models.DateTimeField(verbose_name='Создано', auto_now_add=True)),
-                ('modified_at', models.DateTimeField(verbose_name='Изменено', auto_now=True)),
+                ('status', models.CharField(verbose_name='Статус', choices=[('draft', 'Черновик'), ('publ', 'Опубликовано'), ('hided', 'Скрыто')], max_length=16, default='draft')),
+                ('created_at', models.DateTimeField(verbose_name='Создано', auto_now_add=True, null=True)),
+                ('modified_at', models.DateTimeField(verbose_name='Изменено', auto_now=True, null=True)),
             ],
+            options={
+                'db_table': 'screencasts',
+            },
         ),
         migrations.CreateModel(
             name='ScreencastSection',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('title', models.CharField(verbose_name='Заголовок', default='', max_length=128)),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
+                ('title', models.CharField(verbose_name='Заголовок', max_length=128, default='')),
+                ('created_at', models.DateTimeField(verbose_name='Создано', auto_now_add=True, null=True)),
+                ('modified_at', models.DateTimeField(verbose_name='Изменено', auto_now=True, null=True)),
             ],
             options={
-                'db_table': 'sc_sections',
+                'db_table': 'screencast_sections',
             },
         ),
         migrations.AddField(
