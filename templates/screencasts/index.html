@@ -17,19 +17,15 @@
         <h2>
             <a href="#">{{ sc.title }}</a>
         </h2>
-{#        <p class="lead">#}
-{#            by <a href="http://ironsummitmedia.github.io/startbootstrap-blog-home/index.php">Start Bootstrap</a>#}
-{#        </p>#}
-        <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:00 PM</p>
+        <p class="lead">
+            <small>раздел: {{ sc.section.title }}</small>
+        </p>
+        <p><span class="glyphicon glyphicon-time"></span> Изменено {{ sc.modified_at }}</p>
         <hr>
-        <img class="img-responsive" src="Blog%20Home%20-%20Start%20Bootstrap%20Template_files/900x300.png" alt="">
+        <p>{{ sc.video|safe }}</p>
         <hr>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing
-elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam
-quia repellat ut tempore laborum possimus eum dicta id animi corrupti
-debitis ipsum officiis rerum.</p>
-        <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-
+        <p>{{ sc.summary }}</p>
+        <a class="btn btn-primary" href="#">Подробнее <span class="glyphicon glyphicon-chevron-right"></span></a>
         <hr>
             {% endfor %}
 
