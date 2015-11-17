@@ -8,4 +8,5 @@ class BlogRecord(models.Model):
     class Meta:
         db_table = 'blog_records'
 
-
+    def __str__(self):
+        return 'BlogRecord({}, {})'.format(self.id, self.title)
