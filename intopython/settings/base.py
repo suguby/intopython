@@ -46,6 +46,9 @@ INSTALLED_APPS = (
 =======
     'blogs',
     'forum',
+<<<<<<< HEAD
+>>>>>>> b67c417... create bodel Category
+=======
 >>>>>>> b67c417... create bodel Category
 )
 
