@@ -39,17 +39,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    
     'landing',
     'screencasts',
-<<<<<<< HEAD
-=======
     'blogs',
-    'forum',
-<<<<<<< HEAD
->>>>>>> b67c417... create bodel Category
-=======
->>>>>>> b67c417... create bodel Category
+    'forums',
+
 )
 
 MIDDLEWARE_CLASSES = (
