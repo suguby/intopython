@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 
 class Category(models.Model):
@@ -24,3 +25,15 @@ class Forum(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Topic(models.Model):
+    forum = models.ForeignKey(Forum, related_name='topics')
+    name = models.CharField(_("Name"), max_length=255)
+    last_post = models.ForeignKey(Post, verbose_name=_("Last post"),
+                                  related_name='forum_last_post', blank=True, null=True)
+
+    class Meta:
+        ordering = ['-last_post__created']
+
+
