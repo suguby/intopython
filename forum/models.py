@@ -37,3 +37,15 @@ class Topic(models.Model):
         ordering = ['-last_post__created']
 
 
+class Post(models.Model):
+    topic = models.ForeignKey(Topic, related_name='posts')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='forum_posts')
+    created = models.DateTimeField(_("Created"), auto_now_add=True)
+    updated = models.DateTimeField(_("Updated"), auto_now=True)
+    body = models.TextField(_("Body"))
+
+    class Meta:
+        ordering = ['created']
+
+    def __str__(self):
+        return self.body
