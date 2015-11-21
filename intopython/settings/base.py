@@ -42,6 +42,11 @@ INSTALLED_APPS = (
 
     'landing',
     'screencasts',
+<<<<<<< HEAD
+=======
+    'blogs',
+    'forum',
+>>>>>>> b67c417... create bodel Category
 )
 
 MIDDLEWARE_CLASSES = (
