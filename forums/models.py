@@ -99,4 +99,4 @@ class Post(models.Model):
     @property
     def get_absolute_url(self):
         topic_url = reverse('forum:topic_detail', args=[self.topic.pk])
-        return '{}post#{}'.format(topic_url, self.pk)
+        return '{}#post-{}'.format(topic_url, self.pk)

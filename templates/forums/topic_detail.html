@@ -24,8 +24,8 @@
 {#если  залогиненый#}
         <div class="col-md-12">
             <div class="pull-right">
-                <button type="button" class="btn btn-primary btn-sm" id="pr1" onclick="">Post Reply</button>
-                <button type="button" class="btn btn-primary btn-sm" id="nt2" onclick="">New Topic</button>
+                <a type="button" class="btn btn-primary btn-sm" >Post Reply</a>
+                <a type="button" class="btn btn-primary btn-sm" href="{{ url('forum:topic_create', object.forum.id ) }}">New Topic</a>
             </div>
         </div>
 {#          #}
@@ -42,7 +42,8 @@
 		<div class="panel-title">{{ post.user }}
 
 			<div class="pull-right">
-                <a class="btn btn-default btn-xs" id="1" href="{{ post.get_absolute_url }}" title="Permalink to this post"><i class="glyphicon glyphicon-link"></i> {{ loop.index }}</a>
+                <a class="btn btn-default btn-xs" id="1" href="{{ post.get_absolute_url }}" title="Permalink to this post">
+                    <i class="glyphicon glyphicon-link"></i> {{ loop.index }}</a>
 				<div class="btn-group hidden-md hidden-lg">
 				</div>
 
@@ -129,7 +130,7 @@
 
 	<div class="panel-footer clearfix">
 		<div class="pull-right">
-        <button type="button" class="btn btn-primary btn-xs" id="a3" onclick="navJump('http://www.eebootstrap.com/forum/quotetopic/13/')">Quote</button>
+        <button type="button" class="btn btn-primary btn-xs">Ответить</button>
 			&nbsp;
 		</div>
 	</div>
@@ -140,12 +141,9 @@
 	<div class="col-md-12">
 		<div class="pull-right">
 
-			<button type="button" class="btn btn-primary btn-sm" id="fr" onclick="showfastreply();return false;" onmouseover="navHover(this);" onmouseout="navReset(this);">Fast Reply</button>
-			<button type="button" class="btn btn-primary btn-sm" id="pr2" onclick="navJump('http://www.eebootstrap.com/forum/newreply/29/')" onmouseover="navHover(this);" onmouseout="navReset(this);">Post Reply</button>
-
-
-
-			<button type="button" class="btn btn-primary btn-sm" id="nt3" onclick="navJump('http://www.eebootstrap.com/forum/newtopic/6/')" onmouseover="navHover(this);" onmouseout="navReset(this);">New Topic</button>
+			<button type="button" class="btn btn-primary btn-sm">Fast Reply</button>
+			<button type="button" class="btn btn-primary btn-sm">Post Reply</button>
+			<button type="button" class="btn btn-primary btn-sm">New Topic</button>
 
 		</div>
 	</div>
