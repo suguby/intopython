@@ -26,11 +26,15 @@ urlpatterns = [
 
     url(r'^screencasts/', include('screencasts.urls')),
     url(r'^courses/', IndexView.as_view(), name='courses'),
-    url(r'^blog/', IndexView.as_view(), name='blog'),
+
+    url(r'', include('forums.urls', namespace='forum')),
+    url(r'^blogs/', include('blogs.urls')),
     url(r'^questions/', IndexView.as_view(), name='questions'),
 
     url(r'^landing/', include('landing.urls')),
     url(r'^$', IndexView.as_view(), name='index'),
+
+
 
     url(r'^admin/', include(admin.site.urls)),  # TODO заменить на mics/staff/etc
 ]

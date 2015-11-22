@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% set active_page = 'forum:category_list' -%}
+{% block title %}{{ object }} - Форум{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        {% block content %}<br />
+
+        <h1 class="page-header">
+            Форум
+            <small>болтатка</small>
+        </h1>
+
+        <div class="row">
+            <div class="col-md-12 hidden-xs">
+            <ol class="breadcrumb">
+
+                <li><a href="{{ url('forum:category_list') }}">Форум</a></li>
+                <li class="active">{{ object }}</li>
+            </ol>
+            </div>
+	    </div>
+
+
+   <div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading"><strong>{{ object }}</strong></div>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th class="hidden-xs"></th>
+						<th>Topic Title</th>
+						<th class="text-right">Ответов</th>
+						<th class="text-right">Просмотров</th>
+						<th class="hidden-xs">Последний ответ</th>
+					</tr>
+				</thead>
+				<tbody>
+                    {% for topic in object.topics.all() %}
+                        <tr class="">
+                            <td class="hidden-xs topic-marker">
+                                <a href="http://www.eebootstrap.com/forum/viewthread/69/">
+                                    <i class="fa fa-comments fa-lg"></i>
+                                </a>
+                            </td>
+                            <td class="col-md-6">
+                                <div>
+                                    <span class="PostPrefix">
+                                        <span class="PostPrefixView"></span>
+                                        <a href="{{ topic.get_absolute_url() }}"><span>{{ topic }}</span></a>
+                                    </span>
+
+                                </div>
+                                <small class="text-muted">Автор: <a href="">{{ topic.get_author_topic }}</a></small>
+                            </td>
+                            <td class="col-md-1 text-right"><span class="badge">{{ topic.count_posts }}</span></td>
+                            <td class="col-md-1 text-right"><span class="badge">312</span></td>
+                            <td class="col-md-4 hidden-xs">
+                                <div>
+                                    Posted: {{ topic.get_last_post.created | date ("DATETIME_FORMAT") }}<br>
+                                    <small class="text-muted">Автор: <a href="#">{{ topic.get_last_post.user }}</a></small>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+        {% endblock content %}
+    </div>
+
+</div>
+{% endblock container %}

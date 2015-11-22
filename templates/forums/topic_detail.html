@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% set active_page = 'forum:category_list' -%}
+{% block title %}{{ object }} - Форум{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        {% block content %}<br />
+
+        <h1 class="page-header">
+            Форум
+            <small>болтатка</small>
+        </h1>
+
+        <div class="row">
+            <div class="col-md-12 hidden-xs">
+            <ol class="breadcrumb">
+                <li><a href="{{ url('forum:category_list') }}">Форум</a></li>
+                <li><a href="{{ object.forum.get_absolute_url() }}">{{ object.forum }}</a></li>
+                <li class="active">{{ object }}</li>
+            </ol>
+            </div>
+	    </div>
+{#если  залогиненый#}
+        <div class="col-md-12">
+            <div class="pull-right">
+                <button type="button" class="btn btn-primary btn-sm" id="pr1" onclick="">Post Reply</button>
+                <button type="button" class="btn btn-primary btn-sm" id="nt2" onclick="">New Topic</button>
+            </div>
+        </div>
+{#          #}
+        <div class="row">
+            <div class="col-md-9 col-sm-9 col-xs-9">
+            <h4 class="text-truncated">{{ object }}</h4>
+            </div>
+        </div>
+        <div class="clearfix top-border">&nbsp;</div>
+
+    {% for post in object.posts.all() %}
+        <div class="panel panel-default">
+	<div class="panel-heading">
+		<div class="panel-title">{{ post.user }}
+
+			<div class="pull-right">
+                <a class="btn btn-default btn-xs" id="1" href="{{ post.get_absolute_url }}" title="Permalink to this post"><i class="glyphicon glyphicon-link"></i> {{ loop.index }}</a>
+				<div class="btn-group hidden-md hidden-lg">
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+	<div class="panel-body thread-row">
+
+		<div class="row thread-row">
+
+			<div class="col-xs-12 visible-xs-block">
+				<div class="col-xs-5">
+					<div class="clerafix">&nbsp;</div>
+					<img class="img-thumbnail avatar" src="http://www.eebootstrap.com/images/avatars/uploads/avatar_1.jpg" alt="Avatar">
+					<div class="clerafix">&nbsp;</div>
+				</div>
+				<div class="col-xs-7">
+					<div class="clerafix">&nbsp;</div>
+					<div>eeBootstrap Support Team</div>
+					<div class="text-muted text-left"><small>Total Posts:&nbsp; 99</small></div>
+					<div class="text-muted text-left"><small>Joined&nbsp; 22-09-2014</small></div>
+
+
+
+					<div class="clerafix">&nbsp;</div>
+
+				</div>
+			</div>
+
+			<div class="col-xs-12 visible-xs-block">
+				<div class="clerafix top-border">&nbsp;</div>
+			</div>
+
+			<div class="col-md-2 col-sm-3 hidden-xs text-center userblock">
+				<div class="clerafix">&nbsp;</div>
+				<img class="img-thumbnail avatar" src="http://www.eebootstrap.com/images/avatars/uploads/avatar_1.jpg" alt="Avatar" adlesse_been_here="true">
+				<div class="push_bottom_5"></div>
+				<div class="label label-default">Administrator</div>
+				<div class="push_bottom_5"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
+				<div class="text-muted text-left"><small>Total Posts:&nbsp; 99</small></div>
+				<div class="text-muted text-left"><small>Joined&nbsp; 22-09-2014</small></div>
+                <div class="clerafix">&nbsp;</div>
+                {#если  залогиненый#}
+                <button type="button" class="btn btn-default btn-xs" id="d1" onclick="">Профиль</button>
+                <button type="button" class="btn btn-default btn-xs" id="d2" onclick="">Личное</button>
+                {#если  залогиненый#}
+
+			</div>
+
+
+			<div class="col-md-5 col-sm-6 col-xs-8">
+				<div class="clerafix hidden-xs">&nbsp;</div>
+				<div class="text-muted"><span class="hidden-md hidden-lg"><i class="glyphicon glyphicon-calendar"></i>
+                </span><small><span class="hidden-sm hidden-xs">Пост опубликован:</span> {{ post.created| date ("DATETIME_FORMAT") }}</small></div>
+			</div>
+
+			<div class="col-md-10 col-sm-9 col-xs-12">
+				<div class="clerafix">&nbsp;</div>
+
+				<div class="content_body">
+                {{ post.body }}
+            </div>
+
+
+{#                Подпись пользователя#}
+{#				<div class="row">#}
+{#					<div class="clerafix">&nbsp;</div>#}
+{#            <div class="col-md-12 hidden-xs">#}
+{#	            <div class="clerafix top-border">&nbsp;</div>#}
+{##}
+{#	            <div class="text-muted signature"><p><strong>eeBootstrap Support Team</strong><br>#}
+{#             If you need help please do not hesitate to contact us through the appropriate forums.</p></div>#}
+{#             </div>#}
+{#				</div>#}
+
+				<div class="clerafix">&nbsp;</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="panel-footer clearfix">
+		<div class="pull-right">
+        <button type="button" class="btn btn-primary btn-xs" id="a3" onclick="navJump('http://www.eebootstrap.com/forum/quotetopic/13/')">Quote</button>
+			&nbsp;
+		</div>
+	</div>
+</div>
+    {% endfor %}
+
+    <div class="row">
+	<div class="col-md-12">
+		<div class="pull-right">
+
+			<button type="button" class="btn btn-primary btn-sm" id="fr" onclick="showfastreply();return false;" onmouseover="navHover(this);" onmouseout="navReset(this);">Fast Reply</button>
+			<button type="button" class="btn btn-primary btn-sm" id="pr2" onclick="navJump('http://www.eebootstrap.com/forum/newreply/29/')" onmouseover="navHover(this);" onmouseout="navReset(this);">Post Reply</button>
+
+
+
+			<button type="button" class="btn btn-primary btn-sm" id="nt3" onclick="navJump('http://www.eebootstrap.com/forum/newtopic/6/')" onmouseover="navHover(this);" onmouseout="navReset(this);">New Topic</button>
+
+		</div>
+	</div>
+</div>
+
+   <div class="clearfix">&nbsp;</div>
+
+        {% endblock content %}
+    </div>
+
+</div>
+{% endblock container %}
