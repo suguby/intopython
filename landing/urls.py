@@ -16,7 +16,8 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from landing.views import LandingView
+
 urlpatterns = [
-    url(r'^landing/', include('landing.urls')),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', LandingView.as_view(), name='landing'),
 ]
