@@ -15,7 +15,7 @@
             {% for sc in screencasts %}
         <!-- Blog Post -->
         <h2>
-            <a href="#">{{ sc.title }}</a>
+            <a href="{{ sc.slug }}">{{ sc.title }}</a>
         </h2>
         <p class="lead">
             <small>раздел: {{ sc.section.title }}</small>
@@ -24,7 +24,7 @@
         <hr>
         <p>{{ sc.video|safe }}</p>
         <p>{{ sc.summary }}</p>
-        <a class="btn btn-info" href="#">Подробнее <span class="glyphicon glyphicon-chevron-right"></span></a>
+        <a class="btn btn-info" href="{{ sc.slug }}">Подробнее <span class="glyphicon glyphicon-chevron-right"></span></a>
         <hr>
             {% endfor %}
 

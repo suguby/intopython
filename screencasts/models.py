@@ -45,6 +45,6 @@ class Screencast(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        self.slug = self.title
+        self.slug = get_translit(self.title)
         super(Screencast, self).save(force_insert=force_insert, force_update=force_update,
                                      using=using, update_fields=update_fields)
