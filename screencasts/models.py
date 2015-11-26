@@ -1,6 +1,8 @@
 from django.db import models
 from model_utils import Choices
 
+from common.utils import get_translit
+
 
 class ScreencastSection(models.Model):
     title = models.CharField(verbose_name='Заголовок', max_length=128, default='')
@@ -17,7 +19,7 @@ class ScreencastSection(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        self.slug = self.title
+        self.slug = get_translit(self.title)
         super(ScreencastSection, self).save(force_insert=force_insert, force_update=force_update,
                                             using=using, update_fields=update_fields)
 
