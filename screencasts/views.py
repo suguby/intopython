@@ -15,7 +15,9 @@ class ScreencastsListView(TemplateView):
         if section_filter:
             screencasts = screencasts.filter(section__slug=section_filter)
 
-        sections = ScreencastSection.objects.all().order_by('position')
+        sections = ScreencastSection.objects.filter(
+            screencasts__isnull=False
+        ).order_by('position')
         sections_split = len(sections)//2
 
         context = dict(

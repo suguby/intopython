@@ -27,7 +27,7 @@ class ScreencastSection(models.Model):
 class Screencast(models.Model):
     STATUSES = Choices(('draft', 'Черновик'), ('publ', 'Опубликовано'), ('hided', 'Скрыто'), )
 
-    section = models.ForeignKey(ScreencastSection, verbose_name='Раздел')
+    section = models.ForeignKey(ScreencastSection, verbose_name='Раздел', related_name='screencasts')
     title = models.CharField(verbose_name='Заголовок', max_length=128, default='')
     video = models.TextField(verbose_name='Видео', default='')
     summary = models.TextField(verbose_name='Конспект', null=True)
