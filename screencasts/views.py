@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
+from markdown import markdown
 
 from screencasts.models import Screencast, ScreencastSection
 
@@ -39,6 +40,7 @@ class ScreencastDetailView(TemplateView):
 
     def get_context_data(self, **kwargs):
         sc = get_object_or_404(Screencast, slug=kwargs['slug'])
+        sc.body = markdown(sc.body)
         context = dict(sc=sc,)
         fill_sidebar_context(context)
         return context
