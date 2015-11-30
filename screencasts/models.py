@@ -31,6 +31,7 @@ class Screencast(models.Model):
     title = models.CharField(verbose_name='Заголовок', max_length=128, default='')
     video = models.TextField(verbose_name='Видео', default='')
     summary = models.TextField(verbose_name='Конспект', null=True)
+    body = models.TextField(verbose_name='Содержание статьи', null=True)
     slug = models.SlugField(verbose_name='Слаг', null=True, blank=True)
     position = models.IntegerField(verbose_name='Позиция', default=0)
     status = models.CharField(verbose_name='Статус', max_length=16, choices=STATUSES, default=STATUSES.draft)
