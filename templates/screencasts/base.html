@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% set active_page = 'screencasts' -%}
+
 {% block title %}Скринкасты {% block subtitle %}{% endblock %}{% endblock %}
 
 {% block container %}
@@ -8,6 +9,7 @@
     <!-- Blog Entries Column -->
     <div class="col-md-8">
         {% block content %}<br />
+
         <h1 class="page-header">
             Скринкасты о Джанго
             <small>коротко о главном</small>
@@ -39,10 +41,12 @@
         </ul>
 
         {% endblock content %}
+
     </div>
 
     <!-- Blog Sidebar Widgets Column -->
     <div class="col-md-4">
+        {% block sidebar %}
 
         {% block search %}
         <!-- Blog Search Well -->
@@ -88,7 +92,7 @@
             <!-- /.row -->
         </div>
         {% endblock sections %}
-
+        {% endblock sidebar %}
     </div>
     </div>
 {% endblock container %}

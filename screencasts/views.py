@@ -1,8 +1,20 @@
 # -*- coding: utf-8 -*-
-
+from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 
 from screencasts.models import Screencast, ScreencastSection
+
+
+def fill_sidebar_context(context):
+        sections = ScreencastSection.objects.filter(
+            screencasts__isnull=False
+        ).order_by('position')
+        sections_split = len(sections)//2
+        context.update(
+            sections=sections,
+            sections_split=sections_split,
+            blt=__builtins__,
+        )
 
 
 class ScreencastsListView(TemplateView):
@@ -15,19 +27,18 @@ class ScreencastsListView(TemplateView):
         if section_filter:
             screencasts = screencasts.filter(section__slug=section_filter)
 
-        sections = ScreencastSection.objects.filter(
-            screencasts__isnull=False
-        ).order_by('position')
-        sections_split = len(sections)//2
-
         context = dict(
             screencasts=screencasts,
-            sections=sections,
-            sections_split=sections_split,
-            blt=__builtins__,
         )
+        fill_sidebar_context(context)
         return context
 
 
 class ScreencastDetailView(TemplateView):
     template_name = 'screencasts/detail.html'
+
+    def get_context_data(self, **kwargs):
+        sc = get_object_or_404(Screencast, slug=kwargs['slug'])
+        context = dict(sc=sc,)
+        fill_sidebar_context(context)
+        return context
