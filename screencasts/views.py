@@ -27,3 +27,7 @@ class ScreencastsListView(TemplateView):
             blt=__builtins__,
         )
         return context
+
+
+class ScreencastDetailView(TemplateView):
+    template_name = 'screencasts/detail.html'
