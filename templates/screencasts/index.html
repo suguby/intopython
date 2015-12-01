@@ -26,11 +26,15 @@
 
     <!-- Pager -->
     <ul class="pager">
-        <li class="previous">
-            <a href="#">← Older</a>
-        </li>
-        <li class="next">
-            <a href="#">Newer →</a>
-        </li>
+        {% if screencasts.has_previous() %}
+            <li class="previous">
+                <a href="?page={{ screencasts.previous_page_number() }}">← сюда</a>
+            </li>
+        {% endif %}
+        {% if screencasts.has_next() %}
+            <li class="next">
+                <a href="?page={{ screencasts.next_page_number() }}">туда →</a>
+            </li>
+        {% endif %}
     </ul>
 {% endblock content %}

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 from markdown import markdown
@@ -22,12 +23,17 @@ class ScreencastsListView(TemplateView):
     template_name = 'screencasts/index.html'
 
     def get_context_data(self, **kwargs):
-
-        screencasts = Screencast.objects.all().order_by('-created_at')
+        sc_queryset = Screencast.objects.all().order_by('-created_at')
         section_filter = self.request.GET.get('section')
         if section_filter:
-            screencasts = screencasts.filter(section__slug=section_filter)
-
+            sc_queryset = sc_queryset.filter(section__slug=section_filter)
+        paginator = Paginator(sc_queryset, 2)
+        try:
+            screencasts = paginator.page(number=self.request.GET.get('page'))
+        except PageNotAnInteger:
+            screencasts = paginator.page(1)
+        except EmptyPage:
+            screencasts = paginator.page(paginator.num_pages)
         context = dict(
             screencasts=screencasts,
         )
