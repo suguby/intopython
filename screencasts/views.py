@@ -25,8 +25,10 @@ class ScreencastsListView(TemplateView):
     def get_context_data(self, **kwargs):
         sc_queryset = Screencast.objects.all().order_by('-created_at')
         section_filter = self.request.GET.get('section')
+        query_string = ''
         if section_filter:
             sc_queryset = sc_queryset.filter(section__slug=section_filter)
+            query_string += 'section={}&'.format(section_filter)
         paginator = Paginator(sc_queryset, 2)
         try:
             screencasts = paginator.page(number=self.request.GET.get('page'))
@@ -36,6 +38,7 @@ class ScreencastsListView(TemplateView):
             screencasts = paginator.page(paginator.num_pages)
         context = dict(
             screencasts=screencasts,
+            query_string=query_string,
         )
         fill_sidebar_context(context)
         return context
