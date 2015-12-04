@@ -23,6 +23,9 @@ class TopicCreateView(FormView):
     template_name = 'forums/topic_create.html'
     form_class = TopicCreateForm
 
+    def __init__(self):
+        self.forum = ''
+
     def dispatch(self, request, *args, **kwargs):
         self.forum = Forum.objects.get(id=kwargs.get('forum_id', None))
         if self.forum.is_closed and not request.user.is_staff:

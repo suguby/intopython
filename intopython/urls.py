@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^courses/', IndexView.as_view(), name='courses'),
 
     url(r'', include('forums.urls', namespace='forum')),
-    url(r'^blogs/', include('blogs.urls')),
+    url(r'^blog/', IndexView.as_view(), name='blog'),
     url(r'^questions/', IndexView.as_view(), name='questions'),
 
     url(r'^landing/', include('landing.urls')),

@@ -42,7 +42,7 @@ INSTALLED_APPS = (
 
     'landing',
     'screencasts',
-    'blogs',
+
     'forums',
 
 )
