@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% set active_page = 'forum:category_list' -%}
-{% block title %}Создание топика - Форум{% endblock %}
+{% block title %}Написать сообщение - Форум{% endblock %}
 
 {% block container %}
 <div class="row">
@@ -16,8 +16,9 @@
             <div class="col-md-12 hidden-xs">
             <ol class="breadcrumb">
                 <li><a href="{{ url('forum:category_list') }}">Форум</a></li>
-                <li><a href="{{ forum.get_absolute_url() }}">{{ forum }}</a></li>
-                <li class="active">Новый топик</li>
+                <li><a href="{{ topic.forum.get_absolute_url() }}">{{ topic.forum }}</a></li>
+                <li><a href="{{ topic.get_absolute_url() }}">{{ topic }}</a></li>
+                <li class="active">Сообщение</li>
             </ol>
             </div>
 	    </div>
@@ -28,12 +29,12 @@
                 <div class="col-md-12">
 
                     <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-pencil fa-fw"></i> Добавить новый топик</div>
+                        <div class="panel-heading"><i class="fa fa-pencil fa-fw"></i> Сообщение</div>
 
                         <div class="panel-body">
 
                         <div class="alert alert-success" role="alert"><i class="fa fa-hand-o-right"></i>
-                            Название форума: <strong>{{ forum }}</strong></div>
+                            Название топика: <strong>{{ topic }}</strong></div>
 
                             {{ form }}
 

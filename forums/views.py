@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView, DetailView, FormView
 
-from forums.forms import TopicCreateForm
+from forums.forms import TopicCreateForm, PostCreateForm
 from forums.models import Category, Topic, Forum, Post
 
 
@@ -22,9 +22,6 @@ class TopicDetailView(DetailView):
 class TopicCreateView(FormView):
     template_name = 'forums/topic_create.html'
     form_class = TopicCreateForm
-
-    def __init__(self):
-        self.forum = ''
 
     def dispatch(self, request, *args, **kwargs):
         self.forum = Forum.objects.get(id=kwargs.get('forum_id', None))
@@ -51,4 +48,34 @@ class TopicCreateView(FormView):
     def get_context_data(self, **kwargs):
         context = super(TopicCreateView, self).get_context_data(**kwargs)
         context['forum'] = Forum.objects.get(id=self.kwargs.get('forum_id', None))
+        return context
+
+
+class PostCreateView(FormView):
+    template_name = 'forums/post_create.html'
+    form_class = PostCreateForm
+
+    def dispatch(self, request, *args, **kwargs):
+        self.topic = Topic.objects.get(id=kwargs.get('pk', None))
+        if self.topic.forum.is_closed and not request.user.is_staff:
+            messages.error(request, "У вас нет прав на создание топика")
+            return HttpResponseRedirect(reverse_lazy('forums:forum', args=[self.topic.forum.id]))
+        return super(PostCreateView, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        body = form.cleaned_data['message']
+        user = self.request.user
+
+        post = Post(topic=self.topic, body=body, user=user)
+        post.save()
+        post.topic.last_post = post
+        post.topic.save()
+
+        self.success_url = reverse('forum:topic_detail', args=[self.topic.id])
+
+        return super(PostCreateView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(PostCreateView, self).get_context_data(**kwargs)
+        context['topic'] = Topic.objects.get(id=self.kwargs.get('pk', None))
         return context

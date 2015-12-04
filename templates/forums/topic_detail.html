@@ -24,8 +24,8 @@
 {#если  залогиненый#}
         <div class="col-md-12">
             <div class="pull-right">
-                <a type="button" class="btn btn-primary btn-sm" >Post Reply</a>
-                <a type="button" class="btn btn-primary btn-sm" href="{{ url('forum:topic_create', object.forum.id ) }}">New Topic</a>
+                <a type="button" class="btn btn-primary btn-sm" href="{{ url('forum:post_create', object.id) }}">Ответить</a>
+                <a type="button" class="btn btn-primary btn-sm" href="{{ url('forum:topic_create', object.forum.id ) }}">Новый</a>
             </div>
         </div>
 {#          #}
@@ -81,7 +81,7 @@
 
 			<div class="col-md-2 col-sm-3 hidden-xs text-center userblock">
 				<div class="clerafix">&nbsp;</div>
-				<img class="img-thumbnail avatar" src="http://www.eebootstrap.com/images/avatars/uploads/avatar_1.jpg" alt="Avatar" adlesse_been_here="true">
+				<img class="img-thumbnail avatar" src="http://www.eebootstrap.com/images/avatars/uploads/avatar_1.jpg" alt="Avatar">
 				<div class="push_bottom_5"></div>
 				<div class="label label-default">Administrator</div>
 				<div class="push_bottom_5"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
@@ -141,9 +141,8 @@
 	<div class="col-md-12">
 		<div class="pull-right">
 
-			<button type="button" class="btn btn-primary btn-sm">Fast Reply</button>
-			<button type="button" class="btn btn-primary btn-sm">Post Reply</button>
-			<button type="button" class="btn btn-primary btn-sm">New Topic</button>
+			<a type="button" class="btn btn-primary btn-sm" href="{{ url('forum:post_create', object.id) }}">Ответить</a>
+			<a type="button" class="btn btn-primary btn-sm" href="{{ url('forum:topic_create', object.forum.id ) }}">Новый</a>
 
 		</div>
 	</div>
