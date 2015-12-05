@@ -78,6 +78,7 @@
         {% for record in records %}
             <h2>{{ record.title }}</h2>
             <p>{{ record.message }}</p>
+            <strong>{{ record.created_at }}</strong>
             <hr/>
         {%  endfor %}
       </div>
