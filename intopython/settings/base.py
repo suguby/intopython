@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'landing',
+    'blog',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -83,9 +84,9 @@ WSGI_APPLICATION = 'intopython.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': '...',
-        'USER': '...',
-        'PASSWORD': '...',
+        'NAME': 'intopython_db',
+        'USER': 'dbuser',
+        'PASSWORD': 'abacaba',
         # 'HOST': '127.0.0.1',
         # 'PORT': '5432',
     }
