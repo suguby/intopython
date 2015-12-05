@@ -47,7 +47,7 @@ class Forum(models.Model):
 
     @permalink
     def get_absolute_url(self):
-        return ('forum:forum_detail', [self.id,])
+        return 'forum:forum_detail', [self.id]
 
 
 class Topic(models.Model):
@@ -59,7 +59,7 @@ class Topic(models.Model):
 
     @permalink
     def get_absolute_url(self):
-        return ('forum:topic_detail', [self.id,])
+        return 'forum:topic_detail', [self.id]
 
     def __str__(self):
         return self.name

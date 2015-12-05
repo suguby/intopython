@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView, DetailView, FormView
@@ -9,6 +10,21 @@ from forums.models import Category, Topic, Forum, Post
 
 class CategoryListView(ListView):
     model = Category
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryListView, self).get_context_data(**kwargs)
+        context['topics'] = Topic.objects.all()
+        context['users'] = User.objects.all()
+        context['posts'] = Post.objects.all()
+
+
+        # best_topic = {}
+        # for topic in Topic.objects.all():
+        #
+        #
+        #     best_topic[topic.count_posts] = topic
+        # context['best_topic'] = best_topic
+        return context
 
 
 class ForumDetailView(DetailView):

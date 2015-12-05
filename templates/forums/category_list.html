@@ -129,10 +129,10 @@
 				<div class="row">
 					<div class="col-md-6">
 						<p><i class="glyphicon glyphicon-globe"></i> Наибольшее количество одновременного посещения: 07-11-2015 14:55</p>
-						<p><i class="glyphicon glyphicon-user"></i> Всего зарегестрированно: 92</p>
-						<p><i class="glyphicon glyphicon-comment"></i> Всего тем: 75</p>
-						<p><i class="glyphicon glyphicon-comment"></i> Всего откликов: 131</p>
-						<p><i class="glyphicon glyphicon-comment"></i> Всего записей: 206</p>
+						<p><i class="glyphicon glyphicon-user"></i> Всего зарегестрированно: {{ users.count() }}</p>
+						<p><i class="glyphicon glyphicon-comment"></i> Всего тем: {{ topics.count() }}</p>
+						<p><i class="glyphicon glyphicon-comment"></i> Всего откликов: 0</p>
+						<p><i class="glyphicon glyphicon-comment"></i> Всего записей: {{ posts.count() }}</p>
 					</div>
 					<div class="col-md-6">
 						<p><i class="fa fa-sign-in"></i> Залогиненные: 0</p>
@@ -143,12 +143,12 @@
 				<div class="row">
 					<div class="col-md-12">
 						<p><i class="glyphicon glyphicon-thumbs-up"></i> Новые:
-                            <a href="#">Jeff Ricks</a>,&nbsp;</p>
+                            <a href="#">mitri4</a>,&nbsp;</p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						<p><i class="glyphicon glyphicon-eye-open"></i> Сейчас на форуме: </p>
+						<p><i class="glyphicon glyphicon-eye-open"></i> Сейчас на форуме: {{ best_topic }} </p>
 					</div>
 				</div>
 	  		</div>
