@@ -14,31 +14,6 @@
             Скринкасты о Джанго
             <small>коротко о главном</small>
         </h1>
-            {% for sc in screencasts %}
-        <!-- Blog Post -->
-        <h2>
-            <a href="{{ sc.slug }}">{{ sc.title }}</a>
-        </h2>
-        <p class="lead">
-            <small>раздел: {{ sc.section.title }}</small>
-        </p>
-        <p><span class="glyphicon glyphicon-time"></span> Изменено {{ sc.modified_at }}</p>
-        <hr>
-        <p>{{ sc.video|safe }}</p>
-        <p>{{ sc.summary }}</p>
-        <a class="btn btn-info" href="{{ sc.slug }}">Подробнее <span class="glyphicon glyphicon-chevron-right"></span></a>
-        <hr>
-            {% endfor %}
-
-        <!-- Pager -->
-        <ul class="pager">
-            <li class="previous">
-                <a href="#">← Older</a>
-            </li>
-            <li class="next">
-                <a href="#">Newer →</a>
-            </li>
-        </ul>
 
         {% endblock content %}
 
