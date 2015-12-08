@@ -144,7 +144,9 @@
         <h4 class="modal-title" id="myModalLabel">Запись на курсы</h4>
       </div>
       <div class="modal-body">
-        Укажите свой емейл, мы вам перезвоним
+          {% for field in form %}
+              {{ field.label }} : {{ field }}<br/>
+          {% endfor %}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#thanksModal">Зарегестрироваться</button>
