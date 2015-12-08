@@ -125,11 +125,51 @@
         </p>
 
         <p>
-            <a class="btn btn-lg btn-primary" href="#" role="button">Записаться &raquo;</a>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#registerModal">
+              Записаться &raquo;
+            </button>
         </p>
     </div>
 
 </div> <!-- /container -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Запись на курсы</h4>
+      </div>
+      <div class="modal-body">
+        Укажите свой емейл, мы вам перезвоним
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#thanksModal">Зарегестрироваться</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="thanksModal" tabindex="-1" role="dialog" aria-labelledby="thanksModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Вы зарегестрирваны</h4>
+      </div>
+      <div class="modal-body">
+        Спасибо за регистрацию!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть окно</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 <!-- Bootstrap core JavaScript
