@@ -15,5 +15,5 @@ class BootStrapField(forms.CharField):
 
 class RegisterForm(forms.Form):
     name = BootStrapField(label='Ваше имя')
-    email = BootStrapField(label='Введите email')
-    phone = BootStrapField(label='Введите номер телефона (необязательно)')
+    email = BootStrapField(label='Ваш email')
+    phone = BootStrapField(label='Ваш номер телефона (необязательно)')
