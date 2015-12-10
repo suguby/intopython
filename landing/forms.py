@@ -3,7 +3,17 @@
 from django import forms
 
 
+class BootStrapField(forms.CharField):
+
+    def widget_attrs(self, widget):
+        attrs = super().widget_attrs(widget)
+        attrs.update({'class': "form-control",
+                 'placeholder': self.label,
+                 'aria-describedby': "basic-addon1"})
+        return attrs
+
+
 class RegisterForm(forms.Form):
-    name = forms.CharField(label='Ваше имя')
-    email = forms.CharField(label='Введите email')
-    phone = forms.CharField(label='Введите номер телефона (необязательно)')
+    name = BootStrapField(label='Ваше имя')
+    email = BootStrapField(label='Введите email')
+    phone = BootStrapField(label='Введите номер телефона (необязательно)')
