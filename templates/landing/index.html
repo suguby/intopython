@@ -134,41 +134,45 @@
 
 </div> <!-- /container -->
 
-
 <!-- Modal -->
 <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Запись на курсы</h4>
+        <h4 class="modal-title" id="myModalLabel">Укажите как с вами связаться</h4>
       </div>
+    <form method="POST">
+    {% csrf_token %}
       <div class="modal-body">
           {% for field in form %}
               <div class="input-group" >
                   <span class="input-group-addon" id="basic-addon1"></span>{{ field }}
               </div>
+              {% for error in field.errors %}<div class="alert-warning">{{ error }}</div>{% endfor %}
           {% endfor %}
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#thanksModal">Зарегестрироваться</button>
+        <button type="submit" class="btn btn-primary">Записаться</button>
       </div>
+    </form>
     </div>
   </div>
 </div>
+
 
 <div class="modal fade" id="thanksModal" tabindex="-1" role="dialog" aria-labelledby="thanksModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Вы зарегестрирваны</h4>
+        <h4 class="modal-title" id="myModalLabel">Вы записаны на курс!</h4>
       </div>
       <div class="modal-body">
-        Спасибо за регистрацию!
+        В ближайшее время с вами свяжутся для уточнения деталей.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть окно</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal">Спасибо за регистрацию :)</button>
       </div>
     </div>
   </div>
@@ -181,6 +185,14 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="{{ static('js/jquery.js') }}"></script>
 <script src="{{ static('js/bootstrap.min.js') }}"></script>
+{% if show_register %}
+    <script type="text/javascript">$('#registerModal').modal()</script>
+{% endif %}
+{% if show_thanks %}
+    <script>$('#thanksModal').modal()</script>
+{% endif %}
+
+
 </body>
 </html>
 

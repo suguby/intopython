@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render_to_response
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView
 
 from landing.forms import RegisterForm
 from landing.models import LendingRegistration
@@ -14,18 +13,16 @@ class LandingView(TemplateView):
         context = dict(form=form)
         return context
 
-
-class LandingRegisterView(View):
-
-    def post(self):
-        form = RegisterForm(self.request.POST)
-        context = dict()
-        if form.is_valid:
+    def post(self, request):
+        form = RegisterForm(data=self.request.POST)
+        context = dict(form=form)
+        if form.is_valid():
+            data = form.cleaned_data
             user, created = LendingRegistration.objects.get_or_create(
-                email=form.email, defaults=dict(name=form.name, phone=form.phone))
-            context['created'] = created
+                email=data['email'], defaults=dict(name=data['name'], phone=data['phone']))
+            context.update(show_thanks=True)
         else:
-            context.update(form=form)
-        return render_to_response('', context=context)
+            context.update(show_register=True)
+        return self.render_to_response(context=context)
 
 
