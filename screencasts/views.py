@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 from markdown import markdown
@@ -8,9 +9,9 @@ from screencasts.models import Screencast, ScreencastSection
 
 
 def fill_sidebar_context(context):
-        sections = ScreencastSection.objects.filter(
-            screencasts__isnull=False
-        ).order_by('position')
+        sections = ScreencastSection.objects.annotate(
+            count=Count('screencasts')
+        ).filter(count__gt=0).order_by('position')
         sections_split = len(sections)//2
         context.update(
             sections=sections,
