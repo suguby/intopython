@@ -37,16 +37,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{ url('index') }}">Скринкасты о Django</a>
+          <a class="navbar-brand" href="{{ url('index') }}">Онлайн-школа Django</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
               {% set navigation_bar = [
                 ('screencasts', 'Скринкасты'),
                 ('courses', 'Курсы'),
-                ('blog', 'Блог'),
-                ('questions', 'Вопрос-ответ'),
                 ] -%}
+{#                ('blog', 'Блог'),#}
+{#                ('questions', 'Вопрос-ответ'),#}
               {% set active_page = active_page|default('') -%}
               {% for url_name, caption in navigation_bar -%}
                 <li{% if url_name == active_page %} class="active"{% endif %}>
