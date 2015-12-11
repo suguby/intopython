@@ -25,7 +25,7 @@ from intopython.views import IndexView
 urlpatterns = [
 
     url(r'^screencasts/', include('screencasts.urls')),
-    url(r'^courses/', IndexView.as_view(), name='courses'),
+    url(r'^courses/', include('courses.urls')),
     url(r'^blog/', IndexView.as_view(), name='blog'),
     url(r'^questions/', IndexView.as_view(), name='questions'),
 
