@@ -35,6 +35,11 @@
     <!-- Post Content -->
     <p class="lead">{{ sc.body|safe }}</p>
 
+    <ul class="pager">
+        <li class="previous">
+            <a href="{{ url('screencasts') }}">← обратно</a>
+        </li>
+    </ul>
 
 
 {% endblock content %}
