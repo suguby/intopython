@@ -1,14 +1,21 @@
 # -*- coding: utf-8 -*-
+import re
+from tempfile import NamedTemporaryFile as _NamedTemporaryFile
+
+import sys
 from fabric.colors import green, yellow
 from fabric.context_managers import cd
 from fabric.operations import local, os, run
 from fabric.state import env
 from fabric.utils import puts, abort
 from django.conf import settings as django_settings
+import django
 
-env.all_questions_yes = False
-env.colorize_errors = True  # для красоты
-env.use_ssh_config = True  # позволяет коннектится по алиасам из конфига
+
+def _set_virtualenv_root():
+    fab_path = sys.argv[0]
+    bin_path = os.path.split(fab_path)[0]
+    env.virtualenv_root = os.path.split(bin_path)[0]
 
 
 def _message_ok(txt, **kwargs):
@@ -41,12 +48,46 @@ def _set_env(server):
         env.virtualenv_root = server_params['virtualenv_root']
     else:
         env.virtualenv_root = os.path.join(server_params['project_root'], 'env')
-    env.python = os.path.join(env.virtualenv_root, 'bin', 'python')
-    env.pip = os.path.join(env.virtualenv_root, 'bin', 'pip')
-    env.requirements = os.path.join('requirements', 'base.txt')
-    env.manage = os.path.join('manage.py')
+    # env.python = os.path.join(env.virtualenv_root, 'bin', 'python')
+    # env.pip = os.path.join(env.virtualenv_root, 'bin', 'pip')
+    # env.requirements = os.path.join('requirements', 'base.txt')
+    # env.manage = '{}/intopython/manage.py'.format(env.project_root)
     env.shell = '/bin/bash -c'  # Используем шелл отличный от умолчательного (на сервере)
     env.use_ssh_config = True  # позволяет коннектится по алиасам из конфига
+
+
+def _fill_constants_from_settings(file_from, file_to):
+    pattern = re.compile(r'##(?P<constant>[a-zA-Z_]*)##')
+    with open(file_from, 'r') as fr:
+        template = fr.read()
+        while True:
+            match = pattern.search(template)
+            if not match:
+                break
+            constant = match.group('constant')
+            if hasattr(django_settings, constant):
+                value = getattr(django_settings, constant)
+            elif hasattr(env, constant):
+                value = getattr(env, constant)
+            else:
+                abort('No constant {} in Django settings or fabric env! Found in {} file.'.format(constant, file_from))
+            template = template.replace('##{}##'.format(constant), str(value))
+        if isinstance(file_to, str):
+            with open(file_to, 'w') as fw:
+                fw.write(template)
+        else:
+            file_to.write(template)
+
+
+def _fill_and_save(file_from, file_to, as_root=False):
+    with _NamedTemporaryFile() as ff:
+        _fill_constants_from_settings(file_from, ff.name)
+        command = 'cp {} {}'.format(ff.name, file_to)
+        if as_root:
+            local('sudo ' + command)
+        else:
+            local(command)
+        _message_ok('File {} generated form {}'.format(file_to, file_from))
 
 
 def remote_run(server=None, command=None, param1='', param2='', param3=''):
@@ -61,3 +102,17 @@ def remote_run(server=None, command=None, param1='', param2='', param3=''):
     command = 'bin/fab.sh {}{}'.format(command, params)
     with cd(env.project_root):  # Заходим в директорию с проектом на сервере
         run('{}'.format(command))
+
+
+def make_apache_conf():
+    conf_file_template = '{}/conf/intopython_ru.conf'.format(env.project_root)
+    _fill_and_save(file_from=conf_file_template, file_to='/tmp/intopython_ru.conf')
+
+
+django.setup()
+
+env.project_root = django_settings.BASE_DIR
+env.all_questions_yes = False
+env.colorize_errors = True  # для красоты
+env.use_ssh_config = True  # позволяет коннектится по алиасам из
+_set_virtualenv_root()
