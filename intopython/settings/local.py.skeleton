@@ -17,4 +17,15 @@ DATABASES = {
     }
 }
 
+FAB_SERVERS = {
+    'prod': {
+        'host': '<hostname or ssh_alias>',
+#        'user':'<ssh_username>',
+#        'port':'<ssh_port>',
+        'project_root': '<project_root_path>',
+        'virtualenv_root': '<virtualenv_root_path>',
+    }
+}
+
+
 
