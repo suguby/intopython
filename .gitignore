@@ -1,6 +1,8 @@
 extra/
+logs/
 .idea/
 intopython/settings/local.py
+
 
 ### Python template
 # Byte-compiled / optimized / DLL files
