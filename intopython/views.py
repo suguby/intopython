@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from django.views.generic import TemplateView
+
+from common.views import BaseTemplateView
 
 
-class IndexView(TemplateView):
+class IndexView(BaseTemplateView):
     template_name = 'index.html'

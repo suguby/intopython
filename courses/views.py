@@ -1,6 +1,7 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView
+# -*- coding: utf-8 -*-
+
+from common.views import BaseTemplateView
 
 
-class CoursesView(TemplateView):
+class CoursesView(BaseTemplateView):
     template_name = 'courses/index.html'

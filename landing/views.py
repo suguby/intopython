@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 from django.views.generic import TemplateView
 
+from common.views import BaseTemplateView
 from landing.forms import RegisterForm
 from landing.models import LendingRegistration
 
 
-class LandingView(TemplateView):
+class LandingView(BaseTemplateView):
     template_name = 'landing/index.html'
 
     def get_context_data(self, **kwargs):
+        context = super().get_context_data( **kwargs)
         form = RegisterForm()
-        context = dict(form=form)
+        context.update(form=form)
         return context
 
     def post(self, request):

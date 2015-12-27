@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 from markdown import markdown
 
+from common.views import BaseTemplateView
 from screencasts.models import Screencast, ScreencastSection
 
 
@@ -20,10 +21,11 @@ def fill_sidebar_context(context):
         )
 
 
-class ScreencastsListView(TemplateView):
+class ScreencastsListView(BaseTemplateView):
     template_name = 'screencasts/index.html'
 
     def get_context_data(self, **kwargs):
+        context = super().get_context_data( **kwargs)
         sc_queryset = Screencast.objects.all().order_by('-created_at')
         section_filter = self.request.GET.get('section')
         query_string = ''
@@ -37,7 +39,7 @@ class ScreencastsListView(TemplateView):
             screencasts = paginator.page(1)
         except EmptyPage:
             screencasts = paginator.page(paginator.num_pages)
-        context = dict(
+        context.update(
             screencasts=screencasts,
             query_string=query_string,
         )
@@ -45,12 +47,13 @@ class ScreencastsListView(TemplateView):
         return context
 
 
-class ScreencastDetailView(TemplateView):
+class ScreencastDetailView(BaseTemplateView):
     template_name = 'screencasts/detail.html'
 
     def get_context_data(self, **kwargs):
+        context = super().get_context_data( **kwargs)
         sc = get_object_or_404(Screencast, slug=kwargs['slug'])
         sc.body = markdown(sc.body)
-        context = dict(sc=sc,)
+        context.update(sc=sc,)
         fill_sidebar_context(context)
         return context
