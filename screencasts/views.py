@@ -57,3 +57,12 @@ class ScreencastDetailView(BaseTemplateView):
         context.update(sc=sc,)
         fill_sidebar_context(context)
         return context
+
+
+class ScreencastsSearchView(BaseTemplateView):
+    template_name = 'screencasts/search.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data( **kwargs)
+        fill_sidebar_context(context)
+        return context
