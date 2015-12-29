@@ -32,6 +32,6 @@ urlpatterns = [
     url(r'^landing/', include('landing.urls')),
     url(r'^$', IndexView.as_view(), name='index'),
 
-    url(r'^admin/', include(admin.site.urls)),  # TODO заменить на mics/staff/etc
+    url(r'^nimda/', include(admin.site.urls)),
 ]
 # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
