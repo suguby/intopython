@@ -26,7 +26,9 @@ class ScreencastsListView(BaseTemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data( **kwargs)
-        sc_queryset = Screencast.objects.all().order_by('-created_at')
+        sc_queryset = Screencast.objects.filter(
+            status=Screencast.STATUSES.publ
+        ).order_by('-created_at')
         section_filter = self.request.GET.get('section')
         query_string = ''
         if section_filter:
