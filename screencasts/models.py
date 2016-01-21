@@ -1,10 +1,11 @@
 from django.db import models
 from model_utils import Choices
 
+from common.models import AbstractModel
 from common.utils import get_translit
 
 
-class ScreencastSection(models.Model):
+class ScreencastSection(AbstractModel):
     title = models.CharField(verbose_name='Заголовок', max_length=128, default='')
     slug = models.SlugField(verbose_name='Слаг', null=True, blank=True)
     position = models.IntegerField(verbose_name='Позиция', default=0)
@@ -14,8 +15,7 @@ class ScreencastSection(models.Model):
     class Meta:
         db_table = 'screencast_sections'
 
-    def __str__(self):
-        return 'Раздел "{}" / {}'.format(self.title, self.modified_at)
+    _str_template = ' "{title}" / {modified_at}'
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
@@ -24,7 +24,7 @@ class ScreencastSection(models.Model):
                                             using=using, update_fields=update_fields)
 
 
-class Screencast(models.Model):
+class Screencast(AbstractModel):
     STATUSES = Choices(('draft', 'Черновик'), ('publ', 'Опубликовано'), ('hided', 'Скрыто'), )
 
     section = models.ForeignKey(ScreencastSection, verbose_name='Раздел', related_name='screencasts')
@@ -41,8 +41,7 @@ class Screencast(models.Model):
     class Meta:
         db_table = 'screencasts'
 
-    def __str__(self):
-        return 'Скринкаст "{}" / {}'.format(self.title, self.modified_at)
+    _str_template = ' "{title}" / {modified_at}'
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):

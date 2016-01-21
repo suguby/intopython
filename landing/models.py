@@ -3,8 +3,10 @@
 from django.db import models
 from model_utils import Choices
 
+from common.models import AbstractModel
 
-class LendingRegistration(models.Model):
+
+class LendingRegistration(AbstractModel):
     STATUSES = Choices(('new', 'Новый'), ('accepted', 'Оплативший'),  ('rejected', 'Отказник'), )
 
     name = models.CharField(max_length=128)
@@ -13,6 +15,7 @@ class LendingRegistration(models.Model):
     status = models.CharField(max_length=16, choices=STATUSES, default=STATUSES.new)
     registered_at = models.DateTimeField(auto_now_add=True)
 
-
     class Meta:
         db_table='lending_registrations'
+
+    _str_template = '{name} / {email} / {registered_at}'
