@@ -9,17 +9,20 @@ class TestLanding(TestCase):
 
     def test_submit(self):
         data = dict(email='test@test.ru', name='тест', phone='12345')
-        self.client.post(reverse('landing'), data=data)
+        response = self.client.post(reverse('landing'), data=data)
         user = LendingRegistration.objects.get(email=data['email'])
         self.assertEquals(user.name, data['name'])
+        self.assertTrue('show_thanks' in response.context_data)
 
     def test_invalid_submit(self):
         data = dict(email='test@test', name='тест', phone='12345')
-        self.client.post(reverse('landing'), data=data)
+        response = self.client.post(reverse('landing'), data=data)
         queryset = LendingRegistration.objects.filter(email=data['email'])
         self.assertEquals(len(queryset), 0)
+        self.assertTrue('show_register' in response.context_data)
 
     def test_empty_submit(self):
-        self.client.post(reverse('landing'), data=dict())
+        response = self.client.post(reverse('landing'), data=dict())
         queryset = LendingRegistration.objects.all()
         self.assertEquals(len(queryset), 0)
+        self.assertTrue('show_register' in response.context_data)
