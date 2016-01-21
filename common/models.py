@@ -10,6 +10,7 @@ class AbstractModel(models.Model):
         abstract = True
 
     def __str__(self):
+        class_name = self.__class__.__name__
         if self._str_template is None:
-            return '{} / {}'.format(self.__class__.__name__, self.id)
-        return '{}: {}'.format(self.__class__.__name__, self._str_template.format(**self.__dict__))
+            return '{} / {}'.format(class_name, self.id)
+        return '{}: {}'.format(class_name, self._str_template.format(**self.__dict__))
