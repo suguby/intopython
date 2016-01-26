@@ -1,0 +1,39 @@
+{% extends 'blog/base.html' %}
+
+
+{% block content %}
+    <br />
+    <h1 class="page-header">
+        Записки программиста
+        <small>понемногу обо всем</small>
+    </h1>
+    {% for sc in screencasts %}
+        <!-- Blog Post -->
+        <h2>
+            <a href="{{ url('screencast_detail', sc.slug) }}">{{ sc.title }}</a>
+        </h2>
+        <p class="lead">
+            <small>раздел: {{ sc.section.title }}</small>
+        </p>
+        <p><span class="glyphicon glyphicon-time"></span> Изменено {{ sc.modified_at }}</p>
+        <hr>
+        <p>{{ sc.video|safe }}</p>
+        <p>{{ sc.summary }}</p>
+{#        <a class="btn btn-info" href="{{ url('screencast_detail', sc.slug) }}">Подробнее <span class="glyphicon glyphicon-chevron-right"></span></a>#}
+        <hr>
+    {% endfor %}
+
+    <!-- Pager -->
+{#    <ul class="pager">#}
+{#        {% if screencasts.has_previous() %}#}
+{#            <li class="previous">#}
+{#                <a href="?{{ query_string }}page={{ screencasts.previous_page_number() }}">← сюда</a>#}
+{#            </li>#}
+{#        {% endif %}#}
+{#        {% if screencasts.has_next() %}#}
+{#            <li class="next">#}
+{#                <a href="?{{ query_string }}page={{ screencasts.next_page_number() }}">туда →</a>#}
+{#            </li>#}
+{#        {% endif %}#}
+{#    </ul>#}
+{% endblock content %}

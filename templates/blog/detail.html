@@ -1,0 +1,54 @@
+{% extends 'blog/base.html' %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ static('css/highlight/railscasts.css') }}">
+    <script src="{{ static('js/highlight.pack.js') }}"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+{% endblock extra_head %}
+
+{% block subtitle %} - {{ title }}{% endblock %}
+
+{% block content %}
+    <br /><br />
+    <!-- Blog Post -->
+
+    <!-- Title -->
+{#    <h1>{{ sc.title }}</h1>#}
+
+    <!-- Author -->
+{#    <p class="lead">#}
+{#        by <a href="#">Start Bootstrap</a>#}
+{#    </p>#}
+
+    <hr>
+
+    <!-- Date/Time -->
+{#    <p><span class="glyphicon glyphicon-time"></span> {{ sc.modified_at }}</p>#}
+
+    <hr>
+
+    <!-- Preview Image -->
+{#    <p class="lead">{{ sc.video|safe }}</p>#}
+
+    <hr>
+
+    <!-- Post Content -->
+{#    <p class="lead">{{ sc.body|safe }}</p>#}
+
+    <ul class="pager">
+        <li class="previous">
+            <a href="{{ url('blog') }}">← обратно</a>
+        </li>
+    </ul>
+
+
+{% endblock content %}
+
+{% block sidebar_footer %}
+    <!-- Side Widget Well -->
+    <div class="well">
+        <h4>Коротко</h4>
+{#        <p>{{ sc.summary }}</p>#}
+    </div>
+{% endblock sidebar_footer %}
+

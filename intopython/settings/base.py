@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'landing',
     'screencasts',
     'courses',
+    'blog',
 )
 
 MIDDLEWARE_CLASSES = (

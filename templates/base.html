@@ -45,8 +45,8 @@
               {% set navigation_bar = [
                 ('screencasts', 'Скринкасты'),
                 ('courses', 'Курсы'),
+                ('blog', 'Блог'),
                 ] -%}
-{#                ('blog', 'Блог'),#}
 {#                ('questions', 'Вопрос-ответ'),#}
               {% set active_page = active_page|default('') -%}
               {% for url_name, caption in navigation_bar -%}
