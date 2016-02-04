@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'landing',
+    'articles',
     'screencasts',
     'courses',
     'blog',

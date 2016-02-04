@@ -1,3 +1,9 @@
-from django.db import models
+from articles.models import Article, ArticleByTypeManager
 
-# Create your models here.
+
+class Blog(Article):
+
+    class Meta:
+        proxy = True
+
+    objects = ArticleByTypeManager(type=Article.TYPES.blog)

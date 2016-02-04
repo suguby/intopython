@@ -1,6 +1,7 @@
 from django.db import models
 from model_utils import Choices
 
+from articles.models import Article, ArticleByTypeManager
 from common.models import AbstractModel
 from common.utils import get_translit
 
@@ -24,27 +25,14 @@ class ScreencastSection(AbstractModel):
                                             using=using, update_fields=update_fields)
 
 
-class Screencast(AbstractModel):
-    STATUSES = Choices(('draft', 'Черновик'), ('publ', 'Опубликовано'), ('hided', 'Скрыто'), )
-
+class Screencast(Article):
     section = models.ForeignKey(ScreencastSection, verbose_name='Раздел', related_name='screencasts')
-    title = models.CharField(verbose_name='Заголовок', max_length=128, default='')
     video = models.TextField(verbose_name='Видео', default='')
-    summary = models.TextField(verbose_name='Конспект', null=True)
-    body = models.TextField(verbose_name='Содержание статьи', null=True)
-    slug = models.SlugField(verbose_name='Слаг', null=True, blank=True)
-    position = models.IntegerField(verbose_name='Позиция', default=0)
-    status = models.CharField(verbose_name='Статус', max_length=16, choices=STATUSES, default=STATUSES.draft)
-    created_at = models.DateTimeField(verbose_name='Создано', auto_now_add=True, null=True)
-    modified_at = models.DateTimeField(verbose_name='Изменено', auto_now=True, null=True)
 
     class Meta:
         db_table = 'screencasts'
 
-    _str_template = ' "{title}" / {modified_at}'
-
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        self.slug = get_translit(self.title)
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        self.type = Article.TYPES.screencast
         super(Screencast, self).save(force_insert=force_insert, force_update=force_update,
                                      using=using, update_fields=update_fields)

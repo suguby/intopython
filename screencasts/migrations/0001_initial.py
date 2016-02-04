@@ -1,37 +1,36 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import migrations, models
+from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('articles', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Screencast',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
-                ('title', models.CharField(verbose_name='Заголовок', max_length=128, default='')),
-                ('video', models.TextField(verbose_name='Видео', default='')),
-                ('summary', models.TextField(verbose_name='Конспект', null=True)),
-                ('status', models.CharField(verbose_name='Статус', choices=[('draft', 'Черновик'), ('publ', 'Опубликовано'), ('hided', 'Скрыто')], max_length=16, default='draft')),
-                ('created_at', models.DateTimeField(verbose_name='Создано', auto_now_add=True, null=True)),
-                ('modified_at', models.DateTimeField(verbose_name='Изменено', auto_now=True, null=True)),
+                ('article_ptr', models.OneToOneField(primary_key=True, parent_link=True, serialize=False, auto_created=True, to='articles.Article')),
+                ('video', models.TextField(default='', verbose_name='Видео')),
             ],
             options={
                 'db_table': 'screencasts',
             },
+            bases=('articles.article',),
         ),
         migrations.CreateModel(
             name='ScreencastSection',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
-                ('title', models.CharField(verbose_name='Заголовок', max_length=128, default='')),
-                ('created_at', models.DateTimeField(verbose_name='Создано', auto_now_add=True, null=True)),
-                ('modified_at', models.DateTimeField(verbose_name='Изменено', auto_now=True, null=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(default='', verbose_name='Заголовок', max_length=128)),
+                ('slug', models.SlugField(blank=True, verbose_name='Слаг', null=True)),
+                ('position', models.IntegerField(default=0, verbose_name='Позиция')),
+                ('created_at', models.DateTimeField(null=True, verbose_name='Создано', auto_now_add=True)),
+                ('modified_at', models.DateTimeField(null=True, verbose_name='Изменено', auto_now=True)),
             ],
             options={
                 'db_table': 'screencast_sections',
@@ -40,6 +39,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='screencast',
             name='section',
-            field=models.ForeignKey(verbose_name='Раздел', to='screencasts.ScreencastSection'),
+            field=models.ForeignKey(related_name='screencasts', verbose_name='Раздел', to='screencasts.ScreencastSection'),
         ),
     ]
