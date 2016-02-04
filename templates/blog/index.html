@@ -7,19 +7,14 @@
         Записки программиста
         <small>понемногу обо всем</small>
     </h1>
-    {% for sc in screencasts %}
+    {% for article in articles %}
         <!-- Blog Post -->
         <h2>
-            <a href="{{ url('screencast_detail', sc.slug) }}">{{ sc.title }}</a>
+            <a href="{{ url('blog_detail', article.slug) }}">{{ article.title }}</a>
         </h2>
-        <p class="lead">
-            <small>раздел: {{ sc.section.title }}</small>
-        </p>
-        <p><span class="glyphicon glyphicon-time"></span> Изменено {{ sc.modified_at }}</p>
+        <p><span class="glyphicon glyphicon-time"></span> Изменено {{ article.modified_at }}</p>
         <hr>
-        <p>{{ sc.video|safe }}</p>
-        <p>{{ sc.summary }}</p>
-{#        <a class="btn btn-info" href="{{ url('screencast_detail', sc.slug) }}">Подробнее <span class="glyphicon glyphicon-chevron-right"></span></a>#}
+        <p>{{ article.summary }}</p>
         <hr>
     {% endfor %}
 
