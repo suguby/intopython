@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import Manager
 
 from model_utils import Choices
+from taggit.managers import TaggableManager
 
 from common.models import AbstractModel
 from common.utils import get_translit
@@ -25,6 +26,8 @@ class Article(AbstractModel):
         db_table = 'articles'
 
     _str_template = ' "{title}" / {modified_at} / {status}'
+
+    tags = TaggableManager()
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):

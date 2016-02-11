@@ -1,10 +1,10 @@
 from django.db import models
 
-from articles.models import Article, ArticleByTypeManager
+from articles.models import Article
 
 
 class Blog(Article):
-    tag = models.CharField(max_length=100, verbose_name='Таги', null=True, blank=True)
+    stub = models.CharField(max_length=10, verbose_name='Заглушка', null=True, blank=True)
 
     class Meta:
         db_table = 'blogs'

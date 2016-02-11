@@ -40,6 +40,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'taggit',
+
     'landing',
     'articles',
     'screencasts',
@@ -155,3 +157,5 @@ STATICFILES_DIRS = (
 STATIC_ROOT = os.path.join(BASE_DIR, 'extra', 'static')
 
 FAB_SERVERS = {}
+
+TAGGIT_CASE_INSENSITIVE = True
