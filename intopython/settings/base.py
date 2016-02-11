@@ -45,7 +45,7 @@ INSTALLED_APPS = (
     'src.landing',
     'articles',
     'src.screencasts',
-    'courses',
+    'src.courses',
     'src.blog',
 )
 

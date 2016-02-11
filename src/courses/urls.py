@@ -2,7 +2,7 @@
 
 from django.conf.urls import url
 
-from courses.views import CoursesView, CoursesProgramView, CoursesAuthorView
+from .views import CoursesView, CoursesProgramView, CoursesAuthorView
 
 urlpatterns = [
     url(r'^$', CoursesView.as_view(), name='courses'),
