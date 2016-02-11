@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from common.views import BaseTemplateView
+from src.common.views import BaseTemplateView
 
 
 class CoursesView(BaseTemplateView):

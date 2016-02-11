@@ -3,7 +3,7 @@
 from django.db import models
 from model_utils import Choices
 
-from common.models import AbstractModel
+from src.common.models import AbstractModel
 
 
 class LendingRegistration(AbstractModel):

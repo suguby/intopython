@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from common.views import BaseTemplateView
-from .models import LendingRegistration
+from src.common.views import BaseTemplateView
 from .forms import RegisterForm
+from .models import LendingRegistration
 
 
 class LandingView(BaseTemplateView):

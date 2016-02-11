@@ -4,7 +4,7 @@ from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from markdown import markdown
 
-from common.views import BaseTemplateView
+from src.common.views import BaseTemplateView
 from .models import Screencast, ScreencastSection
 
 

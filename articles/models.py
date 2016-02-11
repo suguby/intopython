@@ -1,11 +1,10 @@
 from django.db import models
 from django.db.models import Manager
-
 from model_utils import Choices
 from taggit.managers import TaggableManager
 
-from common.models import AbstractModel
-from common.utils import get_translit
+from src.common.models import AbstractModel
+from src.common.utils import get_translit
 
 
 class Article(AbstractModel):

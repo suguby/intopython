@@ -1,8 +1,8 @@
 from django.db import models
 
 from articles.models import Article
-from common.models import AbstractModel
-from common.utils import get_translit
+from src.common.models import AbstractModel
+from src.common.utils import get_translit
 
 
 class ScreencastSection(AbstractModel):
