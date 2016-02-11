@@ -24,12 +24,12 @@ from intopython.views import IndexView
 
 urlpatterns = [
 
-    url(r'^screencasts/', include('screencasts.urls')),
+    url(r'^screencasts/', include('src.screencasts.urls')),
     url(r'^courses/', include('courses.urls')),
     url(r'^blog/', include('blog.urls')),
     url(r'^questions/', IndexView.as_view(), name='questions'),
 
-    url(r'^landing/', include('landing.urls')),
+    url(r'^landing/', include('src.landing.urls')),
     url(r'^$', IndexView.as_view(), name='index'),
 
     url(r'^nimda/', include(admin.site.urls)),

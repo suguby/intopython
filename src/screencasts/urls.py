@@ -2,7 +2,7 @@
 
 from django.conf.urls import url
 
-from screencasts.views import ScreencastsListView, ScreencastDetailView, ScreencastsSearchView
+from src.screencasts.views import ScreencastsListView, ScreencastDetailView, ScreencastsSearchView
 
 urlpatterns = [
     url(r'^$', ScreencastsListView.as_view(), name='screencasts'),

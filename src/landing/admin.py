@@ -2,6 +2,6 @@
 
 from django.contrib import admin
 
-from landing.models import LendingRegistration
+from .models import LendingRegistration
 
 admin.site.register(LendingRegistration)

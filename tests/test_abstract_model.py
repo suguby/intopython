@@ -4,8 +4,8 @@ from inspect import isclass
 from django.test import TestCase
 
 from common.models import AbstractModel
-from screencasts import models as sc_models
-from landing import models as land_models
+from src.landing import models as land_models
+from src.screencasts import models as sc_models
 
 
 class AbstractTest(TestCase):

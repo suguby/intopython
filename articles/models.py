@@ -39,6 +39,7 @@ class Article(AbstractModel):
     def tags_as_list(self):
         return self.tags.all()
 
+
 class ArticleByTypeManager(Manager):
 
     def __init__(self, type=None):

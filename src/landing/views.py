@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.views.generic import TemplateView
 
 from common.views import BaseTemplateView
-from landing.forms import RegisterForm
-from landing.models import LendingRegistration
+from .models import LendingRegistration
+from .forms import RegisterForm
 
 
 class LandingView(BaseTemplateView):

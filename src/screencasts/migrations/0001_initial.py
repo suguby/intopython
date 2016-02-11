@@ -39,6 +39,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='screencast',
             name='section',
-            field=models.ForeignKey(related_name='screencasts', verbose_name='Раздел', to='screencasts.ScreencastSection'),
+            field=models.ForeignKey(related_name='screencasts', verbose_name='Раздел', to='src.screencasts.ScreencastSection'),
         ),
     ]

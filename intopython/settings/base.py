@@ -42,9 +42,9 @@ INSTALLED_APPS = (
 
     'taggit',
 
-    'landing',
+    'src.landing',
     'articles',
-    'screencasts',
+    'src.screencasts',
     'courses',
     'blog',
 )

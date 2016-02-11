@@ -1,7 +1,6 @@
 from django.db import models
-from model_utils import Choices
 
-from articles.models import Article, ArticleByTypeManager
+from articles.models import Article
 from common.models import AbstractModel
 from common.utils import get_translit
 
