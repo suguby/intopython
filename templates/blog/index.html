@@ -24,6 +24,11 @@
             <a href="{{ url('blog_detail', article.slug) }}">{{ article.title }}</a>
         </h2>
         <p><span class="glyphicon glyphicon-time"></span> Изменено {{ article.modified_at }}</p>
+        <p><span class="glyphicon glyphicon-tags"></span> Метки:
+            {% for tag in article.tags.all() %}
+                {{ tag.name }}
+            {% endfor %}
+        </p>
         <hr>
         <p>{{ article.summary }}</p>
         <hr>

@@ -23,7 +23,12 @@
     <hr>
 
     <!-- Date/Time -->
-    <p><span class="glyphicon glyphicon-time"></span> {{ article.modified_at }}</p>
+    <p><span class="glyphicon glyphicon-time"></span> Изменено: {{ article.modified_at }}</p>
+    <p><span class="glyphicon glyphicon-tags"></span> Метки:
+        {% for tag in article.tags.all() %}
+            {{ tag.name }}
+        {% endfor %}
+    </p>
 
     <hr>
 
