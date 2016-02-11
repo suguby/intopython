@@ -25,8 +25,8 @@
         </h2>
         <p><span class="glyphicon glyphicon-time"></span> Изменено {{ article.modified_at }}</p>
         <p><span class="glyphicon glyphicon-tags"></span> Метки:
-            {% for tag in article.tags.all() %}
-                {{ tag.name }}
+            {% for tag in article.tags_as_list %}
+                <a href="{{ url('blog') }}?tag={{ tag.slug }}">{{ tag.name }}</a>
             {% endfor %}
         </p>
         <hr>

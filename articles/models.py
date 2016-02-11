@@ -35,6 +35,9 @@ class Article(AbstractModel):
         super(Article, self).save(force_insert=force_insert, force_update=force_update,
                                   using=using, update_fields=update_fields)
 
+    @property
+    def tags_as_list(self):
+        return self.tags.all()
 
 class ArticleByTypeManager(Manager):
 
