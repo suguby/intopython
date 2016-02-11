@@ -26,7 +26,7 @@ urlpatterns = [
 
     url(r'^screencasts/', include('src.screencasts.urls')),
     url(r'^courses/', include('courses.urls')),
-    url(r'^blog/', include('blog.urls')),
+    url(r'^blog/', include('src.blog.urls')),
     url(r'^questions/', IndexView.as_view(), name='questions'),
 
     url(r'^landing/', include('src.landing.urls')),

@@ -46,7 +46,7 @@ INSTALLED_APPS = (
     'articles',
     'src.screencasts',
     'courses',
-    'blog',
+    'src.blog',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 from markdown import markdown
 
-from blog.models import Blog
+from .models import Blog
 
 
 class BlogView(TemplateView):

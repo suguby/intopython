@@ -2,7 +2,7 @@
 
 from django.conf.urls import url
 
-from blog.views import BlogView, BlogDetailView
+from .views import BlogView, BlogDetailView
 
 urlpatterns = [
     url(r'^$', BlogView.as_view(), name='blog'),
