@@ -1,10 +1,21 @@
 {% extends 'blog/base.html' %}
 
+{% block sidebar_footer %}
+<div class="well">
+    <h4>Метки</h4>
+    <div class="row">
+        {% for tag_slug, tag_name in tags.items() %}
+            <a href="{{ url('blog') }}?tag={{ tag_slug }}">{{ tag_name }}</a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock sidebar_footer %}
+
 
 {% block content %}
     <br />
     <h1 class="page-header">
-        Записки программиста
+        Записки пайтониста
         <small>понемногу обо всем</small>
     </h1>
     {% for article in articles %}

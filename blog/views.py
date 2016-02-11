@@ -10,10 +10,12 @@ class BlogView(TemplateView):
     template_name = 'blog/index.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data( **kwargs)
-        sc_queryset = Blog.objects.filter(
-            status=Blog.STATUSES.publ,
-        ).order_by('-created_at')
+        context = super().get_context_data(**kwargs)
+        flt = dict(status=Blog.STATUSES.publ)
+        tag = self.request.GET.get('tag')
+        if tag:
+            flt.update(tags__slug=tag)
+        sc_queryset = Blog.objects.filter(**flt).order_by('-created_at')
         section_filter = self.request.GET.get('section')
         query_string = ''
         if section_filter:
@@ -26,9 +28,16 @@ class BlogView(TemplateView):
             articles = paginator.page(1)
         except EmptyPage:
             articles = paginator.page(paginator.num_pages)
+
+        tags = {}
+        for bl in Blog.objects.filter(status=Blog.STATUSES.publ).prefetch_related('tags'):
+            for tag in bl.tags.all():
+                tags[tag.slug] = tag.name
+
         context.update(
             articles=articles,
             query_string=query_string,
+            tags=tags,
         )
         return context
 
