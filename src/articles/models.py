@@ -26,7 +26,7 @@ class Article(AbstractModel):
 
     _str_template = ' "{title}" / {modified_at} / {status}'
 
-    tags = TaggableManager()
+    # tags = TaggableManager()
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):

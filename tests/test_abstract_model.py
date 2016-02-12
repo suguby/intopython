@@ -3,7 +3,7 @@ from inspect import isclass
 
 from django.test import TestCase
 
-from src.common import AbstractModel
+from src.common.models import AbstractModel
 from src.landing import models as land_models
 from src.screencasts import models as sc_models
 

@@ -42,11 +42,11 @@ INSTALLED_APPS = (
 
     'taggit',
 
-    'src.landing',
-    'articles',
-    'src.screencasts',
-    'src.courses',
-    'src.blog',
+    'src.articles.apps.ArticlesConfig',
+    'src.blog.apps.BlogConfig',
+    # 'src.screencasts.apps.ScreencastsConfig',
+    'src.courses.apps.CoursesConfig',
+    'src.landing.apps.LandingConfig',
 )
 
 MIDDLEWARE_CLASSES = (

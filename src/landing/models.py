@@ -16,6 +16,6 @@ class LendingRegistration(AbstractModel):
     registered_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table='lending_registrations'
+        db_table = 'lending_registrations'
 
     _str_template = '{name} / {email} / {registered_at}'

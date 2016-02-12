@@ -2,7 +2,7 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-from src.landing import LendingRegistration
+from src.landing.models import LendingRegistration
 
 
 class TestLanding(TestCase):

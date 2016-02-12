@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Screencast',
             fields=[
-                ('article_ptr', models.OneToOneField(primary_key=True, parent_link=True, serialize=False, auto_created=True, to='articles.Article')),
+                ('article_ptr', models.OneToOneField(primary_key=True, parent_link=True, serialize=False, auto_created=True, to='src.articles.Article')),
                 ('video', models.TextField(default='', verbose_name='Видео')),
             ],
             options={

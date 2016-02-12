@@ -1,6 +1,6 @@
 from django.db import models
 
-from articles.models import Article
+from src.articles.models import Article
 from src.common.models import AbstractModel
 from src.common.utils import get_translit
 
@@ -14,6 +14,7 @@ class ScreencastSection(AbstractModel):
 
     class Meta:
         db_table = 'screencast_sections'
+        app_label = 'src.screencasts'
 
     _str_template = ' "{title}" / {modified_at}'
 
@@ -30,6 +31,7 @@ class Screencast(Article):
 
     class Meta:
         db_table = 'screencasts'
+        app_label = 'src.screencasts'
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         self.type = Article.TYPES.screencast
