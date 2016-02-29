@@ -8,7 +8,6 @@ class Blog(Article):
 
     class Meta:
         db_table = 'blogs'
-        app_label = 'blog'
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         self.type = Article.TYPES.blog

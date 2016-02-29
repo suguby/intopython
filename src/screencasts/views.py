@@ -9,9 +9,7 @@ from .models import Screencast, ScreencastSection
 
 
 def fill_sidebar_context(context):
-        sections = ScreencastSection.objects.annotate(
-            count=Count('screencasts')
-        ).filter(count__gt=0).order_by('position')
+        sections = ScreencastSection.objects.all().order_by('position')
         sections_split = len(sections)//2
         context.update(
             sections=sections,
@@ -24,7 +22,7 @@ class ScreencastsListView(BaseTemplateView):
     template_name = 'screencasts/index.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data( **kwargs)
+        context = super().get_context_data(**kwargs)
         sc_queryset = Screencast.objects.filter(
             status=Screencast.STATUSES.publ
         ).order_by('-created_at')

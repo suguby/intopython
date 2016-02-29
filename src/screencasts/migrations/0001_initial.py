@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Screencast',
             fields=[
-                ('article_ptr', models.OneToOneField(primary_key=True, parent_link=True, serialize=False, auto_created=True, to='src.articles.Article')),
+                ('article_ptr', models.OneToOneField(primary_key=True, parent_link=True, serialize=False, auto_created=True, to='articles.Article')),
                 ('video', models.TextField(default='', verbose_name='Видео')),
             ],
             options={
@@ -39,6 +39,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='screencast',
             name='section',
-            field=models.ForeignKey(related_name='screencasts', verbose_name='Раздел', to='src.screencasts.ScreencastSection'),
+            field=models.ForeignKey(related_name='screencasts', verbose_name='Раздел', to='screencasts.ScreencastSection'),
         ),
     ]

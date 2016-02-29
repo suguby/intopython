@@ -44,7 +44,7 @@ INSTALLED_APPS = (
 
     'src.articles.apps.ArticlesConfig',
     'src.blog.apps.BlogConfig',
-    # 'src.screencasts.apps.ScreencastsConfig',
+    'src.screencasts.apps.ScreencastsConfig',
     'src.courses.apps.CoursesConfig',
     'src.landing.apps.LandingConfig',
 )
