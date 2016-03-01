@@ -1,102 +1,213 @@
 <!DOCTYPE html>
-<html lang="ru"><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="{{ static('favicon.ico') }}">
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Главная</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="{{ static('js/script.js') }}"></script>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<!--<link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">-->
+	<link rel="stylesheet" type="text/css" href="{{ static('css/main.css') }}">
+</head>
 
-    <title>Онлайн-школа Django - {% block title %}начало{% endblock %}</title>
+<body class="{% block body_class %}p-main{% endblock %}">
+{% set navigation_bar = [
+('index', 'Начало'),
+('screencasts', 'Скринкасты'),
+('courses', 'Курсы'),
+('blog', 'Блог'),
+] -%}
+{% set active_page = active_page|default('') -%}
 
-    <!-- Bootstrap core CSS -->
-    <link href="{{ static('css/bootstrap.css') }}" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-{#    <link href="{{ static('css/navbar-fixed-top.css') }}" rel="stylesheet">#}
-    <link href="{{ static('css/custom.css') }}" rel="stylesheet">
-
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    {% block extra_head %}{% endblock extra_head %}
-  </head>
-
-  <body>
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{{ url('index') }}">Онлайн-школа Django</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-              {% set navigation_bar = [
-                ('screencasts', 'Скринкасты'),
-                ('courses', 'Курсы'),
-                ('blog', 'Блог'),
-                ] -%}
-{#                ('questions', 'Вопрос-ответ'),#}
-              {% set active_page = active_page|default('') -%}
+<div class="container-fluid b-main">
+	<div class="row b-main-row">
+		<div class="main-menu-hidden">
+			<img src="{{ static('img/logo-mobile.png') }}" alt="" class="logo logo-mobile">
+			<ul class="top-menu">
               {% for url_name, caption in navigation_bar -%}
                 <li{% if url_name == active_page %} class="active"{% endif %}>
                     <a href="{{ url(url_name) }}">{{ caption }}</a>
                 </li>
               {% endfor -%}
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-{#            <li><a href="{{ url('index') }}">Регистрация</a></li>#}
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
+				<li><a href="" data-toggle="modal" class="user-nav login" data-target="#modal-login">Вход</a></li>
+				<li><a href="" data-toggle="modal" class="user-nav" data-target="#modal-registration">Регистрация</a>
+			</ul>
+		</div> <!-- mobile menu -->
 
-    <div class="container">
-	  {% block container %}
+		<a href="#" class="main-menu-toggle"></a> <!-- mobile menu button -->
+		<div class="col-md-2 side-l main-menu">
+			<div class="main-menu-wrap">
+				<img src="{{ static('img/logo.png') }}" alt="" class="logo">
+				<input type="text" placeholder="Поиск по сайту" class="form-control input-search">
+				<!-- левое боковое меню -->
+				<ul class="menu">
+                  {% for url_name, caption in navigation_bar -%}
+                    <li{% if url_name == active_page %} class="active"{% endif %}>
+                        <a href="{{ url(url_name) }}">{{ caption }}</a>
+                    </li>
+                  {% endfor -%}
+				</ul>
+                {% block left_menu_footer -%}
+                {% endblock left_menu_footer -%}
+			</div>
 
-      <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <h1>Научись Django!</h1>
-        <p>Угловое расстояние, сублимиpуя с повеpхности ядpа кометы, последовательно перечеркивает Юпитер. У планет-гигантов нет твёрдой поверхности, таким образом керн гасит тропический год, однако большинство спутников движутся вокруг своих планет в ту же сторону, в какую вращаются планеты. Космический мусор, как бы это ни казалось парадоксальным, иллюстрирует нулевой меридиан.
-		</p>
-        <p>Экскадрилья ищет параллакс. Экскадрилья, и это следует подчеркнуть, вращает нулевой меридиан. Весеннее равноденствие пространственно неоднородно.</p>
-        <p>
-          <a class="btn btn-lg btn-primary" href="http://getbootstrap.com/components/#navbar" role="button">Перейти к содержимому »</a>
-        </p>
-      </div>
+		</div>
+		<div class="col-md-10 side-r">
 
-	 {% endblock %}
-    </div> <!-- /container -->
+			<div class="wrapper-input-search-mobile">
+				<input type="text" placeholder="Поиск по сайту" class="form-control input-search input-search-mobile">
+			</div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{ static('js/jquery.js') }}"></script>
-    <script src="{{ static('js/bootstrap.js') }}"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="{{ static('js/ie10-viewport-bug-workaround.js') }}"></script>
+			<!-- поиск и навигация по сайту -->
+			<nav class="nav-search">
+				<menu>
+					<div class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+							Разделы
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="">Раздел 1</a></li>
+							<li><a href="">Раздел 2</a></li>
+							<li><a href="">Раздел 3</a></li>
+							<li><a href="">Раздел 4</a></li>
+							<li><a href="">Раздел 5</a></li>
+							<li><a href="">Раздел 6</a></li>
+						</ul>
+					</div>
+					<a href="">Форум</a>
+					<a href="">Пункт</a>
 
+					<div class="wrap-user-nav">
+						<a href="" data-toggle="modal" data-target="#modal-login">Вход</a>
+						<a href="" data-toggle="modal" data-target="#modal-registration">Регистрация</a>
+					</div>
 
-    {% if not DEBUG -%}
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-          ga('create', 'UA-71390404-1', 'auto');
-          ga('send', 'pageview');
-        </script>
-    {% endif -%}
+				</menu>
+			</nav>
 
-</body></html>
+            {% block container %}
+			<div class="b-tagline">
+				<div class="text">
+					Быстро долетим <br>
+					и с удовольствием <br>
+					покрутимся в воздухе
+				</div>
+
+				<a href="" class="btn btn-default">Подробнее »</a>
+			</div>
+            {% endblock container %}
+		</div>
+	</div>
+</div>
+
+<!-- модальное окно регистрации -->
+<div class="modal registration-modal fade" id="modal-registration" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Регистрация</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<label for="inputEmail" class="control-label col-xs-2">Email</label>
+							<div class="col-xs-10">
+								<input type="email" class="form-control" id="inputEmail" placeholder="Email">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword" class="control-label col-xs-2">Пароль</label>
+							<div class="col-xs-10">
+								<input type="password" class="form-control" id="inputPassword" placeholder="Пароль">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-offset-2 col-xs-10">
+								<div class="checkbox">
+									<label><input type="checkbox"> Запомнить</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-offset-2 col-xs-10">
+								<button type="submit" class="btn btn-primary">Войти</button>
+								<div class="social-links">
+									<a href="" class="vk"></a>
+									<a href="" class="fb"></a>
+									<a href="" class="tw"></a>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- модальное окно входа -->
+<div class="modal login-modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Вход</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<label for="inputEmail" class="control-label col-xs-2">Email</label>
+							<div class="col-xs-10">
+								<input type="email" class="form-control" id="" placeholder="Email">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword" class="control-label col-xs-2">Пароль</label>
+							<div class="col-xs-10">
+								<input type="password" class="form-control" id="" placeholder="Пароль">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-offset-2 col-xs-10">
+								<div class="checkbox">
+									<label><input type="checkbox"> Запомнить</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-offset-2 col-xs-10">
+								<button type="submit" class="btn btn-primary">Войти</button>
+								<div class="social-links">
+									<a href="" class="vk"></a>
+									<a href="" class="fb"></a>
+									<a href="" class="tw"></a>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% if not DEBUG -%}
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-71390404-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+{% endif -%}
+
+</body>
+</html>

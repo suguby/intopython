@@ -1,0 +1,208 @@
+@import "mixin";
+
+@media screen and (max-width: 800px) {
+    .side-l {
+        display: none;
+    }
+
+    .main-menu-toggle {
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAh0lEQVRIS+2V0Q1AQBBE33WgAzqiA0pQihZ0cDqiAx2srOD3kIyEuO+5md2Z3WxA/IKYn2BmEShFQtEFTES+0rpABbQikU6fgajyg/bvIOmwT1Gx7UGWRF8DzMDgAiOQX/t7Gj2qBabdIl82hUXxH9Nk2h+wyMwaoE72eg/QP3JwlCezf3/IC5vPLfdVUJeJAAAAAElFTkSuQmCC');
+        .inline-block;
+        background-size: 20px 20px;
+        height: 53px;
+        width: 43px;
+        background-repeat: no-repeat;
+        background-color: #000;
+        background-position: 12px 17px;
+        margin: 0;
+        float: left;
+        position: fixed;
+        top: 0;
+        z-index: 9999;
+        .transition();
+
+        &.opened {
+            background-color: transparent;
+            .transform(rotate(90deg));
+            position: fixed;
+        }
+    }
+
+    .main-menu-hidden {
+        display: none;
+        position: fixed;
+        background: #000;
+        z-index: 9999;
+        width: 100%;
+        height: auto;
+        padding: 21px 0 15px;
+        left: 0;
+        top: 0;
+
+        .border {
+            border-top: 1px dashed #fff;
+            width: 110px;
+            height: 1px;
+            margin: 3px 0 0 39px;
+        }
+
+        .top-menu {
+            margin: 24px 0 0 0;
+
+            li {
+                .transition();
+
+                &:hover {
+                    background: #40c3db;
+                }
+            }
+
+            a {
+                font: 14px/40px 'Open Sans';
+                color: #fff;
+                text-transform: uppercase;
+                text-decoration: none;
+                display: block;
+                padding: 0 0 0 46px;
+            }
+        }
+
+        .user-nav {
+            float: none;
+        }
+    }
+
+    .nav-search {
+        display: none;
+    }
+
+    .side-r {
+        padding: 0 20px 50px 20px;
+    }
+
+    .p-main {
+        .main-menu-toggle {
+            background-color: transparent;
+        }
+        .wrapper-input-search-mobile {
+            background-color: transparent;
+        }
+    }
+
+    .p-lesson {
+        .side-r {
+            .content-side {
+                padding-top: 60px;
+            }
+        }
+    }
+
+    .lesson-video {
+        height: auto;
+        width: 320px;
+    }
+
+    .p-program {
+        .side-r {
+            h1 {
+                font-size: 45px;
+                padding: 0 0 22px 0;
+            }
+        }
+    }
+
+    .p-screencasts {
+        .side-r {
+            h1 {
+                font-size: 45px;
+                padding: 0 0 22px 0;
+
+                span {
+                    font-size: 32px;
+                }
+            }
+        }
+    }
+
+    .p-about {
+        .side-r {
+            h1 {
+                font-size: 45px;
+                padding: 0 0 22px 0;
+
+                span {
+                    font-size: 32px;
+                }
+            }
+        }
+    }
+
+    .screencasts-list {
+        margin: 0 20px 30px;
+
+        .screencasts-item {
+            width: 90%;
+            margin: 0 20px 30px;
+        }
+    }
+
+    .content-side .pic {
+        height: 348px;
+        float: none;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+    }
+
+    .p-main {
+        .side-r {
+            margin-left: 0;
+        }
+    }
+
+    .side-r .b-tagline .text {
+        font-size: 35px;
+    }
+
+
+    .wrapper-input-search-mobile {
+        display: block;
+        position: fixed;
+        top: 0;
+        margin: 0;
+        left: 0;
+        right: 0;
+        padding: 10px 10px 10px 0;
+        text-align: right;
+        background: #000;
+        z-index: 99;
+    }
+
+    .input-search-mobile {
+        margin: 0;
+        position: static;
+    }
+
+    .modal {
+        z-index: 99999;
+    }
+
+    .side-r .b-tagline {
+        margin: 19% 0;
+    }
+
+    .p-main {
+        .side-r {
+            position: relative;
+        }
+    }
+    
+    .logo-mobile {
+        width: 120px;
+        float: right;
+        margin: -8px 15px 0 0;
+    }
+}

@@ -31,7 +31,7 @@ class ScreencastsListView(BaseTemplateView):
         if section_filter:
             sc_queryset = sc_queryset.filter(section__slug=section_filter)
             query_string += 'section={}&'.format(section_filter)
-        paginator = Paginator(sc_queryset, 2)
+        paginator = Paginator(sc_queryset, 27)
         try:
             screencasts = paginator.page(number=self.request.GET.get('page'))
         except PageNotAnInteger:

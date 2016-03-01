@@ -1,5 +1,1 @@
-from django.apps import AppConfig
-
-
-class ScreencastsConfig(AppConfig):
-    name = 'src.screencasts'
+# -*- coding: utf-8 -*-
