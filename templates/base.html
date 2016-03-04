@@ -62,42 +62,37 @@
 				<input type="text" placeholder="Поиск по сайту" class="form-control input-search input-search-mobile">
 			</div>
 
-			<!-- поиск и навигация по сайту -->
+			<!-- навигация по сайту -->
 			<nav class="nav-search">
 				<menu>
-					<div class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-							Разделы
-						</a>
-						<ul class="dropdown-menu">
-							<li><a href="">Раздел 1</a></li>
-							<li><a href="">Раздел 2</a></li>
-							<li><a href="">Раздел 3</a></li>
-							<li><a href="">Раздел 4</a></li>
-							<li><a href="">Раздел 5</a></li>
-							<li><a href="">Раздел 6</a></li>
-						</ul>
-					</div>
-					<a href="">Форум</a>
-					<a href="">Пункт</a>
-
+                {% block submenu %}
+{#					<div class="dropdown">#}
+{#						<a class="dropdown-toggle" data-toggle="dropdown" href="#">#}
+{#							Разделы#}
+{#						</a>#}
+{#						<ul class="dropdown-menu">#}
+{#							<li><a href="">Раздел 1</a></li>#}
+{#							<li><a href="">Раздел 2</a></li>#}
+{#							<li><a href="">Раздел 3</a></li>#}
+{#							<li><a href="">Раздел 4</a></li>#}
+{#							<li><a href="">Раздел 5</a></li>#}
+{#							<li><a href="">Раздел 6</a></li>#}
+{#						</ul>#}
+{#					</div>#}
+{#					<a href="">Форум</a>#}
+{#					<a href="">Пункт</a>#}
+                {% endblock submenu %}
 					<div class="wrap-user-nav">
 						<a href="" data-toggle="modal" data-target="#modal-login">Вход</a>
 						<a href="" data-toggle="modal" data-target="#modal-registration">Регистрация</a>
 					</div>
-
 				</menu>
 			</nav>
-
             {% block container %}
 			<div class="b-tagline">
 				<div class="text">
-					Быстро долетим <br>
-					и с удовольствием <br>
-					покрутимся в воздухе
+                    Здесь весь контент
 				</div>
-
-				<a href="" class="btn btn-default">Подробнее »</a>
 			</div>
             {% endblock container %}
 		</div>
