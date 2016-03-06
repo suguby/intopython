@@ -1,8 +1,11 @@
 #!/bin/bash
 
-cd `dirname $0`
-cd ..
-export DJANGO_SETTINGS_MODULE="intopython.settings"
-export PYTHONWARNINGS=ignore
-export PYTHONPATH=${PYTHONPATH}:`pwd`
-fab $*
+source `dirname $0`/set_enviroment.sh
+
+if [ -z "$1" ]; then
+    fab list
+elif [ "$1" = "help" ]; then
+    fab --help
+else
+    fab $*
+fi

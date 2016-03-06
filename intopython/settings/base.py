@@ -159,3 +159,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'extra', 'static')
 FAB_SERVERS = {}
 
 TAGGIT_CASE_INSENSITIVE = True
+
+MYSQL_DUMPS_PATH = os.path.join(BASE_DIR, 'extra')
