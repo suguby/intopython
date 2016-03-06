@@ -47,26 +47,3 @@ message()
     echo ""
 }
 
-get_mysql_password_from_user()
-{
-    if [ -z "${DBPASSWORD}" ]; then
-        echo
-        read -s -p "Enter password for mysql-user mshp: " DBPASSWORD
-        echo
-        export DBPASSWORD
-    fi
-}
-
-recreate_db()
-{
-    DATABASENAME=$1
-    ask "Вы уверены что хотите пересоздать БД '${DATABASENAME}'?" 'exit'
-    echo "### Recreate ${DATABASENAME} database ###"
-    TEMP_SQL_FILE=${PROJECT_PATH}/extra/recreate_db.sql
-    sed s/DATABASENAME/${DATABASENAME}/g ${PROJECT_PATH}/etc/recreate_db_template.sql > ${TEMP_SQL_FILE}
-    get_mysql_password_from_user
-    mysql -u mshp -p${DBPASSWORD} < ${TEMP_SQL_FILE}
-    SUCCESS=$?
-    rm -f ${TEMP_SQL_FILE}
-    return ${SUCCESS}
-}

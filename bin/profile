@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# Set DJANGO enviroment
-export DJANGO_SETTINGS_MODULE=intopython.settings
-
-export PYENV=intopython_env
