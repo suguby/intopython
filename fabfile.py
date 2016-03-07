@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
-import re
-from tempfile import NamedTemporaryFile as _NamedTemporaryFile
-
 import sys
-from fabric.colors import green, yellow
-from fabric.context_managers import cd
-from fabric.operations import local, os, run
-from fabric.state import env
-from fabric.utils import puts, abort
-from django.conf import settings as django_settings
+
 import django
+from django.conf import settings as django_settings
+from fabric.context_managers import cd
+from fabric.operations import os, run
+from fabric.state import env
+from fabric.utils import abort
+from fabric.main import list_commands as _list_commands
+
+from src.fab.utils import _set_env
+from src.fab.mysql import db_dump, db_load, db_get_from_remote, db_truncate, db_reinit
 
 
 def _set_virtualenv_root():
@@ -18,76 +19,13 @@ def _set_virtualenv_root():
     env.virtualenv_root = os.path.split(bin_path)[0]
 
 
-def _message_ok(txt, **kwargs):
-    puts(green(txt.format(**kwargs)))
-
-
-def _message_warn(txt, **kwargs):
-    puts(yellow(txt.format(**kwargs)))
-
-
-def _set_env(server):
+def _set_vars_from_django_settings():
     u"""Окружение для указанного сервера"""
-    server_params = dict()
-    try:
-        server_params = django_settings.FAB_SERVERS[server]
-    except AttributeError:
-        abort("Не задан словарь FAB_SERVERS в настройках !!!")
-    except KeyError:
-        abort("Не указан сервер {} в FAB_SERVERS в настройках !!!".format(server))
-    if 'host' not in server_params:
-        abort("Для сервера {} в FAB_SERVERS не задано поле host !!! (может быть алиасом из .ssh/config)".format(server))
-    env.host_string = server_params['host']
-    if 'user' in server_params:
-        env.host_string = '{user}@{host}'.format(user=server_params['user'], host=env.host_string)
-    if 'port' in server_params:
-        env.host_string = '{host}:{port}'.format(host=env.host_string, port=server_params['port'])
-
-    env.project_root = server_params['project_root']
-    if 'virtualenv_root' in server_params:
-        env.virtualenv_root = server_params['virtualenv_root']
-    else:
-        env.virtualenv_root = os.path.join(server_params['project_root'], 'env')
-    # env.python = os.path.join(env.virtualenv_root, 'bin', 'python')
-    # env.pip = os.path.join(env.virtualenv_root, 'bin', 'pip')
-    # env.requirements = os.path.join('requirements', 'base.txt')
-    # env.manage = '{}/intopython/manage.py'.format(env.project_root)
-    env.shell = '/bin/bash -c'  # Используем шелл отличный от умолчательного (на сервере)
-    env.use_ssh_config = True  # позволяет коннектится по алиасам из конфига
-
-
-def _fill_constants_from_settings(file_from, file_to):
-    pattern = re.compile(r'##(?P<constant>[a-zA-Z_]*)##')
-    with open(file_from, 'r') as fr:
-        template = fr.read()
-        while True:
-            match = pattern.search(template)
-            if not match:
-                break
-            constant = match.group('constant')
-            if hasattr(django_settings, constant):
-                value = getattr(django_settings, constant)
-            elif hasattr(env, constant):
-                value = getattr(env, constant)
-            else:
-                abort('No constant {} in Django settings or fabric env! Found in {} file.'.format(constant, file_from))
-            template = template.replace('##{}##'.format(constant), str(value))
-        if isinstance(file_to, str):
-            with open(file_to, 'w') as fw:
-                fw.write(template)
-        else:
-            file_to.write(template)
-
-
-def _fill_and_save(file_from, file_to, as_root=False):
-    with _NamedTemporaryFile() as ff:
-        _fill_constants_from_settings(file_from, ff.name)
-        command = 'cp {} {}'.format(ff.name, file_to)
-        if as_root:
-            local('sudo ' + command)
-        else:
-            local(command)
-        _message_ok('File {} generated form {}'.format(file_to, file_from))
+    env.db_name = django_settings.DATABASES['default']['NAME']
+    env.DATABASENAME = env.db_name
+    env.db_user = django_settings.DATABASES['default']['USER']
+    env.db_password = django_settings.DATABASES['default']['PASSWORD']
+    env.db_dump_file = '{project_root}/extra/{db_name}.sql'.format(**env)
 
 
 def remote_run(server=None, command=None, param1='', param2='', param3=''):
@@ -104,9 +42,18 @@ def remote_run(server=None, command=None, param1='', param2='', param3=''):
         run('{}'.format(command))
 
 
-def make_apache_conf():
-    conf_file_template = '{}/conf/intopython_ru.conf'.format(env.project_root)
-    _fill_and_save(file_from=conf_file_template, file_to='/tmp/intopython_ru.conf')
+def get_settings_vars():
+    u"""хелпер для определения значений переменных в сеттингах"""
+    for var in ('MYSQL_DUMPS_PATH', ):
+        print('{}={}'.format(var, getattr(django_settings, var)))
+    print('DATABASENAME={}'.format(env.db_name))
+    sys.exit(0)
+
+
+def completion():
+    u"""хелпер для автокомплита fab-команд"""
+    print(' '.join(_list_commands('', 'short')), end='')
+    sys.exit(0)
 
 
 django.setup()
@@ -116,3 +63,10 @@ env.all_questions_yes = False
 env.colorize_errors = True  # для красоты
 env.use_ssh_config = True  # позволяет коннектится по алиасам из
 _set_virtualenv_root()
+_set_vars_from_django_settings()
+
+
+# pycharm import import stub
+stub = (
+    db_dump, db_load, db_get_from_remote, db_truncate, db_reinit,
+)

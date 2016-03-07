@@ -1,6 +1,6 @@
 contextlib2==0.4.0
 Django==1.9.1
--e git+https://github.com/pashinin/fabric.git@5d879d5dbbf56c22d87fcf068ef739956c7effd3#egg=Fabric-origin_master
+Fabric3==1.10.2.post3
 Jinja2==2.8
 Markdown==2.6.5
 MarkupSafe==0.23

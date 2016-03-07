@@ -2,6 +2,7 @@ extra/
 logs/
 .idea/
 intopython/settings/local.py
+bin/profile
 
 
 ### Python template

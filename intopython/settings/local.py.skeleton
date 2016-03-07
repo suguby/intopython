@@ -22,8 +22,8 @@ FAB_SERVERS = {
         'host': '<hostname or ssh_alias>',
 #        'user':'<ssh_username>',
 #        'port':'<ssh_port>',
-        'project_root': '<project_root_path>',
-        'virtualenv_root': '<virtualenv_root_path>',
+        'project_root': '<host_project_root_path>',
+        'virtualenv_root': '<host_virtualenv_root_path>',
     }
 }
 
