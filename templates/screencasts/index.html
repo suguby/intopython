@@ -1,6 +1,6 @@
 {% extends 'screencasts/base.html' %}
 
-{% block contentainer %}
+{% block container %}
     <h1>Скринкасты о Джанго
     <span>Коротко о главном</span>
     </h1>
@@ -9,7 +9,7 @@
     {% for sc in screencasts -%}
             <div class="screencasts-item col-md-4">
                 {{ sc.video|safe }}
-{#                TODO сделать вызов некоего метода, который выдасть правильный iframe#}
+{#                TODO сделать вызов некоего метода, который выдаст правильный iframe#}
 {#                <iframe width="250" height="190" src="https://www.youtube.com/embed/KsLHt3D_jsE" frameborder="0" allowfullscreen></iframe>#}
                 <div class="title">{{ sc.title }}</div>
                 <div class="description">
@@ -28,17 +28,17 @@
 
 
     <!-- Pager -->
-{#    <ul class="pager">#}
-{#        {% if screencasts.has_previous() %}#}
-{#            <li class="previous">#}
-{#                <a href="?{{ query_string }}page={{ screencasts.previous_page_number() }}">← сюда</a>#}
-{#            </li>#}
-{#        {% endif %}#}
-{#        {% if screencasts.has_next() %}#}
-{#            <li class="next">#}
-{#                <a href="?{{ query_string }}page={{ screencasts.next_page_number() }}">туда →</a>#}
-{#            </li>#}
-{#        {% endif %}#}
-{#    </ul>#}
+    <ul class="pager">
+        {% if screencasts.has_previous() %}
+            <li class="previous">
+                <a href="?{{ filter_by_section }}page={{ screencasts.previous_page_number() }}">← сюда</a>
+            </li>
+        {% endif %}
+        {% if screencasts.has_next() %}
+            <li class="next">
+                <a href="?{{ filter_by_section }}page={{ screencasts.next_page_number() }}">туда →</a>
+            </li>
+        {% endif %}
+    </ul>
     </div>
 {% endblock %}

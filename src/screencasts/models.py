@@ -18,7 +18,7 @@ class ScreencastSection(AbstractModel):
     class Meta:
         db_table = 'screencast_sections'
 
-    _str_template = ' "{title}" / {modified_at}'
+    _str_template = ' "{title}" / {modified_at} / {status}'
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
