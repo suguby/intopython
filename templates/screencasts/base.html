@@ -16,3 +16,11 @@
         {% endblock content %}
     </div>
 {% endblock container %}
+
+{% block left_menu_footer -%}
+    <ul class="tags">
+        {% for tag in tags -%}
+            <li><a href="?tag={{ tag }}">{{ tag }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock left_menu_footer -%}

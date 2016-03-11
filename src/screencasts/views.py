@@ -15,8 +15,10 @@ class ScreencastsBaseView(BaseTemplateView):
         sections = ScreencastSection.objects.filter(
             status=ScreencastSection.STATUSES.publ
         ).order_by('position')
+        tags = Screencast.tags.all()
         context.update(
             sections=sections,
+            tags=tags,
             blt=__builtins__,
         )
         return context
@@ -56,6 +58,7 @@ class ScreencastDetailView(ScreencastsBaseView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         sc = get_object_or_404(Screencast, slug=kwargs['slug'])
+        # TODO прикрутить pygments
         sc.body = markdown(sc.body)
         context.update(sc=sc,)
         return context
