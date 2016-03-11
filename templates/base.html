@@ -4,13 +4,22 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<title>Главная</title>
-	<script src="{{ static('js/jquery_2_1_4.min.js') }}"></script>
-	<script src="{{ static('js/bootstrap.min.js') }}"></script>
-    <script src="{{ static('js/jquery_1_11_1.min.js') }}"></script>
+    {% if DEBUG -%}
+        <script src="{{ static('js/jquery_2_1_4.js') }}"></script>
+        <script src="{{ static('js/bootstrap_3_3_2.js') }}"></script>
+        <script src="{{ static('js/jquery_1_11_1.js') }}"></script>
+        <link rel="stylesheet" href="{{ static('css/bootstrap_3_3_2.css') }}">
+        <link rel="stylesheet" href="{{ static('css/bootstrap-theme_3_3_2.css') }}">
+	{% else -%}
+        <script src="{{ static('js/jquery_2_1_4.min.js') }}"></script>
+        <script src="{{ static('js/bootstrap_3_3_2.min.js') }}"></script>
+        <script src="{{ static('js/jquery_1_11_1.min.js') }}"></script>
+        <link rel="stylesheet" href="{{ static('css/bootstrap_3_3_2.min.css') }}">
+        <link rel="stylesheet" href="{{ static('css/bootstrap-theme_3_3_2.min.css') }}">
+    {% endif -%}
+    <!--<link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">-->
+
 	<script src="{{ static('js/script.js') }}"></script>
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-	<!--<link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">-->
 	<link rel="stylesheet" type="text/css" href="{{ static('css/main.css') }}">
 </head>
 
