@@ -9,31 +9,17 @@
 {% block subtitle %} - {{ sc.title }}{% endblock %}
 
 {% block content %}
-    <br /><br />
-    <!-- Blog Post -->
+    <div class="content-side lesson-absolute-block">
+        <div class="wrap_lesson-video">
+            {{ sc.video|safe }}
+            <time class="date-lesson"><i></i>{{ sc.modified_at }}</time>
+        </div>
 
-    <!-- Title -->
-    <h1>{{ sc.title }}</h1>
-
-    <!-- Author -->
-{#    <p class="lead">#}
-{#        by <a href="#">Start Bootstrap</a>#}
-{#    </p>#}
-
-    <hr>
-
-    <!-- Date/Time -->
-    <p><span class="glyphicon glyphicon-time"></span> {{ sc.modified_at }}</p>
-
-    <hr>
-
-    <!-- Preview Image -->
-    <p class="lead">{{ sc.video|safe }}</p>
-
-    <hr>
-
-    <!-- Post Content -->
-    <p class="lead">{{ sc.body|safe }}</p>
+        <div class="description-lesson">
+            <p>{{ sc.title }}</p>
+            <p>{{ sc.body|safe }}</p>
+        </div>
+    </div>
 
     <ul class="pager">
         <li class="previous">
@@ -41,14 +27,4 @@
         </li>
     </ul>
 
-
 {% endblock content %}
-
-{% block sidebar_footer %}
-    <!-- Side Widget Well -->
-    <div class="well">
-        <h4>Коротко</h4>
-        <p>{{ sc.summary }}</p>
-    </div>
-{% endblock sidebar_footer %}
-

@@ -1,6 +1,7 @@
 {% extends 'screencasts/base.html' %}
 
 {% block container %}
+    <div class="content-side">
     <h1>Скринкасты о Джанго
     <span>Коротко о главном</span>
     </h1>
@@ -26,7 +27,6 @@
     {% endfor -%}
         </div>
 
-
     <!-- Pager -->
     <ul class="pager">
         {% if screencasts.has_previous() %}
@@ -40,5 +40,6 @@
             </li>
         {% endif %}
     </ul>
+    </div>
     </div>
 {% endblock %}
