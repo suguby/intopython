@@ -27,6 +27,7 @@ class Article(AbstractModel):
     _str_template = ' "{title}" / {modified_at} / {status}'
 
     tags = TaggableManager()
+    # TODO сделать slugify для русских тэгов http://django-taggit.readthedocs.org/en/latest/custom_tagging.html#TagBase
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
