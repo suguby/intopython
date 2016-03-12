@@ -19,7 +19,8 @@ class ScreencastsBaseView(BaseTemplateView):
         ).order_by('position')
         screencasts = Screencast.objects.filter(
             status=Screencast.STATUSES.publ
-        ).order_by('-created_at').prefetch_related('tags')
+        ).order_by('-created_at').prefetch_related('tagged_items__tag')
+        # TODO уменьшить количество запросов
         slugs_counter = Counter((slug for sc in screencasts for slug in sc.tags.slugs()))
         count_range = slugs_counter.most_common(1)[0][1] / 4.0
         tags = []
