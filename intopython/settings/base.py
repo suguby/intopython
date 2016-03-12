@@ -72,7 +72,8 @@ TEMPLATES = [
         "APP_DIRS": True,
         "OPTIONS": {
             "match_extension": ".html",
-            "match_regex": r"^(?!admin/).*",
+            "match_regex": r"^(?!(admin|debug_toolbar)/).*",
+            # "match_regex": r"^(?!admin/).*",
             "app_dirname": "templates",
             # "autoescape": True,
             # "auto_reload": DEBUG,
