@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from collections import Counter
+
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
@@ -15,9 +17,19 @@ class ScreencastsBaseView(BaseTemplateView):
         sections = ScreencastSection.objects.filter(
             status=ScreencastSection.STATUSES.publ
         ).order_by('position')
-        tags = Screencast.tags.all()
+        screencasts = Screencast.objects.filter(
+            status=Screencast.STATUSES.publ
+        ).order_by('-created_at').prefetch_related('tags')
+        slugs_counter = Counter((slug for sc in screencasts for slug in sc.tags.slugs()))
+        count_range = slugs_counter.most_common(1)[0][1] / 4.0
+        tags = []
+        for tag in Screencast.tags.order_by('name'):
+            if tag.slug in slugs_counter:
+                tag.range = int(5 - slugs_counter[tag.slug] // count_range)
+                tags.append(tag)
         context.update(
             sections=sections,
+            screencasts=screencasts,
             tags=tags,
             blt=__builtins__,
         )
@@ -30,15 +42,13 @@ class ScreencastsListView(ScreencastsBaseView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        sc_queryset = Screencast.objects.filter(
-            status=Screencast.STATUSES.publ
-        ).order_by('-created_at')
+        screencasts = context['screencasts']
         section_filter = self.request.GET.get('section')
         filter_by_section = ''
         if section_filter:
-            sc_queryset = sc_queryset.filter(section__slug=section_filter)
+            screencasts = screencasts.filter(section__slug=section_filter)
             filter_by_section += 'section={}&'.format(section_filter)
-        paginator = Paginator(sc_queryset, self.PAGE_SIZE)
+        paginator = Paginator(screencasts, self.PAGE_SIZE)
         try:
             screencasts = paginator.page(number=self.request.GET.get('page'))
         except PageNotAnInteger:
