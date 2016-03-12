@@ -45,10 +45,14 @@ class ScreencastsListView(ScreencastsBaseView):
         context = super().get_context_data(**kwargs)
         screencasts = context['screencasts']
         section_filter = self.request.GET.get('section')
-        filter_by_section = ''
+        tag_filter = self.request.GET.get('tag')
+        screencasts_filter = ''
         if section_filter:
             screencasts = screencasts.filter(section__slug=section_filter)
-            filter_by_section += 'section={}&'.format(section_filter)
+            screencasts_filter += 'section={}&'.format(section_filter)
+        elif tag_filter:
+            screencasts = screencasts.filter(tags__slug=tag_filter)
+            screencasts_filter += 'tag={}&'.format(tag_filter)
         paginator = Paginator(screencasts, self.PAGE_SIZE)
         try:
             screencasts = paginator.page(number=self.request.GET.get('page'))
@@ -58,7 +62,7 @@ class ScreencastsListView(ScreencastsBaseView):
             screencasts = paginator.page(paginator.num_pages)
         context.update(
             screencasts=screencasts,
-            filter_by_section=filter_by_section,
+            screencasts_filter=screencasts_filter,
         )
         return context
 

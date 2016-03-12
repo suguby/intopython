@@ -31,12 +31,12 @@
     <ul class="pager">
         {% if screencasts.has_previous() %}
             <li class="previous">
-                <a href="?{{ filter_by_section }}page={{ screencasts.previous_page_number() }}">← сюда</a>
+                <a href="?{{ screencasts_filter }}page={{ screencasts.previous_page_number() }}">← сюда</a>
             </li>
         {% endif %}
         {% if screencasts.has_next() %}
             <li class="next">
-                <a href="?{{ filter_by_section }}page={{ screencasts.next_page_number() }}">туда →</a>
+                <a href="?{{ screencasts_filter }}page={{ screencasts.next_page_number() }}">туда →</a>
             </li>
         {% endif %}
     </ul>
