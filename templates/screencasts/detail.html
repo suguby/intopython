@@ -13,6 +13,11 @@
         <div class="wrap_lesson-video">
             {{ sc.video|safe }}
             <time class="date-lesson"><i></i>{{ sc.modified_at }}</time>
+            <ul class="tags">
+                {% for tag in sc.tags.all() -%}
+                    <li class="top_4"><a href="{{ url('screencasts') }}?tag={{ tag.slug }}">{{ tag.name }}</a></li>
+                {% endfor %}
+            </ul>
         </div>
 
         <div class="description-lesson">

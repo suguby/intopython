@@ -15,7 +15,12 @@
                 <div class="title">{{ sc.title }}</div>
                 <div class="description">
                     {{ sc.summary }}<br />
-                    <span class="glyphicon glyphicon-time"></span> Изменено {{ sc.modified_at }}
+                    <time class="date-lesson"><i></i>{{ sc.modified_at }}</time>
+                    <ul class="tags">
+                        {% for tag in sc.tags.all() -%}
+                            <li class="top_4"><a href="{{ url('screencasts') }}?tag={{ tag.slug }}">{{ tag.name }}</a></li>
+                        {% endfor %}
+                    </ul>
                 </div>
                 <a href="{{ url('screencast_detail', sc.slug) }}" class="btn btn-default">Посмотреть</a>
             </div>
