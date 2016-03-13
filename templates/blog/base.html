@@ -3,96 +3,56 @@
 
 {% block title %}Записки {% block subtitle %}{% endblock %}{% endblock %}
 
+{% block body_class %}p-about mCustomScrollbar{% endblock %}
+
 {% block container %}
-    <div class="row">
-
-        <!-- Blog Entries Column -->
-        <div class="col-md-8">
-            {% block content %}<br/>
-
-                <h1 class="page-header">
-                    Записки программиста
-                    <small>понемногу обо всем</small>
-                </h1>
-
-            {% endblock content %}
-
-        </div>
-
-        <!-- Blog Sidebar Widgets Column -->
-        <div class="col-md-4">
-            {% block sidebar %}
-
-                {% block search %}
-                    <!-- Blog Search Well -->
-                    <br/><br/><br/>
-                    <div class="well">
-                        <h4>Поиск</h4>
-                        <div class="input-group">
-                            <div class="ya-site-form ya-site-form_inited_no"
-                                 onclick="return {'action':'http://intopython.ru/screencasts/search/','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'intopython','suggest':true,'target':'_self','tld':'ru','type':3,'usebigdictionary':true,'searchid':2249598,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'','input_placeholderColor':'#000000','input_borderColor':'#cccccc'}">
-                                <form action="https://yandex.ru/search/site/" method="get" target="_self">
-                                    <input type="hidden" name="searchid" value="2249598"/>
-                                    <input type="hidden" name="l10n" value="ru"/>
-                                    <input type="hidden" name="reqenc" value=""/>
-                                    <input type="search" name="text" value=""/>
-                                    <input type="submit" value="Найти"/>
-                                </form>
-                            </div>
-                            <style type="text/css">.ya-page_js_yes .ya-site-form_inited_no {
-                                display: none;
-                            }</style>
-                            <script type="text/javascript">(function (w, d, c) {
-                                var s = d.createElement('script'), h = d.getElementsByTagName('script')[0], e = d.documentElement;
-                                if ((' ' + e.className + ' ').indexOf(' ya-page_js_yes ') === -1) {
-                                    e.className += ' ya-page_js_yes';
-                                }
-                                s.type = 'text/javascript';
-                                s.async = true;
-                                s.charset = 'utf-8';
-                                s.src = (d.location.protocol === 'https:' ? 'https:' : 'http:') + '//site.yandex.net/v2.0/js/all.js';
-                                h.parentNode.insertBefore(s, h);
-                                (w[c] || (w[c] = [])).push(function () {
-                                    Ya.Site.Form.init()
-                                })
-                            })(window, document, 'yandex_site_callbacks');</script>
-                        </div>
-                        <!-- /.input-group -->
-                    </div>
-                {% endblock search %}
-
-                {% block sections %}
-                    <!-- Blog Categories Well -->
-                    <div class="well">
-                        <h4>Разделы</h4>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <ul class="list-unstyled">
-{#                                    {% for section in sections[:sections_split] %}#}
-{#                                        <li>#}
-{#                                            <a href="{{ url('screencasts') }}?section={{ section.slug }}">{{ section.title }}</a>#}
-{#                                        </li>#}
-{#                                    {% endfor %}#}
-                                </ul>
-                            </div>
-                            <!-- /.col-lg-6 -->
-                            <div class="col-lg-6">
-                                <ul class="list-unstyled">
-{#                                    {% for section in sections[sections_split:] %}#}
-{#                                        <li>#}
-{#                                            <a href="{{ url('screencasts') }}?section={{ section.slug }}">{{ section.title }}</a>#}
-{#                                        </li>#}
-{#                                    {% endfor %}#}
-                                </ul>
-                            </div>
-                            <!-- /.col-lg-6 -->
-                        </div>
-                        <!-- /.row -->
-                    </div>
-                {% endblock sections %}
-                {% block sidebar_footer %}
-                {% endblock sidebar_footer %}
-            {% endblock sidebar %}
-        </div>
+    <div class="content-side">
+        <h1>
+            Записки программиста
+            <small>понемногу обо всем</small>
+        </h1>
     </div>
+
+{#        <!-- Blog Sidebar Widgets Column -->#}
+{#        <div class="col-md-4">#}
+{#            {% block sidebar %}#}
+{##}
+{#                {% block search %}#}
+{#                    <!-- Blog Search Well -->#}
+{#                    <br/><br/><br/>#}
+{#                    <div class="well">#}
+{#                        <h4>Поиск</h4>#}
+{#                        <div class="input-group">#}
+{#                            <div class="ya-site-form ya-site-form_inited_no"#}
+{#                                 onclick="return {'action':'http://intopython.ru/screencasts/search/','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'intopython','suggest':true,'target':'_self','tld':'ru','type':3,'usebigdictionary':true,'searchid':2249598,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'','input_placeholderColor':'#000000','input_borderColor':'#cccccc'}">#}
+{#                                <form action="https://yandex.ru/search/site/" method="get" target="_self">#}
+{#                                    <input type="hidden" name="searchid" value="2249598"/>#}
+{#                                    <input type="hidden" name="l10n" value="ru"/>#}
+{#                                    <input type="hidden" name="reqenc" value=""/>#}
+{#                                    <input type="search" name="text" value=""/>#}
+{#                                    <input type="submit" value="Найти"/>#}
+{#                                </form>#}
+{#                            </div>#}
+{#                            <style type="text/css">.ya-page_js_yes .ya-site-form_inited_no {#}
+{#                                display: none;#}
+{#                            }</style>#}
+{#                            <script type="text/javascript">(function (w, d, c) {#}
+{#                                var s = d.createElement('script'), h = d.getElementsByTagName('script')[0], e = d.documentElement;#}
+{#                                if ((' ' + e.className + ' ').indexOf(' ya-page_js_yes ') === -1) {#}
+{#                                    e.className += ' ya-page_js_yes';#}
+{#                                }#}
+{#                                s.type = 'text/javascript';#}
+{#                                s.async = true;#}
+{#                                s.charset = 'utf-8';#}
+{#                                s.src = (d.location.protocol === 'https:' ? 'https:' : 'http:') + '//site.yandex.net/v2.0/js/all.js';#}
+{#                                h.parentNode.insertBefore(s, h);#}
+{#                                (w[c] || (w[c] = [])).push(function () {#}
+{#                                    Ya.Site.Form.init()#}
+{#                                })#}
+{#                            })(window, document, 'yandex_site_callbacks');</script>#}
+{#                        </div>#}
+{#                        <!-- /.input-group -->#}
+{#                    </div>#}
+{#                {% endblock search %}#}
+
 {% endblock container %}

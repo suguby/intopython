@@ -8,48 +8,25 @@
 
 {% block subtitle %} - {{ title }}{% endblock %}
 
-{% block content %}
-    <br /><br />
-    <!-- Blog Post -->
+{% block container %}
+    <div class="content-side">
+        <h1>{{ article.title }}</h1>
+        <time class="date-lesson"><i></i> Изменено {{ article.modified_at }}</time>
+        <ul class="tags">
+            {% for tag in article.tags_as_list %}
+                <li class="top_4"><a href="{{ url('blog') }}?tag={{ tag.slug }}">{{ tag.name }}</a></li>
+            {% endfor %}
+        </ul>
 
-    <!-- Title -->
-    <h1>{{ article.title }}</h1>
+        <div class="description-lesson">
+            {{ article.body|safe }}
+        </div>
 
-    <!-- Author -->
-{#    <p class="lead">#}
-{#        by <a href="#">Start Bootstrap</a>#}
-{#    </p>#}
-
-    <hr>
-
-    <!-- Date/Time -->
-    <p><span class="glyphicon glyphicon-time"></span> Изменено: {{ article.modified_at }}</p>
-    <p><span class="glyphicon glyphicon-tags"></span> Метки:
-        {% for tag in article.tags_as_list %}
-            <a href="{{ url('blog') }}?tag={{ tag.slug }}">{{ tag.name }}</a>
-        {% endfor %}
-    </p>
-
-    <hr>
-
-
-    <!-- Post Content -->
-    <p class="lead">{{ article.body|safe }}</p>
-
-    <ul class="pager">
-        <li class="previous">
-            <a href="{{ url('blog') }}">← обратно</a>
-        </li>
-    </ul>
-
-
-{% endblock content %}
-
-{% block sidebar_footer %}
-    <!-- Side Widget Well -->
-    <div class="well">
-        <h4>Коротко</h4>
-        <p>{{ article.summary }}</p>
+        <ul class="pager">
+            <li class="previous">
+                <a href="{{ url('blog') }}">← обратно</a>
+            </li>
+        </ul>
     </div>
-{% endblock sidebar_footer %}
+{% endblock container %}
 
