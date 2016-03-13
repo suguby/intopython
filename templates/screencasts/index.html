@@ -7,22 +7,22 @@
     </h1>
     <div class="screencasts-list row">
         <div class="row">
-    {% for sc in screencasts -%}
+    {% for article in articles -%}
             <div class="screencasts-item col-md-4">
-                {{ sc.video|safe }}
+                {{ article.video|safe }}
 {#                TODO сделать вызов некоего метода, который выдаст правильный iframe#}
 {#                <iframe width="250" height="190" src="https://www.youtube.com/embed/KsLHt3D_jsE" frameborder="0" allowfullscreen></iframe>#}
-                <div class="title">{{ sc.title }}</div>
+                <div class="title">{{ article.title }}</div>
                 <div class="description">
-                    {{ sc.summary }}<br />
-                    <time class="date-lesson"><i></i>{{ sc.modified_at }}</time>
+                    {{ article.summary }}<br />
+                    <time class="date-lesson"><i></i>{{ article.modified_at }}</time>
                     <ul class="tags">
-                        {% for tag in sc.tags_as_list -%}
-                            <li class="top_4"><a href="{{ url('screencasts') }}?tag={{ tag.slug }}">{{ tag.name }}</a></li>
+                        {% for tag in article.tags_as_list -%}
+                            <li class="top_4"><a href="{{ url(list_url_name) }}?tag={{ tag.slug }}">{{ tag.name }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
-                <a href="{{ url('screencast_detail', sc.slug) }}" class="btn btn-default">Посмотреть</a>
+                <a href="{{ url('screencast_detail', article.slug) }}" class="btn btn-default">Посмотреть</a>
             </div>
         {% if loop.index %3 == 0 -%}
             </div>
@@ -32,16 +32,16 @@
     {% endfor -%}
         </div>
 
-    <!-- Pager -->
+    <!-- TODO вынести в базовый для articles -->
     <ul class="pager">
-        {% if screencasts.has_previous() %}
+        {% if articles.has_previous() %}
             <li class="previous">
-                <a href="?{{ screencasts_filter }}page={{ screencasts.previous_page_number() }}">← сюда</a>
+                <a href="{{ url(list_url_name) }}?{{ url_filter }}page={{ articles.previous_page_number() }}">← сюда</a>
             </li>
         {% endif %}
-        {% if screencasts.has_next() %}
+        {% if articles.has_next() %}
             <li class="next">
-                <a href="?{{ screencasts_filter }}page={{ screencasts.next_page_number() }}">туда →</a>
+                <a href="{{ url(list_url_name) }}?{{ url_filter }}page={{ articles.next_page_number() }}">туда →</a>
             </li>
         {% endif %}
     </ul>
