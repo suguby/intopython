@@ -38,3 +38,7 @@ class Screencast(Article):
         self.type = Article.TYPES.screencast
         super(Screencast, self).save(force_insert=force_insert, force_update=force_update,
                                      using=using, update_fields=update_fields)
+
+    def iframe(self):
+        iframe = self.video.replace('<iframe', '<iframe class="lesson-video" ')
+        return iframe

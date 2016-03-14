@@ -11,7 +11,7 @@
 {% block container %}
     <div class="content-side lesson-absolute-block">
         <div class="wrap_lesson-video">
-            {{ sc.video|safe }}
+            {{ sc.iframe()|safe }}
             <time class="date-lesson"><i></i>{{ sc.modified_at }}</time>
             <ul class="tags">
                 {% for tag in sc.tags.all() -%}
