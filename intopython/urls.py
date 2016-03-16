@@ -34,5 +34,7 @@ urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
 
     url(r'^nimda/', include(admin.site.urls)),
+
+    url('^', include('django.contrib.auth.urls')),
 ]
 # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
