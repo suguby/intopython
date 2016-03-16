@@ -110,6 +110,54 @@
 	</div>
 </div>
 
+<!-- модальное окно входа -->
+<div class="modal login-modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Вход</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="/login/" method="post">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+					<fieldset>
+						<div class="form-group">
+							<label for="inputEmail" class="control-label col-xs-2">Email</label>
+							<div class="col-xs-10">
+								<input type="email" class="form-control" name="username" placeholder="Email">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword" class="control-label col-xs-2">Пароль</label>
+							<div class="col-xs-10">
+								<input type="password" class="form-control" name="password" placeholder="Пароль">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-offset-2 col-xs-10">
+								<div class="checkbox">
+									<label><input type="checkbox" name="remember"> Запомнить</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-offset-2 col-xs-10">
+								<button type="submit" class="btn btn-primary">Войти</button>
+{#								<div class="social-links">#}
+{#									<a href="" class="vk"></a>#}
+{#									<a href="" class="fb"></a>#}
+{#									<a href="" class="tw"></a>#}
+{#								</div>#}
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
 <!-- модальное окно регистрации -->
 <div class="modal registration-modal fade" id="modal-registration" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -120,6 +168,7 @@
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 					<fieldset>
 						<div class="form-group">
 							<label for="inputEmail" class="control-label col-xs-2">Email</label>
@@ -131,53 +180,6 @@
 							<label for="inputPassword" class="control-label col-xs-2">Пароль</label>
 							<div class="col-xs-10">
 								<input type="password" class="form-control" id="inputPassword" placeholder="Пароль">
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-xs-offset-2 col-xs-10">
-								<div class="checkbox">
-									<label><input type="checkbox"> Запомнить</label>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-xs-offset-2 col-xs-10">
-								<button type="submit" class="btn btn-primary">Войти</button>
-								<div class="social-links">
-									<a href="" class="vk"></a>
-									<a href="" class="fb"></a>
-									<a href="" class="tw"></a>
-								</div>
-							</div>
-						</div>
-					</fieldset>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- модальное окно входа -->
-<div class="modal login-modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Вход</h4>
-			</div>
-			<div class="modal-body">
-				<form class="form-horizontal">
-					<fieldset>
-						<div class="form-group">
-							<label for="inputEmail" class="control-label col-xs-2">Email</label>
-							<div class="col-xs-10">
-								<input type="email" class="form-control" id="" placeholder="Email">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="inputPassword" class="control-label col-xs-2">Пароль</label>
-							<div class="col-xs-10">
-								<input type="password" class="form-control" id="" placeholder="Пароль">
 							</div>
 						</div>
 						<div class="form-group">
