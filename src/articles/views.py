@@ -46,6 +46,5 @@ class ArticlesBaseView(BaseTemplateView):
             tags=tags,
             url_filter=self.articles_url_filter,
             list_url_name=self.list_url_name,
-            blt=__builtins__,
         )
         return context

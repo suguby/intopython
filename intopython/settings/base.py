@@ -77,6 +77,7 @@ TEMPLATES = [
             "app_dirname": "templates",
             # "autoescape": True,
             # "auto_reload": DEBUG,
+            'context_processors': ('src.context_processors.common_variables_to_context', )
         }
     },
     {
