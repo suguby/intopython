@@ -39,13 +39,24 @@
 		<div class="main-menu-hidden">
 			<img src="{{ static('img/logo-mobile.png') }}" alt="" class="logo logo-mobile">
 			<ul class="top-menu">
-              {% for url_name, caption in navigation_bar -%}
-                <li{% if url_name == active_page %} class="active"{% endif %}>
-                    <a href="{{ url(url_name) }}">{{ caption }}</a>
-                </li>
-              {% endfor -%}
-				<li><a href="" data-toggle="modal" class="user-nav login" data-target="#modal-login">Вход</a></li>
-				<li><a href="" data-toggle="modal" class="user-nav" data-target="#modal-registration">Регистрация</a>
+                {% for url_name, caption in navigation_bar -%}
+                    <li{% if url_name == active_page %} class="active"{% endif %}>
+                        <a href="{{ url(url_name) }}">{{ caption }}</a>
+                    </li>
+                {% endfor -%}
+                {% if user.is_authenticated %}
+{#                    TODO высушить мобильное меню и основное меню - приходится повторять, неудобно#}
+                    <div class="wrap-user-nav">
+                        <a href="/profile" class="user-profile">
+                            <span class="glyphicon glyphicon-user"></span>
+                            {{ user.username }}
+                        </a>
+                        <a href="/logout" class="exit">Выход</a>
+                    </div>
+                {% else %}
+                    <li><a href="" data-toggle="modal" class="user-nav login" data-target="#modal-login">Вход</a></li>
+                    <li><a href="" data-toggle="modal" class="user-nav" data-target="#modal-registration">Регистрация</a>
+                {% endif %}
 			</ul>
 		</div> <!-- mobile menu -->
 
@@ -94,8 +105,18 @@
 {#					<a href="">Пункт</a>#}
                 {% endblock submenu %}
 					<div class="wrap-user-nav">
-						<a href="" data-toggle="modal" data-target="#modal-login">Вход</a>
-						<a href="" data-toggle="modal" data-target="#modal-registration">Регистрация</a>
+                    {% if user.is_authenticated %}
+                        <div class="wrap-user-nav">
+                            <a href="/profile" class="user-profile">
+                                <span class="glyphicon glyphicon-user"></span>
+                                {{ user.username }}
+                            </a>
+                            <a href="/logout?next=/" class="exit">Выход</a>
+                        </div>
+                    {% else %}
+                            <a href="" data-toggle="modal" data-target="#modal-login">Вход</a>
+                            <a href="" data-toggle="modal" data-target="#modal-registration">Регистрация</a>
+                    {% endif %}
 					</div>
 				</menu>
 			</nav>
@@ -121,11 +142,12 @@
 			<div class="modal-body">
 				<form class="form-horizontal" action="/login/" method="post">
                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <input type="hidden" name="next" value="/courses" />
 					<fieldset>
 						<div class="form-group">
 							<label for="inputEmail" class="control-label col-xs-2">Email</label>
 							<div class="col-xs-10">
-								<input type="email" class="form-control" name="username" placeholder="Email">
+								<input type="text" class="form-control" name="username" placeholder="Логин">
 							</div>
 						</div>
 						<div class="form-group">
