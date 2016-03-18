@@ -47,11 +47,11 @@
                 {% if request.user.is_authenticated() %}
 {#                    TODO высушить мобильное меню и основное меню - приходится повторять, неудобно#}
                     <div class="wrap-user-nav">
-                        <a href="/profile/" class="user-profile">
+                        <a href="{{ url('profile') }}" class="user-profile">
                             <span class="glyphicon glyphicon-user"></span>
                             {{ request.user.username }}
                         </a>
-                        <a href="/logout/" class="exit">Выход</a>
+                        <a href="{{ url('logout') }}" class="exit">Выход</a>
                     </div>
                 {% else %}
                     <li><a href="" data-toggle="modal" class="user-nav login" data-target="#modal-login">Вход</a></li>
@@ -107,7 +107,7 @@
 					<div class="wrap-user-nav">
                     {% if request.user.is_authenticated() %}
                         <div class="wrap-user-nav">
-                            <a href="/profile/" class="user-profile">
+                            <a href="{{ url('profile') }}" class="user-profile">
                                 <span class="glyphicon glyphicon-user"></span>
                                 {{ request.user.username }}
                             </a>
@@ -142,7 +142,7 @@
 			<div class="modal-body">
 				<form class="form-horizontal" action="{{ url('login') }}" method="post">
                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                    {% if request.path == url('logout') %}
+                    {% if request.path.startswith('/registration') %}
                         <input type="hidden" name="next" value="/" />
                     {% else %}
                         <input type="hidden" name="next" value="{{ request.path }}" />

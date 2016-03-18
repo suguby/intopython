@@ -21,7 +21,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 from intopython.views import IndexView
-from src.common.views import RegistrationView, RegistrationSuccessView
+from src.registration.views import RegistrationView, RegistrationSuccessView, ProfileView
 
 urlpatterns = [
 
@@ -34,10 +34,8 @@ urlpatterns = [
     url(r'^landing/', include('src.landing.urls')),
     url(r'^$', IndexView.as_view(), name='index'),
 
-    url(r'^registration/$', RegistrationView.as_view(), name='registration'),
-    url(r'^registration/success/$', RegistrationSuccessView.as_view(), name='registration_success'),
     url(r'^nimda/', include(admin.site.urls)),
 
-    url('^', include('django.contrib.auth.urls')),
+    url(r'^registration/', include('src.registration.urls')),
 ]
 # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

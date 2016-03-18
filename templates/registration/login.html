@@ -1,14 +1,15 @@
-{% extends 'base.html' %}
-{% block title %}Вход в систему{% endblock %}
+{% extends 'registration/base.html' %}
+{% block subtitle %}Вход в систему{% endblock %}
 
 
 {% block container %}
     <div class="content-side">
         <h1>Вход в систему</h1>
     {% if form.errors %}
-        <p>Логин пользователя и пароль не соотвествуют друг другу. Попробуйте еще раз.</p>
+        <p class="text-warning">Логин пользователя и пароль не соотвествуют друг другу. Попробуйте еще раз.</p>
+        <br>
     {% endif %}
-    <form class="form-horizontal" action="/login/" method="post">
+    <form class="form-horizontal" action="{{ url('login') }}" method="post">
         <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
         <input type="hidden" name="next" value="{{ next }}" />
         <fieldset>
@@ -26,8 +27,9 @@
                     {{ form.password }}
                 </div>
             </div>
+            <br><br>
             <div class="form-group">
-                <div class="col-xs-offset-2 col-xs-5">
+                <div class="col-xs-5">
                     <button type="submit" class="btn btn-primary">Войти</button>
 {#								<div class="social-links">#}
 {#									<a href="" class="vk"></a>#}
