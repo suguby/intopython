@@ -49,7 +49,7 @@
                     <div class="wrap-user-nav">
                         <a href="/profile/" class="user-profile">
                             <span class="glyphicon glyphicon-user"></span>
-                            {{ user.username }}
+                            {{ request.user.username }}
                         </a>
                         <a href="/logout/" class="exit">Выход</a>
                     </div>
@@ -109,9 +109,9 @@
                         <div class="wrap-user-nav">
                             <a href="/profile/" class="user-profile">
                                 <span class="glyphicon glyphicon-user"></span>
-                                {{ user.username }}
+                                {{ request.user.username }}
                             </a>
-                            <a href="/logout/" class="exit">Выход</a>
+                            <a href="{{ url('logout') }}" class="exit">Выход</a>
                         </div>
                     {% else %}
                             <a href="" data-toggle="modal" data-target="#modal-login">Вход</a>
@@ -140,29 +140,29 @@
 				<h4 class="modal-title">Вход</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal" action="/login/" method="post">
+				<form class="form-horizontal" action="{{ url('login') }}" method="post">
                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                     <input type="hidden" name="next" value="{{ request.path }}" />
 					<fieldset>
 						<div class="form-group">
-							<label for="inputEmail" class="control-label col-xs-2">Email</label>
+							<label for="username" class="control-label col-xs-2">Имя пользователя</label>
 							<div class="col-xs-10">
-								<input type="text" class="form-control" name="username" placeholder="Логин">
+								<input type="text" class="form-control" id="username" name="username" placeholder="Имя пользователя">
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="inputPassword" class="control-label col-xs-2">Пароль</label>
+							<label for="password" class="control-label col-xs-2">Пароль</label>
 							<div class="col-xs-10">
-								<input type="password" class="form-control" name="password" placeholder="Пароль">
+								<input type="password" class="form-control" id="password" name="password" placeholder="Пароль">
 							</div>
 						</div>
-						<div class="form-group">
-							<div class="col-xs-offset-2 col-xs-10">
-								<div class="checkbox">
-									<label><input type="checkbox" name="remember"> Запомнить</label>
-								</div>
-							</div>
-						</div>
+{#						<div class="form-group">#}
+{#							<div class="col-xs-offset-2 col-xs-10">#}
+{#								<div class="checkbox">#}
+{#									<label><input type="checkbox" name="remember"> Запомнить</label>#}
+{#								</div>#}
+{#							</div>#}
+{#						</div>#}
 						<div class="form-group">
 							<div class="col-xs-offset-2 col-xs-10">
 								<button type="submit" class="btn btn-primary">Войти</button>
@@ -189,36 +189,48 @@
 				<h4 class="modal-title" id="myModalLabel">Регистрация</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal">
+				<form class="form-horizontal" action="{{ url('registration') }}" method="post">
                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 					<fieldset>
 						<div class="form-group">
-							<label for="inputEmail" class="control-label col-xs-2">Email</label>
+							<label for="username" class="control-label col-xs-2">Логин</label>
 							<div class="col-xs-10">
-								<input type="email" class="form-control" id="inputEmail" placeholder="Email">
+								<input type="text" class="form-control" id="username" name="username" placeholder="[a-zA-Z0-9_]*">
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="inputPassword" class="control-label col-xs-2">Пароль</label>
+							<label for="email" class="control-label col-xs-2">Email</label>
 							<div class="col-xs-10">
-								<input type="password" class="form-control" id="inputPassword" placeholder="Пароль">
+								<input type="email" class="form-control" id="email" name="email" placeholder="email">
 							</div>
 						</div>
 						<div class="form-group">
-							<div class="col-xs-offset-2 col-xs-10">
-								<div class="checkbox">
-									<label><input type="checkbox"> Запомнить</label>
-								</div>
+							<label for="password" class="control-label col-xs-2">Пароль</label>
+							<div class="col-xs-10">
+								<input type="password" class="form-control" id="password" name="password" placeholder=".{6:32}">
 							</div>
 						</div>
+                        <div class="form-group">
+                            <label for="password2" class="control-label col-xs-2">Повторите пароль</label>
+                            <div class="col-xs-10">
+                                <input type="password" class="form-control" id="password2" name="password2" placeholder="Повторите пароль">
+                            </div>
+                        </div>
+{#						<div class="form-group">#}
+{#							<div class="col-xs-offset-2 col-xs-10">#}
+{#								<div class="checkbox">#}
+{#									<label><input type="checkbox"> Запомнить</label>#}
+{#								</div>#}
+{#							</div>#}
+{#						</div>#}
 						<div class="form-group">
 							<div class="col-xs-offset-2 col-xs-10">
 								<button type="submit" class="btn btn-primary">Войти</button>
-								<div class="social-links">
-									<a href="" class="vk"></a>
-									<a href="" class="fb"></a>
-									<a href="" class="tw"></a>
-								</div>
+{#								<div class="social-links">#}
+{#									<a href="" class="vk"></a>#}
+{#									<a href="" class="fb"></a>#}
+{#									<a href="" class="tw"></a>#}
+{#								</div>#}
 							</div>
 						</div>
 					</fieldset>

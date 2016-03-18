@@ -14,3 +14,18 @@ class AbstractModel(models.Model):
         if self._str_template is None:
             return '{} / {}'.format(class_name, self.id)
         return '{}: {}'.format(class_name, self._str_template.format(**self.__dict__))
+
+
+# http://deliro.ru/posts/kak-rasshirit-model-user
+# from django.contrib.auth.models import AbstractUser
+# ROLES = (
+#     (0, 'Foo'),
+#     (1, 'Bar'),
+# )
+#
+#
+# class User(AbstractUser):
+#     role = models.IntegerField(choices=ROLES)
+#
+#     class Meta(AbstractUser.Meta):
+#         swappable = 'AUTH_USER_MODEL'
