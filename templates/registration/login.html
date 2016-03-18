@@ -6,7 +6,7 @@
     <div class="content-side">
         <h1>Вход в систему</h1>
     {% if form.errors %}
-        <p>Емайл пользователя и пароль не соотвествуют друг другу. Попробуйте еще раз.</p>
+        <p>Логин пользователя и пароль не соотвествуют друг другу. Попробуйте еще раз.</p>
     {% endif %}
     <form class="form-horizontal" action="/login/" method="post">
         <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
