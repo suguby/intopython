@@ -77,7 +77,13 @@ TEMPLATES = [
             "app_dirname": "templates",
             # "autoescape": True,
             # "auto_reload": DEBUG,
-            'context_processors': ('src.context_processors.common_variables_to_context', )
+            "filters": {
+                "css_class": "src.common.css_filters.css_class",
+            },
+            'context_processors': (
+                'src.common.context_processors.common_variables_to_context',
+            )
+
         }
     },
     {
