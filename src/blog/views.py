@@ -10,6 +10,7 @@ from .models import Blog
 class BlogBaseView(ArticlesBaseView):
     model = Blog
     list_url_name = 'blog'
+    PAGE_SIZE = 27
 
 
 class BlogView(BlogBaseView):

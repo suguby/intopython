@@ -16,7 +16,7 @@ class ScreencastsBaseView(ArticlesBaseView):
 
 class ScreencastsListView(ScreencastsBaseView):
     template_name = 'screencasts/index.html'
-    PAGE_SIZE = 2
+    PAGE_SIZE = 27
 
     def get_context_data(self, **kwargs):
         section_filter = self.request.GET.get('section')
