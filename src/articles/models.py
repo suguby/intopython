@@ -1,6 +1,14 @@
+from functools import reduce
+
+from bs4 import BeautifulSoup
 from django.db import models
 from django.db.models import Manager
+from markdown import markdown
+from markdown.extensions.codehilite import CodeHilite
 from model_utils import Choices
+from pygments import highlight
+from pygments.formatters.html import HtmlFormatter
+from pygments.lexers import get_lexer_by_name, LEXERS
 from taggit.managers import TaggableManager
 
 from src.common.models import AbstractModel
@@ -38,6 +46,10 @@ class Article(AbstractModel):
     @property
     def tags_as_list(self):
         return self.tags.all()
+
+    def pygmented_markdown(self):
+        res = markdown(self.body, extensions=["markdown.extensions.codehilite"])
+        return res
 
 
 class ArticleByTypeManager(Manager):

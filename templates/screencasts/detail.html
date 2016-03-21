@@ -22,7 +22,7 @@
 
         <div class="description-lesson">
             <p>{{ sc.title }}</p>
-            <p>{{ sc.body|safe }}</p>
+            <p>{{ sc.pygmented_markdown() | safe }}</p>
         </div>
     </div>
 
