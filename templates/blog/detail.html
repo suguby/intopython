@@ -19,7 +19,7 @@
         </ul>
 
         <div class="description-lesson">
-            {{ article.body|safe }}
+            {{ article.pygmented_markdown() | safe }}
         </div>
 
         <ul class="pager">

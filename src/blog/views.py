@@ -23,6 +23,5 @@ class BlogDetailView(BlogBaseView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         article = get_object_or_404(Blog, slug=kwargs['slug'])
-        article.body = markdown(article.body)
         context.update(article=article,)
         return context

@@ -4,12 +4,12 @@ import sys
 import django
 from django.conf import settings as django_settings
 from fabric.context_managers import cd
-from fabric.operations import os, run
+from fabric.operations import os, run, local
 from fabric.state import env
 from fabric.utils import abort
 from fabric.main import list_commands as _list_commands
 
-from src.fab.utils import _set_env
+from src.fab.utils import _set_env, _message_ok
 from src.fab.mysql import db_dump, db_load, db_get_from_remote, db_truncate, db_reinit
 
 
@@ -55,6 +55,16 @@ def completion():
     print(' '.join(_list_commands('', 'short')), end='')
     sys.exit(0)
 
+
+def pygments_css(schema='colorful'):
+    if schema=='list':
+        from pygments.styles import get_all_styles
+        _message_ok('Avalible styles: {}'.format(', '.join(list(get_all_styles()))))
+    else:
+        local("pygmentize -f html -S {schema} -a .codehilite > {static_root}/css/pygments.css".format(
+            static_root=django_settings.STATIC_ROOT,
+            schema=schema,
+        ))
 
 django.setup()
 
