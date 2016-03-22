@@ -1,11 +1,12 @@
 from django.db import models
 from django.db.models import Manager
+from django.utils.text import slugify
 from markdown import markdown
 from model_utils import Choices
 from taggit.managers import TaggableManager
+from unidecode import unidecode
 
 from src.common.models import AbstractModel
-from src.common.utils import get_translit
 
 
 class Article(AbstractModel):
@@ -28,13 +29,10 @@ class Article(AbstractModel):
     _str_template = ' "{title}" / {modified_at} / {status}'
 
     tags = TaggableManager()
-    # TODO сделать slugify для русских тэгов http://django-taggit.readthedocs.org/en/latest/custom_tagging.html#TagBase
 
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        self.slug = get_translit(self.title)
-        super(Article, self).save(force_insert=force_insert, force_update=force_update,
-                                  using=using, update_fields=update_fields)
+    def save(self, **kwargs):
+        self.slug = slugify(unidecode(self.title))
+        super().save(**kwargs)
 
     @property
     def tags_as_list(self):

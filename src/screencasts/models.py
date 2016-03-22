@@ -1,8 +1,9 @@
 from django.db import models
+from django.utils.text import slugify
+from unidecode import unidecode
 
 from src.articles.models import Article
 from src.common.models import AbstractModel
-from src.common.utils import get_translit
 
 
 class ScreencastSection(AbstractModel):
@@ -20,11 +21,9 @@ class ScreencastSection(AbstractModel):
 
     _str_template = ' "{title}" / {modified_at} / {status}'
 
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        self.slug = get_translit(self.title)
-        super(ScreencastSection, self).save(force_insert=force_insert, force_update=force_update,
-                                            using=using, update_fields=update_fields)
+    def save(self, **kwargs):
+        self.slug = slugify(unidecode(self.title))
+        super().save(**kwargs)
 
 
 class Screencast(Article):
@@ -34,10 +33,9 @@ class Screencast(Article):
     class Meta:
         db_table = 'screencasts'
 
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+    def save(self, **kwargs):
         self.type = Article.TYPES.screencast
-        super(Screencast, self).save(force_insert=force_insert, force_update=force_update,
-                                     using=using, update_fields=update_fields)
+        super().save(**kwargs)
 
     def iframe(self):
         iframe = self.video.replace('<iframe', '<iframe class="lesson-video" ')

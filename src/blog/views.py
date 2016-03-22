@@ -1,7 +1,4 @@
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import get_object_or_404
-from django.views.generic import TemplateView
-from markdown import markdown
 
 from src.articles.views import ArticlesBaseView
 from .models import Blog

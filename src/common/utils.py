@@ -1,13 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-from trans import trans
-
-
-def get_translit(ustring):
-    return trans(ustring.replace(' ', '-'))
-
-
 def dt(src):
     u"""
         Преобразовать строку-дату в дату
