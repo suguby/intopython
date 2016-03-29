@@ -11,8 +11,8 @@
 {#        {{ form.errors }}#}
         <fieldset>
             <div class="form-group">
-                <label for="username" class="control-label col-xs-2">Имя пользователя</label>
-                <div class="col-xs-2">
+                <label for="username" class="control-label col-xs-3">Имя пользователя</label>
+                <div class="col-xs-3">
                     {{ form.username | replace_css_class('form-control') | safe }}
                 </div>
                 {% if form.username.errors %}
@@ -20,8 +20,8 @@
                 {% endif %}
             </div>
             <div class="form-group">
-                <label for="email" class="control-label col-xs-2">Email</label>
-                <div class="col-xs-2">
+                <label for="email" class="control-label col-xs-3">Email</label>
+                <div class="col-xs-3">
                     {{ form.email | replace_css_class('form-control') | safe }}
                 </div>
                 {% if form.email.errors %}
@@ -29,14 +29,14 @@
                 {% endif %}
             </div>
             <div class="form-group">
-                <label for="password" class="control-label col-xs-2">Пароль</label>
-                <div class="col-xs-2">
+                <label for="password" class="control-label col-xs-3">Пароль</label>
+                <div class="col-xs-3">
                     {{ form.password1 | replace_css_class('form-control') | safe }}
                 </div>
             </div>
             <div class="form-group">
-                <label for="password2" class="control-label col-xs-2">Повторите пароль</label>
-                <div class="col-xs-2">
+                <label for="password2" class="control-label col-xs-3">Повторите пароль</label>
+                <div class="col-xs-3">
                     {{ form.password2 | replace_css_class('form-control') | safe }}
                 </div>
                 {% if form.password2.errors %}
@@ -45,8 +45,8 @@
             </div>
             <br><br><br>
             <div class="form-group">
-                <div class="col-xs-offset-1 col-xs-4">
-                    <button type="submit" class="btn btn-primary">Зарегестрироваться</button>
+                <div class="col-xs-offset-3 col-xs-4">
+                    <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
 {#								<div class="social-links">#}
 {#									<a href="" class="vk"></a>#}
 {#									<a href="" class="fb"></a>#}

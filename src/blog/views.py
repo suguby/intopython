@@ -7,7 +7,7 @@ from .models import Blog
 class BlogBaseView(ArticlesBaseView):
     model = Blog
     list_url_name = 'blog'
-    PAGE_SIZE = 27
+    PAGE_SIZE = 3
 
 
 class BlogView(BlogBaseView):
