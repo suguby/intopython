@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
@@ -24,13 +24,14 @@ class RegistrationView(TemplateView):
                 email=form.cleaned_data['email'],
                 password=form.cleaned_data['password1'],
             )
-            return HttpResponseRedirect(redirect_to=reverse('registration_success'))
+            user = authenticate(
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password1'],
+            )
+            login(request, user)
+            return HttpResponseRedirect(redirect_to=form.cleaned_data['next'])
         context = dict(form=form)
         return self.render_to_response(context=context)
-
-
-class RegistrationSuccessView(TemplateView):
-    template_name = 'registration/success.html'
 
 
 class ProfileView(TemplateView):
