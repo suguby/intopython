@@ -1,20 +1,11 @@
-from django.contrib.auth.forms import UserCreationForm
+# -*- coding: utf-8 -*-
+
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.forms import EmailField
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
-
-# Create your views here.
 from django.views.generic import TemplateView
 
-
-class MyUserCreationForm(UserCreationForm):
-    email = EmailField(max_length=254, required=True)
-
-    class Meta:
-        model = User
-        fields = ("username", )
+from src.registration.forms import MyUserCreationForm
 
 
 class RegistrationView(TemplateView):
@@ -44,3 +35,8 @@ class RegistrationSuccessView(TemplateView):
 
 class ProfileView(TemplateView):
     template_name = 'registration/profile.html'
+
+    def get_context_data(self, **kwargs):
+        form = MyUserCreationForm()
+        context = dict(form=form)
+        return context
