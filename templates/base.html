@@ -112,7 +112,7 @@
                                 <span class="glyphicon glyphicon-user"></span>
                                 {{ request.user.username }}
                             </a>
-                            <a href="{{ url('logout') }}" class="exit">Выход</a>
+                            <a href="{{ url('logout') }}?next={{ request.path }}" class="exit">Выход</a>
                         </div>
                     {% else %}
                             <a href="" data-toggle="modal" data-target="#modal-login">Вход</a>

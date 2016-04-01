@@ -16,14 +16,12 @@
             <div class="form-group">
                 <label for="inputEmail" class="control-label col-xs-2">Email</label>
                 <div class="col-xs-2">
-{#                    <input type="email" class="form-control" name="email" placeholder="Email">#}
                     {{ form.username | replace_css_class('form-control') | safe }}
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputPassword" class="control-label col-xs-2">Пароль</label>
                 <div class="col-xs-2">
-{#                    <input type="password" class="form-control" name="passwd" placeholder="Пароль">#}
                     {{ form.password | replace_css_class('form-control') | safe }}
                 </div>
             </div>

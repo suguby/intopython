@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 
@@ -32,6 +31,14 @@ class RegistrationView(TemplateView):
             return HttpResponseRedirect(redirect_to=form.cleaned_data['next'])
         context = dict(form=form)
         return self.render_to_response(context=context)
+
+
+class LogoutView(TemplateView):
+
+    def get(self, request, *args, **kwargs):
+        logout(request=request)
+        next = request.GET.get('next', '/')
+        return HttpResponseRedirect(next)
 
 
 class ProfileView(TemplateView):
