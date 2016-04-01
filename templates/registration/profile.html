@@ -6,4 +6,8 @@
     <div class="content-side">
         <h1>Профайл пользователя {{ request.user }}</h1>
     </div>
+    <div class="col-xs-offset-1 col-xs-4">
+        <a href="{{ url('password_change') }}" class="btn btn-primary">Сменить пароль</a>
+    </div>
+
 {% endblock container %}
