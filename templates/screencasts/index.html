@@ -14,9 +14,10 @@
 {#                <iframe width="250" height="190" src="https://www.youtube.com/embed/KsLHt3D_jsE" frameborder="0" allowfullscreen></iframe>#}
                 <div class="title">{{ article.title }}</div>
                 <div class="description">
-                    {{ article.summary }}<br />
-                    <time class="date-lesson"><i></i>{{ article.modified_at }}</time>
+                    <p>{{ article.summary }} </p><br />
+                    <time class="date-lesson"><i class="fa fa-clock-o"></i>{{ article.modified_at }}</time>
                     <ul class="tags">
+                        <i class="fa fa-tags fa-lg"></i>
                         {% for tag in article.tags_as_list -%}
                             <li class="top_4"><a href="{{ url(list_url_name) }}?tag={{ tag.slug }}">{{ tag.name }}</a></li>
                         {% endfor %}

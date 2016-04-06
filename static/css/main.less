@@ -1,10 +1,11 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500&subset=latin,cyrillic);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600);
 @import "reset.css";
 @import "mixin";
 @import "common";
 @import "global";
 @import "custombox.min.css";
-@import "jquery.jscrollpane.css";
+@import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
 
 /* font-family: "RalewayRegular"; */
 @font-face {
@@ -183,10 +184,14 @@ body {
     position: fixed;
     width: 16.66666667%;
     left: 0;
+
+    .tags {
+        padding: 0 20px;
+    }
 }
 
 .tags {
-    padding: 0 10px;
+    padding: 0 0px;
 }
 
 .b-main {
@@ -212,16 +217,47 @@ body {
 }
 
 .main-menu {
-    background: rgba(255, 255, 255, .7);
+    background: rgba(0, 0, 0, .8);
     height: 100%;
     border-right: 1px solid #ff0723;
     display: table-cell;
     float: none;
+    .transition(all, 0.7s, ease-out);
 
     .logo {
         margin: 90px auto 72px;
         display: block;
         width: 180px;
+        height: 59px;
+        background-image: url("../img/logo-white.png");
+        background-size: cover;
+    }
+
+    &:hover {
+        background: rgba(255, 255, 255, .7);
+
+        .menu {
+            li {
+                a {
+                    color: #272323;
+                }
+            }
+
+            .active, :hover {
+                a {
+                    color: #ff0723;
+                }
+            }
+        }
+
+        .logo {
+            background-image: url("../img/logo-black.png");
+        }
+    }
+
+    .input-search {
+        background-color: rgba(255, 255, 255, 0);
+        border: 1px solid #4B4B4C;
     }
 
     .menu {
@@ -231,8 +267,8 @@ body {
             margin: 0 0 35px 0;
 
             a {
-                color: #454545;
-                font: 300 14px 'Roboto';
+                color: #fff;
+                font: 400 14px 'Roboto';
                 .transition();
             }
         }
@@ -327,11 +363,11 @@ body {
 
 .lessons-list {
     .lessons-item {
-        margin: 0 0 15px 0;
+        margin: 0 0 60px 0;
     }
 
     .title {
-        font: 400 16px/23px 'Roboto';
+        font: 400 22px/34px 'Roboto';
         color: #40c3db;
         display: block;
     }
@@ -349,15 +385,33 @@ body {
         .rounded(5px);
         margin: 0 15px 30px;
         padding: 5px 6px 75px;
+        height: 640px;
+        overflow: hidden;
+
+        .tags {
+            padding-left: 0;
+        }
+
+        .date-lesson {
+            margin: 0 0 10px;
+        }
 
         iframe {
             width: 100%;
+        }
+
+        p {
+            font: 400 16px/18px 'Roboto';
+            text-indent: 0;
+            max-height: 72px;
+            overflow: hidden;
         }
 
         .title {
             font: 400 24px 'Roboto';
             color: #CDCDD6;
             margin: 15px 0 8px 0;
+            max-height: 88px;
         }
 
         .description {
@@ -395,7 +449,8 @@ body {
         margin: 1px 7px 0 0;
         width: 16px;
         height: 16px;
-        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABdElEQVQ4T41T0VXCQBDcRe68JB/SgVqB2AFWYEqIFQgd2IGxAtOB0AEdEDugBH4ggQuMbw8OYyTo/eTdbXZmdneWqXGKAjfg6hmEARP3JQxCzsRTRvctCHheT+H6ZVXalIAYxJm66I615lzimw36dlvFTEiI+SM0auTzjgDLcpMTKA+NGjLzoqnMKQF6xbrKQLiOjL6XNwcgzBKMAp3UE5eFfZF7FCj39WdV2jERzR2Zq5nsNDCq32RuA3BKSpszqQHv2WnRZBG2NgAfY6YeS+2qoxLfsP+UcGzszmaiAKFRP6bhQc4pOPQO5wHWVUxApjrdwSmFQu5K6EDFTYN4FUVRJTtG2gRx3jiUkBJhHhqdnpq9vHmQyKhevTzXxHNjrAPKf17l3lB2xlAP30ZiXEWX+qlNRauRjpLEykyzUKvRH1Z+B+E2Mtot2sllIqZXhpp4ydKwLapHAAkRT8TCv5bpu+tunYeHdb5zS0T4PKxz2pzWF0Kk/VtUudliAAAAAElFTkSuQmCC');
+        color: #f6f8fb;
+        font-size: 14px;
     }
 }
 
@@ -450,8 +505,35 @@ code {
         .transition();
         z-index: 9;
         background: #000;
-        padding-bottom: 8px;
+        padding-bottom: 30px;
+
+        .tags {
+            .inline-block;
+            padding: 13px 2px 0px 30px;
+        }
+
+        .tags .fa-tags {
+            color: #006092;
+            font-size: 14px;
+            padding-right: 2px;
+        }
+
+        .date-lesson {
+            margin: 15px 0 5px;
+            .inline-block;
+
+            .fa-clock-o {
+                color: #f6f8fb;
+                font-size: 14px;
+            }
+        }
     }
+}
+
+.fa-tags {
+    color: #006092;
+    font-size: 14px;
+    padding-right: 2px;
 }
 
 .description-lesson {
@@ -569,8 +651,8 @@ code {
 }
 
 .wrap-user-nav {
-    margin: -20px -65px 20px 0;
-    text-align: right;
+    //margin: -20px -65px 20px 0;
+    float: right;
 }
 
 .p-main {
@@ -582,13 +664,25 @@ code {
 
     .main-menu-wrap {
         position: static;
+        padding: 0;
     }
 
     .main-menu {
         position: absolute;
+        background: rgba(255, 255, 255, .7);
 
         .menu {
             margin: 0 0 0 35px;
+
+            li {
+                a {
+                    color: #272323;
+                }
+            }
+        }
+
+        .logo {
+            background-image: url("../img/logo-black.png");
         }
     }
 
@@ -723,6 +817,12 @@ code {
 
 .text-warning {
     color: #a94442;
+}
+
+.form-horizontal {
+    .col-xs-5.col-md-offset-2 .btn{
+        margin-left: 15px;
+    }
 }
 
 

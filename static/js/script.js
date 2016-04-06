@@ -38,7 +38,7 @@ $(document).ready(
                     });
                     $('.description-lesson').css('margin-top','0');
                 }
-                console.log('1111');
+                console.log(fixmeTop);
             });
         } else {
             var fixmeTop = $('.wrap_lesson-video').offset().top;       // get initial position of the element
@@ -47,7 +47,7 @@ $(document).ready(
                 if (currentScroll >= fixmeTop) {           // apply position: fixed if you
                     $('.wrap_lesson-video').css({                      // scroll to that element or below it
                         position: 'fixed',
-                        top: '68px'
+                        top: '66px'
                     });
                     $('.description-lesson').css('margin-top','320px');
                 } else {                                   // apply position: static

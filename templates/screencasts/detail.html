@@ -12,8 +12,9 @@
     <div class="content-side lesson-absolute-block">
         <div class="wrap_lesson-video">
             {{ sc.iframe()|safe }}
-            <time class="date-lesson"><i></i>{{ sc.modified_at }}</time>
+            <time class="date-lesson"><i class="fa fa-clock-o"></i>{{ sc.modified_at }}</time>
             <ul class="tags">
+                <i class="fa fa-tags fa-lg"></i>
                 {% for tag in sc.tags.all() -%}
                     <li class="top_4"><a href="{{ url('screencasts') }}?tag={{ tag.slug }}">{{ tag.name }}</a></li>
                 {% endfor %}
