@@ -21,7 +21,6 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 from intopython.views import IndexView
-from src.registration.views import RegistrationView, RegistrationSuccessView, ProfileView
 
 urlpatterns = [
 
