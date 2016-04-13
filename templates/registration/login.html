@@ -6,24 +6,23 @@
     <div class="content-side">
         <h1>Вход в систему</h1>
     {% if form.errors %}
-        <p class="text-warning">Логин пользователя и пароль не соотвествуют друг другу. Попробуйте еще раз.</p>
-        <br>
+        {% for error in form.errors %}
+            <p class="text-warning">{{ error }}</p>
+            <br>
+        {% endfor %}
     {% endif %}
-    <form class="form-horizontal" action="{{ url('login') }}" method="post">
+    <form class="form-horizontal" action="{{ url('login') }}?{{ request.GET['next'] }}" method="post">
         <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-        <input type="hidden" name="next" value="{{ form.next }}" />
         <fieldset>
             <div class="form-group">
                 <label for="inputEmail" class="control-label col-xs-2">Email</label>
                 <div class="col-xs-3">
-{#                    <input type="email" class="form-control" name="email" placeholder="Email">#}
                     {{ form.username | replace_css_class('form-control') | safe }}
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputPassword" class="control-label col-xs-2">Пароль</label>
                 <div class="col-xs-3">
-{#                    <input type="password" class="form-control" name="passwd" placeholder="Пароль">#}
                     {{ form.password | replace_css_class('form-control') | safe }}
                 </div>
             </div>

@@ -41,6 +41,15 @@ class LogoutView(TemplateView):
         return HttpResponseRedirect(next)
 
 
+class LoginView(TemplateView):
+    template_name = 'registration/login.html'
+
+    def get_context_data(self, **kwargs):
+        next = request.GET.get('next', '/')
+        return HttpResponseRedirect(next)
+
+
+
 class ProfileView(TemplateView):
     template_name = 'registration/profile.html'
 
