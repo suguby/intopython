@@ -1,12 +1,18 @@
 # -*- coding: utf-8 -*-
 
 from django.conf.urls import url, include
+from django.contrib.auth import views as auth_views
 
+from src.registration.forms import MyAuthenticationForm
 from src.registration.views import RegistrationView, ProfileView, LogoutView
 
 urlpatterns = [
     url(r'^$', RegistrationView.as_view(), name='registration'),
     url(r'^profile/$', ProfileView.as_view(), name='profile'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
+    url(r'^login/$', auth_views.login,
+        kwargs=dict(authentication_form=MyAuthenticationForm),
+        name='login'
+        ),
     url('^', include('django.contrib.auth.urls')),
 ]
