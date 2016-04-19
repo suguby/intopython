@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 
 from src.registration.forms import MyUserCreationForm
+from src.registration.models import MyUser
 
 
 class RegistrationView(TemplateView):
@@ -18,13 +19,12 @@ class RegistrationView(TemplateView):
     def post(self, request, **kwargs):
         form = MyUserCreationForm(data=self.request.POST)
         if form.is_valid():
-            User.objects.create_user(
-                username=form.cleaned_data['username'],
+            MyUser.objects.create_user(
                 email=form.cleaned_data['email'],
                 password=form.cleaned_data['password1'],
             )
             user = authenticate(
-                username=form.cleaned_data['username'],
+                email=form.cleaned_data['email'],
                 password=form.cleaned_data['password1'],
             )
             login(request, user)

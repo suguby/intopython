@@ -50,7 +50,7 @@
                     <div class="wrap-user-nav">
                         <a href="{{ url('profile') }}" class="user-profile">
                             <span class="glyphicon glyphicon-user"></span>
-                            {{ request.user.username }}
+                            {{ request.user.email }}
                         </a>
                         <a href="{{ url('logout') }}" class="exit">Выход</a>
                     </div>
@@ -110,7 +110,7 @@
                         <div class="wrap-user-nav">
                             <a href="{{ url('profile') }}" class="user-profile">
                                 <span class="glyphicon glyphicon-user"></span>
-                                {{ request.user.username }}
+                                {{ request.user.email }}
                             </a>
                             <a href="{{ url('logout') }}?next={{ request.path }}" class="exit">Выход</a>
                         </div>
@@ -150,9 +150,9 @@
                     {% endif %}
 					<fieldset>
 						<div class="form-group">
-							<label for="username" class="control-label col-xs-2">Имя пользователя</label>
+							<label for="email" class="control-label col-xs-2">Email</label>
 							<div class="col-xs-10">
-								<input type="text" class="form-control" id="username" name="username" placeholder="Имя пользователя">
+								<input type="text" class="form-control" id="username" name="email" placeholder="Email">
 							</div>
 						</div>
 						<div class="form-group">
@@ -191,13 +191,13 @@
 				<form class="form-horizontal" action="{{ url('registration') }}" method="post">
                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                     <input type="hidden" name="next" value="{{ request.path_info }}">
-					<fieldset>
-						<div class="form-group">
-							<label for="username" class="control-label col-xs-2">Логин</label>
-							<div class="col-xs-10">
-								<input type="text" class="form-control" id="username" name="username" placeholder="[a-zA-Z0-9_]*">
-							</div>
-						</div>
+{#					<fieldset>#}
+{#						<div class="form-group">#}
+{#							<label for="username" class="control-label col-xs-2">Логин</label>#}
+{#							<div class="col-xs-10">#}
+{#								<input type="text" class="form-control" id="username" name="username" placeholder="[a-zA-Z0-9_]*">#}
+{#							</div>#}
+{#						</div>#}
 						<div class="form-group">
 							<label for="email" class="control-label col-xs-2">Email</label>
 							<div class="col-xs-10">
