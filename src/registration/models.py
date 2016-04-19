@@ -57,6 +57,14 @@ class MyUser(AbstractBaseUser):
 
     objects = MyUserManager()
 
+    @property
+    def username(self):
+        return self.email
+
+    @username.setter
+    def username(self, value):
+        self.email = value
+
     def get_full_name(self):
         return self.email
 

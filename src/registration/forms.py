@@ -8,7 +8,7 @@ from src.registration.models import MyUser
 
 class MyUserCreationForm(UserCreationForm):
     email = EmailField(max_length=254, required=True)
-    next = CharField(max_length=254, required=True, widget=HiddenInput)  # TODO выпилить
+    next = CharField(max_length=254, required=True, widget=HiddenInput)
 
     class Meta:
         model = MyUser
@@ -16,11 +16,5 @@ class MyUserCreationForm(UserCreationForm):
 
 
 class MyUserAuthenticationForm(AuthenticationForm):
-    email = EmailField(max_length=254, required=True)
-    password = CharField(label=_("Password"), widget=PasswordInput)
-
-    error_messages = {
-        'invalid_login': _("Please enter a correct %(email) and password. "
-                           "Note that both fields may be case-sensitive."),
-        'inactive': _("This account is inactive."),
-    }
+    username = EmailField(max_length=254, required=True)
+    next = CharField(max_length=254, required=True, widget=HiddenInput)
