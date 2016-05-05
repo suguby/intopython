@@ -7,11 +7,9 @@ from django.core.management import call_command
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "intopython.settings")
 django.setup()
 
-call_command('createsuperuser',
-             # project_domain_id=431,
-             # date_from='2016-03-21', date_till='2016-03-27',
-             # collect_keywords=True,
+call_command('add_test_data',
+             # presentations='5-10',
+             clean=True,
              # refresh=True,
              # report=True,
              )
-
