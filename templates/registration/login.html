@@ -5,9 +5,8 @@
 {% block container %}
     <div class="content-side">
         <h1>Вход в систему</h1>
-    <form class="form-horizontal" action="{{ url('login') }}" method="post">
+    <form class="form-horizontal" action="{{ url('login') }}?{{ request.GET['next']}}" method="post">
         <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-        {{ form.next }}
         <fieldset>
             <div class="form-group">
                 <label for="inputEmail" class="control-label col-xs-2">Email</label>

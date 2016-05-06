@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.forms import EmailField, CharField, HiddenInput, PasswordInput
-from django.utils.translation import ugettext_lazy as _
+from django.forms import EmailField, CharField, HiddenInput
 
 from src.registration.models import MyUser
 

@@ -12,14 +12,14 @@
 {% set active_submenu = active_submenu|default('') -%}
 
 {% block submenu %}
-      {% for url_name, caption in submenu_items -%}
-          <a href="{{ url(url_name) }}">{{ caption }}</a>
-{#        {% if url_name == active_submenu %}#}
-{#             {{ caption }}#}
-{#        {% else %}#}
-{#            <a href="{{ url(url_name) }}">{{ caption }}</a>#}
-{#        {% endif %}#}
-      {% endfor -%}
+    {% for url_name, caption in submenu_items -%}
+        <a href="{{ url(url_name) }}">{{ caption }}</a>
+        {#        {% if url_name == active_submenu %}#}
+        {#             {{ caption }}#}
+        {#        {% else %}#}
+        {#            <a href="{{ url(url_name) }}">{{ caption }}</a>#}
+        {#        {% endif %}#}
+    {% endfor -%}
 {% endblock submenu %}
 
 
