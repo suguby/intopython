@@ -132,6 +132,7 @@
 	</div>
 </div>
 
+
 <!-- модальное окно входа -->
 <div class="modal login-modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -243,6 +244,9 @@
 		</div>
 	</div>
 </div>
+
+{%  block modals %}
+{%  endblock %}
 
 {% if not DEBUG -%}
     <script>
