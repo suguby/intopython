@@ -7,7 +7,6 @@ from src.registration.models import MyUser
 
 class MyUserCreationForm(UserCreationForm):
     email = EmailField(max_length=254, required=True)
-    next = CharField(max_length=254, required=True, widget=HiddenInput)
 
     class Meta:
         model = MyUser
@@ -16,4 +15,3 @@ class MyUserCreationForm(UserCreationForm):
 
 class MyUserAuthenticationForm(AuthenticationForm):
     username = EmailField(max_length=254, required=True)
-    next = CharField(max_length=254, required=True, widget=HiddenInput)
