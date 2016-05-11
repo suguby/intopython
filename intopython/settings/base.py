@@ -174,3 +174,4 @@ MYSQL_DUMPS_PATH = os.path.join(BASE_DIR, 'extra')
 
 AUTH_USER_MODEL = 'registration.MyUser'
 
+LOGIN_REDIRECT_URL = '/'
