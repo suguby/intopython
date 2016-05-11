@@ -28,7 +28,8 @@ class RegistrationView(TemplateView):
                 password=form.cleaned_data['password1'],
             )
             login(request, user)
-            return HttpResponseRedirect(redirect_to=form.cleaned_data['next'])
+            redirect_to = request.GET.get('next', '/')
+            return HttpResponseRedirect(redirect_to=redirect_to)
         context = dict(form=form)
         return self.render_to_response(context=context)
 

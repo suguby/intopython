@@ -28,3 +28,10 @@ class TestRegistration(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Пожалуйста, введите правильные адрес электронной почты и пароль')
 
+    def test_registration(self):
+        data = dict(email='new@user.com', password1='321', password2='321', )
+        url = reverse('registration') + '?next=' + self.redirect_url
+        response = self.client.post(url, data=data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, self.redirect_url)
+
