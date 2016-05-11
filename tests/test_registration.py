@@ -35,3 +35,10 @@ class TestRegistration(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, self.redirect_url)
 
+    def test_registration_bad_params(self):
+        data = dict(email='new@user.com', password1='321', password2='XXXXXXXX', )
+        url = reverse('registration') + '?next=' + self.redirect_url
+        response = self.client.post(url, data=data)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Два поля с паролями не совпадают')
+
