@@ -38,7 +38,10 @@ class ScreencastDetailView(ScreencastsBaseView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         sc = get_object_or_404(Screencast, slug=kwargs['slug'])
-        context.update(sc=sc,)
+        context.update(
+            sc=sc,
+            has_access=self.request.user.has_perm('view_subscription_article', sc),
+        )
         return context
 
 

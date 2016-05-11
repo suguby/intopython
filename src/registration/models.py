@@ -1,5 +1,5 @@
 from django.contrib.auth.base_user import BaseUserManager
-from django.contrib.auth.models import AbstractBaseUser, UserManager
+from django.contrib.auth.models import AbstractBaseUser, UserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
@@ -27,7 +27,7 @@ class MyUserManager(BaseUserManager):
         return u
 
 
-class MyUser(AbstractBaseUser):
+class MyUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         _('email address'),
         max_length=54,
@@ -81,6 +81,11 @@ class MyUser(AbstractBaseUser):
         return set()
 
     def has_perm(self, perm, obj=None):
+        from src.articles.models import Article
+        if isinstance(obj, Article) and perm == 'view_subscription_article':
+            if obj.by_subscription:
+                return self.is_subscriber
+            return True
         return True
 
     def has_perms(self, perm_list, obj=None):
