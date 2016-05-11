@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 
@@ -28,13 +28,14 @@ class RegistrationView(TemplateView):
                 password=form.cleaned_data['password1'],
             )
             login(request, user)
-            redirect_to = request.GET.get('next', '/')
+            redirect_to = request.GET.get('next', settings.LOGIN_REDIRECT_URL)
             return HttpResponseRedirect(redirect_to=redirect_to)
         context = dict(form=form)
         return self.render_to_response(context=context)
 
 
 class LogoutView(TemplateView):
+    #  сразу переходим на next, без промежуточной страницы джанго
 
     def get(self, request, *args, **kwargs):
         logout(request=request)
@@ -44,8 +45,3 @@ class LogoutView(TemplateView):
 
 class ProfileView(TemplateView):
     template_name = 'registration/profile.html'
-
-    def get_context_data(self, **kwargs):
-        form = MyUserCreationForm()
-        context = dict(form=form)
-        return context
