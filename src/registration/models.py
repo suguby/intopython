@@ -74,27 +74,27 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     def __unicode__(self):
         return self.email
 
-    def get_group_permissions(self, obj=None):
-        return set()
-
-    def get_all_permissions(self, obj=None):
-        return set()
-
-    def has_perm(self, perm, obj=None):
-        from src.articles.models import Article
-        if isinstance(obj, Article) and perm == 'view_subscription_article':
-            if obj.by_subscription:
-                return self.is_subscriber
-            return True
-        return True
-
-    def has_perms(self, perm_list, obj=None):
-        return True
-
-    def has_module_perms(self, app_label):
-        if app_label == 'auth':
-            return True if self.is_admin else False
-        return True
+    # def get_group_permissions(self, obj=None):
+    #     return set()
+    #
+    # def get_all_permissions(self, obj=None):
+    #     return set()
+    #
+    # def has_perm(self, perm, obj=None):
+    #     from src.articles.models import Article
+    #     if isinstance(obj, Article) and perm == 'view_subscription_article':
+    #         if obj.by_subscription:
+    #             return self.is_subscriber
+    #         return True
+    #     return True
+    #
+    # def has_perms(self, perm_list, obj=None):
+    #     return True
+    #
+    # def has_module_perms(self, app_label):
+    #     if app_label == 'auth':
+    #         return True if self.is_admin else False
+    #     return True
 
     # Admin required fields
     @property

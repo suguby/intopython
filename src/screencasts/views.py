@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from django.contrib.auth.models import AnonymousUser
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 
@@ -38,9 +38,13 @@ class ScreencastDetailView(ScreencastsBaseView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         sc = get_object_or_404(Screencast, slug=kwargs['slug'])
+        if isinstance(self.request.user, AnonymousUser):
+            has_perm = not sc.by_subscription
+        else:
+            has_perm = self.request.user.has_perm(perm='src.screencasts.view_subscription_article', obj=sc)
         context.update(
             sc=sc,
-            has_access=self.request.user.has_perm('view_subscription_article', sc),
+            has_access=has_perm,
         )
         return context
 
