@@ -80,13 +80,13 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     # def get_all_permissions(self, obj=None):
     #     return set()
     #
-    # def has_perm(self, perm, obj=None):
-    #     from src.articles.models import Article
-    #     if isinstance(obj, Article) and perm == 'view_subscription_article':
-    #         if obj.by_subscription:
-    #             return self.is_subscriber
-    #         return True
-    #     return True
+    def has_perm(self, perm, obj=None):
+        from src.articles.models import Article
+        if isinstance(obj, Article) and perm == 'view_subscription_article':
+            if obj.by_subscription:
+                return self.is_subscriber
+            return True
+        return super(MyUser, self).has_perm(perm=perm, obj=obj)
     #
     # def has_perms(self, perm_list, obj=None):
     #     return True

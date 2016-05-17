@@ -41,7 +41,7 @@ class ScreencastDetailView(ScreencastsBaseView):
         if isinstance(self.request.user, AnonymousUser):
             has_perm = not sc.by_subscription
         else:
-            has_perm = self.request.user.has_perm(perm='src.screencasts.view_subscription_article', obj=sc)
+            has_perm = self.request.user.has_perm(perm='view_subscription_article', obj=sc)
         context.update(
             sc=sc,
             has_access=has_perm,
