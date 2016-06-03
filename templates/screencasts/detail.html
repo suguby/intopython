@@ -27,9 +27,7 @@
             <p>{{ sc.pygmented_markdown() | safe }}</p>
         </div>
     {% else %}
-        <div class="description-lesson">
-            <p class="text-info">Только по подписке!!!</p>
-        </div>
+        {% include 'subscribe.html' %}
     {% endif %}
     </div>
 
