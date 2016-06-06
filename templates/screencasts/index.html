@@ -2,7 +2,7 @@
 
 {% block container %}
     <div class="content-side">
-    <h1>Скринкасты о Джанго
+    <h1>Скринкасты о {% if current_section %}{{ current_section.title }}{% else %}Джанго{% endif %}
     <span>Коротко о главном</span>
     </h1>
     <div class="screencasts-list row">

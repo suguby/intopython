@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 
@@ -18,16 +18,21 @@ class ScreencastsListView(ScreencastsBaseView):
 
     def get_context_data(self, **kwargs):
         section_filter = self.request.GET.get('section')
+        current_section = None
         if section_filter:
             self.articles_filter = Q(section__slug=section_filter)
             self.articles_url_filter = 'section={}&'.format(section_filter)
+            current_section = get_object_or_404(ScreencastSection, slug=section_filter)
         sections = ScreencastSection.objects.filter(
             status=ScreencastSection.STATUSES.publ
         ).order_by('position')
+        for section in sections:
+            section.link = reverse('screencasts') + '?section={}'.format(section.slug)
 
         context = super().get_context_data(**kwargs)
         context.update(
             sections=sections,
+            current_section=current_section,
         )
         return context
 
