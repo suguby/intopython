@@ -35,18 +35,21 @@
 ] -%}
 {% set active_page = active_page|default('') -%}
 
+{% macro left_menu() -%}
+    {% for url_name, caption in navigation_bar -%}
+        <li{% if url_name == active_page %} class="active"{% endif %}>
+            <a href="{{ url(url_name) }}">{{ caption }}</a>
+        </li>
+    {% endfor -%}
+{%- endmacro %}
+
 <div class="container-fluid b-main">
 	<div class="row b-main-row">
 		<div class="main-menu-hidden">
 			<img src="{{ static('img/logo-mobile.png') }}" alt="" class="logo logo-mobile">
 			<ul class="top-menu">
-                {% for url_name, caption in navigation_bar -%}
-                    <li{% if url_name == active_page %} class="active"{% endif %}>
-                        <a href="{{ url(url_name) }}">{{ caption }}</a>
-                    </li>
-                {% endfor -%}
+                {{ left_menu() }}
                 {% if request.user.is_authenticated() %}
-{#                    TODO высушить мобильное меню и основное меню - приходится повторять, неудобно#}
                     <div class="wrap-user-nav">
                         <a href="{{ url('profile') }}" class="user-profile">
                             <span class="glyphicon glyphicon-user"></span>
@@ -68,11 +71,7 @@
 				<input type="text" placeholder="Поиск по сайту" class="form-control input-search">
 				<!-- левое боковое меню -->
 				<ul class="menu">
-                  {% for url_name, caption in navigation_bar -%}
-                    <li{% if url_name == active_page %} class="active"{% endif %}>
-                        <a href="{{ url(url_name) }}">{{ caption }}</a>
-                    </li>
-                  {% endfor -%}
+                    {{ left_menu() }}
 				</ul>
                 {% block left_menu_footer -%}
                 {% endblock left_menu_footer -%}
