@@ -3,7 +3,7 @@ logs/
 .idea/
 intopython/settings/local.py
 bin/profile
-
+src/run_command.py
 
 ### Python template
 # Byte-compiled / optimized / DLL files

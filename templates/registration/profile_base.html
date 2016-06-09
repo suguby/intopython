@@ -1,0 +1,13 @@
+{% extends 'registration/base.html' %}
+{% block subtitle %}Профайл пользователя {{ request.user }}{% endblock %}
+
+
+{% block container %}
+    <div class="content-side">
+        <h1>Профайл пользователя {{ request.user }}</h1>
+    </div>
+    <div class="col-xs-offset-1 col-xs-4">
+        {% block profile_content %}{% endblock %}
+    </div>
+
+{% endblock container %}
