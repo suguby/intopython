@@ -13,6 +13,10 @@
 {#                TODO сделать вызов некоего метода, который выдаст правильный iframe#}
 {#                <iframe width="250" height="190" src="https://www.youtube.com/embed/KsLHt3D_jsE" frameborder="0" allowfullscreen></iframe>#}
                 <div class="title">{{ article.title }}</div>
+                {% if article.by_subscription %}
+                    <span class="text-warning"> -> PRO <- </span>
+                {% endif %}
+                <br /><br />
                 <div class="description">
                     <p>{{ article.summary }} </p><br />
                     <time class="date-lesson"><i class="fa fa-clock-o"></i>{{ article.modified_at }}</time>
