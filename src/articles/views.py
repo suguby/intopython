@@ -1,5 +1,6 @@
 from collections import Counter
 
+from django.contrib.auth.models import AnonymousUser
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 
@@ -43,6 +44,13 @@ class ArticlesBaseView(BaseTemplateView):
                 articles = paginator.page(1)
             except EmptyPage:
                 articles = paginator.page(paginator.num_pages)
+
+        for article in articles:
+            if isinstance(self.request.user, AnonymousUser):
+                article.user_can_view = not article.by_subscription
+            else:
+                article.user_can_view = self.request.user.has_perm(perm='view_subscription_article', obj=article)
+            print(article)
 
         context.update(
             articles=articles,
