@@ -21,12 +21,13 @@ class ArticlesBaseView(BaseTemplateView):
 
         # TODO уменьшить количество запросов
         slugs_counter = Counter((slug for sc in articles for slug in sc.tags.slugs()))
-        count_range = slugs_counter.most_common(1)[0][1] / 4.0
         tags = []
-        for tag in self.model.tags.order_by('name'):
-            if tag.slug in slugs_counter:
-                tag.range = int(5 - slugs_counter[tag.slug] // count_range)
-                tags.append(tag)
+        if slugs_counter:
+            count_range = slugs_counter.most_common(1)[0][1] / 4.0
+            for tag in self.model.tags.order_by('name'):
+                if tag.slug in slugs_counter:
+                    tag.range = int(5 - slugs_counter[tag.slug] // count_range)
+                    tags.append(tag)
 
         tag = self.request.GET.get('tag')
         if not self.articles_url_filter and tag:
