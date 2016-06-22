@@ -4,7 +4,6 @@ from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-from src.registration.models import MyUser
 from src.screencasts.models import Screencast, ScreencastSection
 
 
