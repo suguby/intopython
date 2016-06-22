@@ -1,3 +1,4 @@
+import datetime
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, UserManager, PermissionsMixin
 from django.db import models
@@ -47,8 +48,8 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     )
     is_admin = models.BooleanField(default=False)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
-    name = models.CharField(_('name'), max_length=64, blank=True)
-    is_subscriber = models.BooleanField('Платный подписчик', default=False)
+    name = models.CharField(_('name'), max_length=64, null=True)
+    access_till = models.DateField('Срок доступа', null=True)
 
     USERNAME_FIELD = 'email'
 
@@ -56,6 +57,10 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
         swappable = 'AUTH_USER_MODEL'
 
     objects = MyUserManager()
+
+    @property
+    def is_subscriber(self):
+        return self.access_till is not None and self.access_till >= datetime.date.today()
 
     @property
     def username(self):
