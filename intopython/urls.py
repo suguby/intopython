@@ -38,4 +38,5 @@ urlpatterns = [
     url(r'^nimda/', include(admin.site.urls)),
 
     url(r'^registration/', include('src.registration.urls')),
+    url(r'^payments/', include('src.payments.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

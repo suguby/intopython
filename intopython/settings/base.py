@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'src.courses',
     'src.landing',
     'src.registration',
+    'src.payments'
 )
 
 MIDDLEWARE_CLASSES = (

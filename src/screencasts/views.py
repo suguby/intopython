@@ -2,6 +2,7 @@
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import AnonymousUser
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
 from src.articles.views import ArticlesBaseView
@@ -43,16 +44,19 @@ class ScreencastDetailView(ScreencastsBaseView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context.update(sc=self.request.sc, )
+        return context
+
+    def get(self, request, *args, **kwargs):
         sc = get_object_or_404(Screencast, slug=kwargs['slug'])
         if isinstance(self.request.user, AnonymousUser):
             has_perm = not sc.by_subscription
         else:
             has_perm = self.request.user.has_perm(perm='view_subscription_article', obj=sc)
-        context.update(
-            sc=sc,
-            has_access=has_perm,
-        )
-        return context
+        if not has_perm:
+            return HttpResponseRedirect(redirect_to=reverse('order'))
+        request.sc = sc
+        return super(ScreencastDetailView, self).get(request, *args, **kwargs)
 
 
 class ScreencastsSearchView(ArticlesBaseView):
