@@ -8,7 +8,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 
-from src.common.views import BaseTemplateView
+from src.common.views import BaseTemplateView, HttpRedirectException
 from src.payments.forms import PreOrderForm, OrderForm
 from src.payments.models import Tariff, Orders
 
@@ -49,6 +49,8 @@ class OrderView(BaseTemplateView):
     template_name = 'payments/order.html'
 
     def get_context_data(self, **kwargs):
+        if self.request.user.is_anonymous:
+            raise HttpRedirectException(redirect_to=reverse('registration'))
         tariff_id = self.request.GET.get('tariff', None)
         tariff = get_object_or_404(Tariff, id=tariff_id)
         order = Orders.objects.create(user=self.request.user, tariff=tariff)
