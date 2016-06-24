@@ -8,7 +8,7 @@
             даются рекомендации и рецепты для профессионалов.
         </p>
         <p>
-            Вы можете купить доступ к PRO версии сайта за 300 руб./месяц.
+            Вы можете купить доступ к PRO версии сайта за {{ cost }} руб./ {{ paid_days }} дней.
             Если Вы проходите наш курс, доступ к PRO-версии дается автоматически.
         </p>
         <p>
@@ -24,5 +24,20 @@
             });
         </script>
         </p>
+        <form action="{{ url('order') }}">
+            {% csrf_token %}
+            {{ form.tariff.label }}&nbsp;&nbsp;{{ form.tariff | replace_css_class('size large')| safe }}
+
+            <button class="label-info">К оплате</button>
+        </form>
+{#        <form method="post" action="https://wl.walletone.com/checkout/checkout/Index">#}
+{#            <input name="WMI_MERCHANT_ID"    value="123456789012" type="hidden"/>#}
+{#            <input name="WMI_PAYMENT_AMOUNT" value="100.00"/>#}
+{#            <input name="WMI_CURRENCY_ID"    value="643" type="hidden"/>#}
+{#            <input name="WMI_DESCRIPTION"    value="Оплата демонстрационного заказа" type="hidden"/>#}
+{#            <input name="WMI_SUCCESS_URL"    value="{{ url('payment_success') }}" type="hidden"/>#}
+{#            <input name="WMI_FAIL_URL"       value="{{ url('payment_fail') }}" type="hidden"/>#}
+{#            <input type="submit"/>#}
+{#        </form>    #}
     </div>
 {% endblock container %}

@@ -54,7 +54,7 @@ class ScreencastDetailView(ScreencastsBaseView):
         else:
             has_perm = self.request.user.has_perm(perm='view_subscription_article', obj=sc)
         if not has_perm:
-            return HttpResponseRedirect(redirect_to=reverse('order'))
+            return HttpResponseRedirect(redirect_to=reverse('payments'))
         request.sc = sc
         return super(ScreencastDetailView, self).get(request, *args, **kwargs)
 

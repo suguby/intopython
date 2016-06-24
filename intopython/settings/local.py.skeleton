@@ -47,3 +47,5 @@ DEFAULT_FROM_EMAIL = 'noreplay@intopython.ru'
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'extra', 'media')
 
+WALLETONE_MERCHANT_ID = '...'
+WALLETONE_TOKEN = '...'
