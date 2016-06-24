@@ -3,6 +3,9 @@
 {% block container %}
     <div class="content-side">
         <h1>Проверьте правильность выбора тарифа</h1>
+        <p>
+            Сумма: {{ tstiff.cost }} руб. Срок доступа: {{ tariff.paid_days }} дней.
+        </p>
         <div id="w1widget"></div>
         <script>
             W1.widget({
@@ -14,15 +17,11 @@
                 "container": "w1widget"
             });
         </script>
-        </p>
         <form method="post" action="https://wl.walletone.com/checkout/checkout/Index">
-            <input name="WMI_MERCHANT_ID"    value="123456789012" type="hidden"/>
-            <input name="WMI_PAYMENT_AMOUNT" value="10.00"/>
-            <input name="WMI_CURRENCY_ID"    value="643" type="hidden"/>
-            <input name="WMI_DESCRIPTION"    value="Оплата демонстрационного заказа" type="hidden"/>
-            <input name="WMI_SUCCESS_URL"    value="{{ url('payment_success') }}" type="hidden"/>
-            <input name="WMI_FAIL_URL"       value="{{ url('payment_fail') }}" type="hidden"/>
-            <input type="submit"/>
+            {% for field in form.fields %}
+                {{ field }}
+            {% endfor %}
+            <input type="submit" value="Оплатить"/>
         </form>
     </div>
 {% endblock container %}

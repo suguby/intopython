@@ -68,5 +68,5 @@ class OrderView(BaseTemplateView):
         )
         data['WMI_SIGNATURE'] = get_signature(params=data.items(), secret_key=settings.WALLETONE_TOKEN)
         form = OrderForm(data=data)
-        context = dict(form=form)
+        context = dict(form=form, tariff=tariff)
         return context
