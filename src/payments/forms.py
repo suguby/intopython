@@ -29,7 +29,6 @@ class OrderForm(Form):
     WMI_DESCRIPTION = HiddenField()
     WMI_SUCCESS_URL = HiddenField()
     WMI_FAIL_URL = HiddenField()
-    WMI_EXPIRED_DATE = HiddenField()
     WMI_RECIPIENT_LOGIN = HiddenField()
     WMI_SIGNATURE = HiddenField()
     order_id = HiddenField()

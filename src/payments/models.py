@@ -29,8 +29,8 @@ class Orders(AbstractModel):
     tariff = models.ForeignKey(Tariff)
     status = models.CharField(max_length=32, choices=STATUSES, default=STATUSES.new)
     issue_date = models.DateField()
-    payment_date = models.DateField()
-    amount = models.FloatField()
+    payment_date = models.DateField(null=True)
+    amount = models.FloatField(null=True)
 
     class Meta:
         db_table = 'orders'
