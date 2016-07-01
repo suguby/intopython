@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import datetime
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-from src.registration.models import MyUser
 from src.screencasts.models import Screencast, ScreencastSection
 
 
@@ -49,7 +49,7 @@ class TestSubscription(TestCase):
         self.assertNotContains(response, 'pro video')
 
     def test_sc_list_subscribed_user(self):
-        self.user.is_subscriber = True
+        self.user.access_till = datetime.date.today() + datetime.timedelta(days=1)
         self.user.save()
         self.client.login(username=self.user_email, password=self.user_password)
         response = self.client.get(self.sc_list)
@@ -68,7 +68,7 @@ class TestSubscription(TestCase):
         self.assertContains(response, 'Запрошенный вами материал доступен только в PRO версии.')
 
     def test_sc_detail_subscribed_user(self):
-        self.user.is_subscriber = True
+        self.user.access_till = datetime.date.today() + datetime.timedelta(days=1)
         self.user.save()
         self.client.login(username=self.user_email, password=self.user_password)
         response = self.client.get(self.sc_pro_detail)

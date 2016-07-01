@@ -2,9 +2,11 @@
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import AnonymousUser
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
 from src.articles.views import ArticlesBaseView
+from src.common.views import HttpRedirectException
 from .models import Screencast, ScreencastSection
 
 
@@ -48,10 +50,9 @@ class ScreencastDetailView(ScreencastsBaseView):
             has_perm = not sc.by_subscription
         else:
             has_perm = self.request.user.has_perm(perm='view_subscription_article', obj=sc)
-        context.update(
-            sc=sc,
-            has_access=has_perm,
-        )
+        if not has_perm:
+            raise HttpRedirectException(redirect_to=reverse('payments'))
+        context.update(sc=sc, )
         return context
 
 
