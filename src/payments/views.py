@@ -7,11 +7,14 @@ from hashlib import md5
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.urlresolvers import reverse
+from django.db import transaction
 from django.shortcuts import get_object_or_404
+from django.views.generic import View
 
 from src.common.views import BaseTemplateView, HttpRedirectException
 from src.payments.forms import PreOrderForm, OrderForm
 from src.payments.models import Tariff, Orders
+from src.registration.models import MyUser
 
 
 class PaymentsView(BaseTemplateView):
@@ -70,10 +73,89 @@ class OrderView(BaseTemplateView):
             WMI_SUCCESS_URL=link_pref + reverse('payment_success'),
             WMI_FAIL_URL=link_pref + reverse('payment_fail'),
             WMI_RECIPIENT_LOGIN=self.request.user.email,
+            WMI_CULTURE_ID='ru-RU',
             order_id=order.id,
             user_id=self.request.user.id,
         )
         data['WMI_SIGNATURE'] = get_signature(params=data.items(), secret_key=settings.WALLETONE_TOKEN)
         form = OrderForm(data=data)
         context = dict(form=form, tariff=tariff)
+        return context
+
+
+class PaymentTransactionView(BaseTemplateView):
+    template_name = 'payments/transaction.html'
+
+    def post(self, request, *args, **kwargs):
+        # https://www.walletone.com/ru/merchant/documentation/#step5
+        # WMI_MERCHANT_ID	Идентификатор интернет-магазина.
+        # WMI_PAYMENT_AMOUNT	Сумма заказа
+        # WMI_COMMISSION_AMOUNT	Сумма удержанной комиссии
+        # WMI_CURRENCY_ID	Идентификатор валюты заказа (ISO 4217)
+        # WMI_TO_USER_ID	Двенадцатизначный номер кошелька плательщика.
+        # WMI_PAYMENT_NO	Идентификатор заказа в системе учета интернет-магазина.
+        # WMI_ORDER_ID	Идентификатор заказа в системе учета Единой кассы.
+        # WMI_DESCRIPTION	Описание заказа.
+        # WMI_SUCCESS_URL WMI_FAIL_URL	Адреса (URL) страниц интернет-магазина, на которые будет отправлен покупатель после успешной или неуспешной оплаты.
+        # WMI_EXPIRED_DATE	Срок истечения оплаты в западно-европейском часовом поясе (UTC+0).
+        # WMI_CREATE_DATE WMI_UPDATE_DATE	Дата создания и изменения заказа в западно-европейском часовом поясе (UTC+0).
+        # WMI_ORDER_STATE	Состояние оплаты заказа: Accepted  — заказ оплачен;
+        # WMI_SIGNATURE	Подпись уведомления об оплате, сформированная с использованием «секретного ключа» интернет-магазина.
+
+        data = request.POST
+        wmi_signature = data.pop('WMI_SIGNATURE')
+        signature = get_signature(params=data.items(), secret_key=settings.WALLETONE_TOKEN)
+        if wmi_signature != signature:
+            return self.render_to_response(context=dict(success=False, description='Invalid signature'))
+        wmi_payment_no = request.POST.get('WMI_PAYMENT_NO')
+        order_id = request.POST.get('order_id', wmi_payment_no)
+        qs = Orders.objects.filter(id=order_id).select_related('user', 'tariff')
+        if not len(qs):
+            return self.render_to_response(
+                context=dict(success=False, description='No order with id {} sended as WMI_PAYMENT_NO'.format(order_id)))
+        order = qs[0]
+        user_id = request.POST.get('user_id')
+        if user_id and int(user_id) != order.user.id:
+            # что-то странное - оплачивает чужой счет (((
+            pass
+        order.external_payment_id = request.POST.get('WMI_ORDER_ID')
+        order.external_user_wallet_id = request.POST.get('WMI_TO_USER_ID')
+        order.commission_amount = request.POST.get('WMI_COMMISSION_AMOUNT')
+        WMI_ORDER_STATE = request.POST.get('WMI_ORDER_STATE')
+        if WMI_ORDER_STATE == 'Accepted':
+            order.status = Orders.STATUSES.paid
+            with transaction.atomic():
+                last_access = order.user.access_till if order.user.access_till else datetime.date.today()
+                order.user.access_till = last_access + datetime.timedelta(days=order.tariff.paid_days)
+                order.user.save()
+                order.save()
+        else:
+            order.status = Orders.STATUSES.fail
+            order.save()
+        return self.render_to_response(context=dict(success=True, description=''))
+
+
+class PaymentSuccessView(BaseTemplateView):
+    template_name = 'payments/success.html'
+
+    def get_context_data(self, **kwargs):
+        if self.request.user.is_anonymous():
+            redirect_to = reverse('registration')
+            raise HttpRedirectException(redirect_to=redirect_to)
+        context = super(PaymentSuccessView, self).get_context_data(**kwargs)
+        access_till = self.request.user.access_till
+        if access_till:
+            access_till = access_till.strftime('%Y-%m-%d')
+        context.update(dict(
+            access_till=access_till,
+            message='Оплата прошла успешно'
+        ))
+        return context
+
+
+class PaymentFailView(PaymentSuccessView):
+
+    def get_context_data(self, **kwargs):
+        context = super(PaymentFailView, self).get_context_data(**kwargs)
+        context['message'] = 'Оплата не удалась'
         return context

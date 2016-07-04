@@ -30,6 +30,7 @@ class OrderForm(Form):
     WMI_SUCCESS_URL = HiddenField()
     WMI_FAIL_URL = HiddenField()
     WMI_RECIPIENT_LOGIN = HiddenField()
+    WMI_CULTURE_ID = HiddenField()
     WMI_SIGNATURE = HiddenField()
     order_id = HiddenField()
     user_id = HiddenField()

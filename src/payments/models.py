@@ -22,6 +22,7 @@ class Orders(AbstractModel):
     STATUSES = Choices(
         ('new', 'Выставлен'),
         ('paid', 'Оплачен'),
+        ('fail', 'Отменен'),
         ('closed', 'Закрыт'),
     )
 
@@ -31,6 +32,9 @@ class Orders(AbstractModel):
     issue_date = models.DateField()
     payment_date = models.DateField(null=True)
     amount = models.FloatField(null=True)
+    external_payment_id = models.CharField(max_length=128, null=True)
+    external_user_wallet_id = models.CharField(max_length=32, null=True)
+    commission_amount = models.FloatField(null=True)
 
     class Meta:
         db_table = 'orders'
