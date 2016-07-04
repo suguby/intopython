@@ -51,8 +51,6 @@ class ArticlesBaseView(BaseTemplateView):
                 article.user_can_view = not article.by_subscription
             else:
                 article.user_can_view = self.request.user.has_perm(perm='view_subscription_article', obj=article)
-            print(article)
-
         context.update(
             articles=articles,
             tags=tags,

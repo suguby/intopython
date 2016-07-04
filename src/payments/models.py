@@ -39,4 +39,4 @@ class Orders(AbstractModel):
     class Meta:
         db_table = 'orders'
 
-    _str_template = '{user} / {tariff} / {status} / {summ}'
+    _str_template = '{user_id} / {tariff_id} / {status} / {amount}'

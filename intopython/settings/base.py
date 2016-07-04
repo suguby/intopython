@@ -138,26 +138,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
-}
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
@@ -179,3 +159,89 @@ MYSQL_DUMPS_PATH = os.path.join(BASE_DIR, 'extra')
 AUTH_USER_MODEL = 'registration.MyUser'
 
 LOGIN_REDIRECT_URL = '/'
+
+LOG_DIR = os.path.join(BASE_DIR, 'logs')
+LOG_FILE_NAME = os.path.join(LOG_DIR, 'intopython.log')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
+        },
+    },
+    'loggers': {
+    },
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        },
+    },
+    'formatters': {
+        'standard': {
+            'format': "%(asctime)s [%(levelname)s]: %(message)s",
+            'datefmt': "%Y-%m-%d %I:%M:%S"
+        },
+        'console': {
+            'format': "[%(levelname)s]: %(message)s",
+            'datefmt': "%Y-%m-%d %I:%M:%S"
+        },
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false', ],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'standard',
+        },
+        'django_log': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 20000000,
+            'backupCount': 30,
+            'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
+        },
+        'logfile': {
+            'level': 'INFO',
+            # 'class': 'logging.FileHandler',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 20000000,
+            'backupCount': 30,
+            'filename': LOG_FILE_NAME,
+            'formatter': 'standard',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'console',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['django_log', ],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'intopython_error': {
+            'handlers': ['mail_admins', ],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'intopython': {
+            'handlers': ['logfile', ],
+            'level': 'INFO',
+        },
+        'debug': {
+            'handlers': ['console', ],
+            'level': 'DEBUG',
+        },
+    }
+}

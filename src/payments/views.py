@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import binascii
 import datetime
+import logging
 from collections import defaultdict
 from hashlib import md5
 
@@ -9,12 +10,12 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.shortcuts import get_object_or_404
-from django.views.generic import View
 
 from src.common.views import BaseTemplateView, HttpRedirectException
 from src.payments.forms import PreOrderForm, OrderForm
 from src.payments.models import Tariff, Orders
-from src.registration.models import MyUser
+
+log = logging.getLogger('intopython')
 
 
 class PaymentsView(BaseTemplateView):
@@ -80,6 +81,7 @@ class OrderView(BaseTemplateView):
         data['WMI_SIGNATURE'] = get_signature(params=data.items(), secret_key=settings.WALLETONE_TOKEN)
         form = OrderForm(data=data)
         context = dict(form=form, tariff=tariff)
+        log.info("OrderView: new order {}".format(order))
         return context
 
 
@@ -103,24 +105,28 @@ class PaymentTransactionView(BaseTemplateView):
         # WMI_SIGNATURE	Подпись уведомления об оплате, сформированная с использованием «секретного ключа» интернет-магазина.
 
         data = request.POST
+        log.info("PaymentTransactionView: {}".format(data))
         wmi_signature = data.pop('WMI_SIGNATURE')
         signature = get_signature(params=data.items(), secret_key=settings.WALLETONE_TOKEN)
         if wmi_signature != signature:
+            log.info("PaymentTransactionView: Invalid signature")
             return self.render_to_response(context=dict(success=False, description='Invalid signature'))
         wmi_payment_no = request.POST.get('WMI_PAYMENT_NO')
         order_id = request.POST.get('order_id', wmi_payment_no)
         qs = Orders.objects.filter(id=order_id).select_related('user', 'tariff')
         if not len(qs):
+            description = 'No order with id {} sended as WMI_PAYMENT_NO'.format(order_id)
+            log.info("PaymentTransactionView: {}".format(description))
             return self.render_to_response(
-                context=dict(success=False, description='No order with id {} sended as WMI_PAYMENT_NO'.format(order_id)))
+                context=dict(success=False, description=description))
         order = qs[0]
         user_id = request.POST.get('user_id')
         if user_id and int(user_id) != order.user.id:
-            # что-то странное - оплачивает чужой счет (((
-            pass
+            log.info("PaymentTransactionView: user_id {} != order.user.id {}".format(user_id, order.user.id))
         order.external_payment_id = request.POST.get('WMI_ORDER_ID')
         order.external_user_wallet_id = request.POST.get('WMI_TO_USER_ID')
         order.commission_amount = request.POST.get('WMI_COMMISSION_AMOUNT')
+        log.info("PaymentTransactionView: order {}".format(order))
         WMI_ORDER_STATE = request.POST.get('WMI_ORDER_STATE')
         if WMI_ORDER_STATE == 'Accepted':
             order.status = Orders.STATUSES.paid
@@ -129,9 +135,12 @@ class PaymentTransactionView(BaseTemplateView):
                 order.user.access_till = last_access + datetime.timedelta(days=order.tariff.paid_days)
                 order.user.save()
                 order.save()
+                log.info("PaymentTransactionView: updated access to user_id {} until {}".format(
+                    order.user.id, order.user.access_till))
         else:
             order.status = Orders.STATUSES.fail
             order.save()
+            log.info("PaymentTransactionView: WMI_ORDER_STATE {}".format(WMI_ORDER_STATE))
         return self.render_to_response(context=dict(success=True, description=''))
 
 
