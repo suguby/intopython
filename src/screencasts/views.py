@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
-from django.core.urlresolvers import reverse
+import datetime
+
 from django.contrib.auth.models import AnonymousUser
+from django.core.urlresolvers import reverse
 from django.db.models import Q
-from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
 from src.articles.views import ArticlesBaseView
-from src.common.views import HttpRedirectException
+from src.common.views import HttpRedirectException, BaseTemplateView
+from src.payments.forms import PreOrderForm
+from src.payments.models import Tariff
 from .models import Screencast, ScreencastSection
 
 
@@ -61,4 +64,13 @@ class ScreencastsSearchView(ArticlesBaseView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        return context
+
+
+class ProVersionView(ScreencastsListView):
+    template_name = 'screencasts/pro.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = PreOrderForm()
         return context
