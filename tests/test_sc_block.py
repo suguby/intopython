@@ -58,14 +58,14 @@ class TestSubscription(TestCase):
 
     def test_sc_detail_anonymous(self):
         response = self.client.get(self.sc_pro_detail)
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Запрошенный вами материал доступен только в PRO версии.')
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse('payments'))
 
     def test_sc_detail_simple_user(self):
         self.client.login(username=self.user_email, password=self.user_password)
         response = self.client.get(self.sc_pro_detail)
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Запрошенный вами материал доступен только в PRO версии.')
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse('payments'))
 
     def test_sc_detail_subscribed_user(self):
         self.user.access_till = datetime.date.today() + datetime.timedelta(days=1)
