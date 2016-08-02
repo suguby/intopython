@@ -12,7 +12,7 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404
 
 from src.common.views import BaseTemplateView, HttpRedirectException
-from src.payments.forms import PreOrderForm, OrderForm
+from src.payments.forms import PreOrderForm, OrderForm, tariff_choices
 from src.payments.models import Tariff, Orders
 
 log = logging.getLogger('intopython')
@@ -22,8 +22,11 @@ class PaymentsView(BaseTemplateView):
     template_name = 'payments/index.html'
 
     def get_context_data(self, **kwargs):
+        form = PreOrderForm()
+        tariffs = tariff_choices()
         context = dict(
-            form=PreOrderForm(),
+            form=form,
+            first_tariff=tariffs[0][1],
         )
         return context
 
