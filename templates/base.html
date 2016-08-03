@@ -29,7 +29,6 @@
 
 <body class="{% block body_class %}p-main{% endblock %}">
 {% set navigation_bar = [
-('index', 'Начало'),
 ('screencasts', 'Скринкасты'),
 ('courses', 'Курсы'),
 ('blog', 'Блог'),
@@ -47,7 +46,9 @@
 <div class="container-fluid b-main">
 	<div class="row b-main-row">
 		<div class="main-menu-hidden">
-			<img src="{{ static('img/logo-mobile.png') }}" alt="" class="logo logo-mobile">
+            <a href="{{ url('index') }}">
+                <img src="{{ static('img/logo-mobile.png') }}" alt="" class="logo logo-mobile">
+            </a>
 			<ul class="top-menu">
                 {{ left_menu() }}
                 {% if request.user.is_authenticated() %}
@@ -68,7 +69,7 @@
 		<a href="#" class="main-menu-toggle"></a> <!-- mobile menu button -->
 		<div class="col-md-2 side-l main-menu">
 			<div class="main-menu-wrap">
-				<div class="logo"></div>
+				<a href="{{ url('index') }}"><div class="logo"></div></a>
 				<input type="text" placeholder="Поиск по сайту" class="form-control input-search">
 				<!-- левое боковое меню -->
 				<ul class="menu">
