@@ -62,18 +62,25 @@ class OrderView(BaseTemplateView):
             raise HttpRedirectException(redirect_to=redirect_to)
         tariff_id = self.request.GET.get('tariff', None)
         tariff = get_object_or_404(Tariff, id=tariff_id)
-        order = Orders.objects.create(
+        order, created = Orders.objects.get_or_create(
             user=self.request.user,
-            tariff=tariff,
-            issue_date=datetime.date.today()
+            status=Orders.STATUSES.new,
+            defaults=dict(
+                tariff=tariff,
+                issue_date=datetime.date.today()
+            ),
         )
+        if not created:
+            order.tariff = tariff
+            order.issue_date = datetime.date.today()
+            order.save()
         link_pref = '{}://{}'.format(self.request.scheme, get_current_site(self.request))
         data = dict(
             WMI_MERCHANT_ID=settings.WALLETONE_MERCHANT_ID,
             WMI_PAYMENT_AMOUNT='{:.2f}'.format(tariff.cost),
             WMI_CURRENCY_ID='643',
             WMI_PAYMENT_NO=order.id,
-            WMI_DESCRIPTION='Оплата счета №{}'.format(order.id),
+            WMI_DESCRIPTION='Доступ к PRO-версии сайта intopython.ru сроком на {} дней'.format(tariff.paid_days),
             WMI_SUCCESS_URL=link_pref + reverse('payment_success'),
             WMI_FAIL_URL=link_pref + reverse('payment_fail'),
             WMI_RECIPIENT_LOGIN=self.request.user.email,

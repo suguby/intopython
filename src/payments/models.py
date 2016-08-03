@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from django.db.models import PROTECT
 from model_utils import Choices
 
 from src.common.models import AbstractModel
@@ -27,7 +28,7 @@ class Orders(AbstractModel):
     )
 
     user = models.ForeignKey(MyUser)
-    tariff = models.ForeignKey(Tariff)
+    tariff = models.ForeignKey(Tariff, on_delete=PROTECT)
     status = models.CharField(max_length=32, choices=STATUSES, default=STATUSES.new)
     issue_date = models.DateField()
     payment_date = models.DateField(null=True)
