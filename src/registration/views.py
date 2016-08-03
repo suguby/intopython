@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
+import datetime
+
 from django.conf import settings
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 
+from src.payments.models import Orders
 from src.registration.forms import MyUserCreationForm
 from src.registration.models import MyUser
 
@@ -45,3 +48,13 @@ class LogoutView(TemplateView):
 
 class ProfileView(TemplateView):
     template_name = 'registration/profile.html'
+
+    def get_context_data(self, **kwargs):
+        user = self.request.user
+        context = {}
+        if not user.is_anonymous():
+            if user.access_till > datetime.date.today():
+                context.update(access_till=user.access_till)
+            orders = Orders.objects.filter(user=user)
+            context.update(orders=orders)
+        return context

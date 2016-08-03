@@ -1,5 +1,34 @@
 {% extends 'registration/profile_base.html' %}
 
 {% block profile_content %}
-    <a href="{{ url('password_change') }}" class="btn btn-primary">Сменить пароль</a>
+    {% if access_till %}
+        <p>У вас есть доступ к PRO-версии сайта до {{ access_till }}</p>
+    {% else %}
+        <p>У вас нет доступа к PRO-версии сайта</p>
+    {% endif %}
+    {% if orders %}
+        <br /><br />
+        Ваши счета:<br /><br />
+        <table width="80%">
+        <tbody>
+            <tr>
+                <td>Номер</td>
+                <td>Дата выставления</td>
+                <td>Сумма к оплате</td>
+                <td>Дней доступа</td>
+                <td>Статус</td>
+            </tr>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.issue_date }}</td>
+                    <td>{{ order.tariff.cost }}</td>
+                    <td>{{ order.tariff.paid_days }}</td>
+                    <td>{{ order.get_status_display() }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    {% endif %}
+    <a href="{{ url('password_change') }}" class="btn">Сменить пароль</a>
 {% endblock profile_content %}
