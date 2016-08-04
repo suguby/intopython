@@ -6,7 +6,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 
-from src.payments.models import Orders
+from src.payments.models import Order
 from src.registration.forms import MyUserCreationForm
 from src.registration.models import MyUser
 
@@ -55,6 +55,6 @@ class ProfileView(TemplateView):
         if not user.is_anonymous():
             if user.access_till and user.access_till > datetime.date.today():
                 context.update(access_till=user.access_till)
-            orders = Orders.objects.filter(user=user)
+            orders = Order.objects.filter(user=user)
             context.update(orders=orders)
         return context

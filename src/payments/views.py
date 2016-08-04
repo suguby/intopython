@@ -13,7 +13,7 @@ from django.shortcuts import get_object_or_404
 
 from src.common.views import BaseTemplateView, HttpRedirectException
 from src.payments.forms import PreOrderForm, OrderForm, tariff_choices
-from src.payments.models import Tariff, Orders
+from src.payments.models import Tariff, Order
 
 log = logging.getLogger('intopython')
 
@@ -62,9 +62,9 @@ class OrderView(BaseTemplateView):
             raise HttpRedirectException(redirect_to=redirect_to)
         tariff_id = self.request.GET.get('tariff', None)
         tariff = get_object_or_404(Tariff, id=tariff_id)
-        order, created = Orders.objects.get_or_create(
+        order, created = Order.objects.get_or_create(
             user=self.request.user,
-            status=Orders.STATUSES.new,
+            status=Order.STATUSES.new,
             defaults=dict(
                 tariff=tariff,
                 issue_date=datetime.date.today()
@@ -123,7 +123,7 @@ class PaymentTransactionView(BaseTemplateView):
             return self.render_to_response(context=dict(success=False, description='Invalid signature'))
         wmi_payment_no = request.POST.get('WMI_PAYMENT_NO')
         order_id = request.POST.get('order_id', wmi_payment_no)
-        qs = Orders.objects.filter(id=order_id).select_related('user', 'tariff')
+        qs = Order.objects.filter(id=order_id).select_related('user', 'tariff')
         if not len(qs):
             description = 'No order with id {} sended as WMI_PAYMENT_NO'.format(order_id)
             log.info("PaymentTransactionView: {}".format(description))
@@ -139,7 +139,7 @@ class PaymentTransactionView(BaseTemplateView):
         log.info("PaymentTransactionView: order {}".format(order))
         WMI_ORDER_STATE = request.POST.get('WMI_ORDER_STATE')
         if WMI_ORDER_STATE == 'Accepted':
-            order.status = Orders.STATUSES.paid
+            order.status = Order.STATUSES.paid
             with transaction.atomic():
                 last_access = order.user.access_till if order.user.access_till else datetime.date.today()
                 order.user.access_till = last_access + datetime.timedelta(days=order.tariff.paid_days)
@@ -148,7 +148,7 @@ class PaymentTransactionView(BaseTemplateView):
                 log.info("PaymentTransactionView: updated access to user_id {} until {}".format(
                     order.user.id, order.user.access_till))
         else:
-            order.status = Orders.STATUSES.fail
+            order.status = Order.STATUSES.fail
             order.save()
             log.info("PaymentTransactionView: WMI_ORDER_STATE {}".format(WMI_ORDER_STATE))
         return self.render_to_response(context=dict(success=True, description=''))

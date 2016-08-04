@@ -19,7 +19,7 @@ class Tariff(AbstractModel):
     _str_template = '{cost} / {paid_days} / {valid_till}'
 
 
-class Orders(AbstractModel):
+class Order(AbstractModel):
     STATUSES = Choices(
         ('new', 'Выставлен'),
         ('paid', 'Оплачен'),
