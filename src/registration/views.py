@@ -53,7 +53,7 @@ class ProfileView(TemplateView):
         user = self.request.user
         context = {}
         if not user.is_anonymous():
-            if user.access_till > datetime.date.today():
+            if user.access_till and user.access_till > datetime.date.today():
                 context.update(access_till=user.access_till)
             orders = Orders.objects.filter(user=user)
             context.update(orders=orders)
