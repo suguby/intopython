@@ -5,6 +5,7 @@
 @import "common";
 @import "global";
 @import "custombox.min.css";
+@import "bootstrap-select.min.css";
 @import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
 
 /* font-family: "RalewayRegular"; */
@@ -35,6 +36,7 @@ body {
     height: 100%;
     overflow: auto;
     font-family: "Roboto";
+    color: #CDCDD6;
 }
 
 body, html {
@@ -222,7 +224,7 @@ body {
     border-right: 1px solid #ff0723;
     display: table-cell;
     float: none;
-    .transition(all, 0.7s, ease-out);
+    .transition();
 
     .logo {
         margin: 90px auto 72px;
@@ -316,7 +318,7 @@ body {
 
 .content-side {
     margin: auto 0;
-    padding: 65px 0 0 0;
+    padding: 65px 0 150px 0;
 
     .pic {
         overflow: hidden;
@@ -348,6 +350,15 @@ body {
         .transition();
         .rounded(0);
 
+        &.btn-payment {
+            .inline-block;
+            position: static;
+        }
+
+        &.get-pay {
+            margin: -11px 0 0 47px;
+        }
+
         &:hover {
             .opacity(0.95);
         }
@@ -358,6 +369,38 @@ body {
         color: #CDCDD6;
         text-indent: 30px;
         padding-bottom: 10px;
+    }
+
+    form {
+        margin-top: 65px;
+    }
+
+    .bootstrap-select {
+        margin: 39px 60px 0 15px;
+
+        a:focus {
+            outline: none;
+        }
+    }
+}
+
+.t-bill {
+    width: 100%;
+    border: 1px solid #2d2929;
+    border-collapse: collapse;
+
+    td {
+        border: 1px solid #2d2929;
+        padding: 15px 10px 15px 15px;
+    }
+}
+
+.profile-menu {
+    margin: 50px 0;
+
+    a {
+        padding: 10px 0;
+        display: block;
     }
 }
 
@@ -689,6 +732,11 @@ code {
     .side-r {
         position: absolute;
         margin-left: 16.70%;
+    }
+
+    .nav-search menu .user-profile,
+    .nav-search menu .exit {
+        color: #fff;
     }
 }
 

@@ -30,7 +30,7 @@
             {% csrf_token %}
             {{ form.tariff.label }}&nbsp;&nbsp;{{ form.tariff | replace_css_class('size large')| safe }}
 
-            <button class="label-info">К оплате</button>
+            <button class="label-info btn btn-payment">К оплате</button>
         </form>
     </div>
 {% endblock container %}

@@ -7,13 +7,16 @@
     {% if DEBUG -%}
         <script src="{{ static('js/jquery_2_1_4.js') }}"></script>
         <script src="{{ static('js/bootstrap_3_3_2.js') }}"></script>
-        <script src="{{ static('js/jquery_1_11_1.js') }}"></script>
+        <!--<script src="{{ static('js/jquery_1_11_1.js') }}"></script>-->
+		<script src="{{ static('js/bootstrap-select.js') }}"></script>
         <link rel="stylesheet" href="{{ static('css/bootstrap_3_3_2.css') }}">
         <link rel="stylesheet" href="{{ static('css/bootstrap-theme_3_3_2.css') }}">
 	{% else -%}
         <script src="{{ static('js/jquery_2_1_4.min.js') }}"></script>
         <script src="{{ static('js/bootstrap_3_3_2.min.js') }}"></script>
-        <script src="{{ static('js/jquery_1_11_1.min.js') }}"></script>
+		<script src="{{ static('js/bootstrap-select.js') }}"></script>
+        <!--<script src="{{ static('js/jquery_1_11_1.min.js') }}"></script>-->
+		<script src="{{ static('js/bootstrap-select.js') }}"></script>
         <link rel="stylesheet" href="{{ static('css/bootstrap_3_3_2.min.css') }}">
         <link rel="stylesheet" href="{{ static('css/bootstrap-theme_3_3_2.min.css') }}">
     {% endif -%}

@@ -9,7 +9,7 @@
     {% if orders %}
         <br /><br />
         Ваши счета:<br /><br />
-        <table width="80%">
+        <table class="t-bill">
         <tbody>
             <tr>
                 <td>Номер</td>
@@ -30,5 +30,12 @@
         </tbody>
         </table>
     {% endif %}
-    <a href="{{ url('password_change') }}" class="btn">Сменить пароль</a>
+
+    <div class="profile-menu">
+        <a href="{{ url('password_change') }}" class="">Сменить пароль</a>
+        <a href="">Общее</a>
+        <a href="">Счета</a>
+        <a href="">Управление</a>
+    </div>
+
 {% endblock profile_content %}
