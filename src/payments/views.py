@@ -10,6 +10,8 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
 from src.common.views import BaseTemplateView, HttpRedirectException
 from src.payments.forms import PreOrderForm, OrderForm, tariff_choices
@@ -95,7 +97,14 @@ class OrderView(BaseTemplateView):
         return context
 
 
-class PaymentTransactionView(BaseTemplateView):
+class NoCSRFCheckTemplateView(BaseTemplateView):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, *args, **kwargs):
+        return super(NoCSRFCheckTemplateView, self).dispatch(*args, **kwargs)
+
+
+class PaymentTransactionView(NoCSRFCheckTemplateView):
     template_name = 'payments/transaction.html'
 
     def post(self, request, *args, **kwargs):
@@ -154,7 +163,7 @@ class PaymentTransactionView(BaseTemplateView):
         return self.render_to_response(context=dict(success=True, description=''))
 
 
-class PaymentSuccessView(BaseTemplateView):
+class PaymentSuccessView(NoCSRFCheckTemplateView):
     template_name = 'payments/success.html'
 
     def get_context_data(self, **kwargs):
