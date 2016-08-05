@@ -123,7 +123,7 @@ class PaymentTransactionView(NoCSRFCheckTemplateView):
         # WMI_ORDER_STATE	Состояние оплаты заказа: Accepted  — заказ оплачен;
         # WMI_SIGNATURE	Подпись уведомления об оплате, сформированная с использованием «секретного ключа» интернет-магазина.
 
-        data = request.POST
+        data = request.POST.copy()
         log.info("PaymentTransactionView: {}".format(data))
         wmi_signature = data.pop('WMI_SIGNATURE')
         signature = get_signature(params=data.items(), secret_key=settings.WALLETONE_TOKEN)
