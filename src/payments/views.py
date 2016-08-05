@@ -126,29 +126,28 @@ class PaymentTransactionView(NoCSRFCheckTemplateView):
         data = request.POST.copy()
         log.info("PaymentTransactionView: {}".format(data))
         wmi_signature = bytes(data.pop('WMI_SIGNATURE')[0], 'ASCII')
-        log.info("PaymentTransactionView: wmi_signature {}".format(wmi_signature))
         signature = get_signature(params=data.items(), secret_key=settings.WALLETONE_TOKEN)
-        log.info("PaymentTransactionView: signature {}".format(signature))
         if wmi_signature != signature:
-        # if False:
             log.info("PaymentTransactionView: Invalid signature")
             return self.render_to_response(context=dict(success=False, description='Invalid signature'))
         wmi_payment_no = request.POST.get('WMI_PAYMENT_NO')
         order_id = request.POST.get('order_id', wmi_payment_no)
         qs = Order.objects.filter(id=order_id).select_related('user', 'tariff')
         if not len(qs):
-            description = 'No order with id {} sended as WMI_PAYMENT_NO'.format(order_id)
+            description = 'No order with id {} sended as POST.order_id'.format(order_id)
             log.info("PaymentTransactionView: {}".format(description))
             return self.render_to_response(
                 context=dict(success=False, description=description))
         order = qs[0]
+        log.info("PaymentTransactionView: selected order {}".format(order))
         user_id = request.POST.get('user_id')
         if user_id and int(user_id) != order.user.id:
             log.info("PaymentTransactionView: user_id {} != order.user.id {}".format(user_id, order.user.id))
         order.external_payment_id = request.POST.get('WMI_ORDER_ID')
         order.external_user_wallet_id = request.POST.get('WMI_TO_USER_ID')
         order.commission_amount = request.POST.get('WMI_COMMISSION_AMOUNT')
-        log.info("PaymentTransactionView: order {}".format(order))
+        order.payment_date = datetime.datetime.now()
+        order.amount = request.POST.get('WMI_PAYMENT_AMOUNT')
         WMI_ORDER_STATE = request.POST.get('WMI_ORDER_STATE')
         if WMI_ORDER_STATE == 'Accepted':
             order.status = Order.STATUSES.paid
@@ -191,4 +190,5 @@ class PaymentFailView(PaymentSuccessView):
     def get_context_data(self, **kwargs):
         context = super(PaymentFailView, self).get_context_data(**kwargs)
         context['message'] = 'Оплата не удалась'
+        log.info("PaymentFailView called for user {} ".format(self.request.user))
         return context
