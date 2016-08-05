@@ -125,7 +125,7 @@ class PaymentTransactionView(NoCSRFCheckTemplateView):
 
         data = request.POST.copy()
         log.info("PaymentTransactionView: {}".format(data))
-        wmi_signature = data.pop('WMI_SIGNATURE')[0]
+        wmi_signature = bytes(data.pop('WMI_SIGNATURE')[0], 'ASCII')
         log.info("PaymentTransactionView: wmi_signature {}".format(wmi_signature))
         signature = get_signature(params=data.items(), secret_key=settings.WALLETONE_TOKEN)
         log.info("PaymentTransactionView: signature {}".format(signature))
@@ -168,6 +168,8 @@ class PaymentTransactionView(NoCSRFCheckTemplateView):
 
 class PaymentSuccessView(NoCSRFCheckTemplateView):
     template_name = 'payments/success.html'
+
+    post = NoCSRFCheckTemplateView.get
 
     def get_context_data(self, **kwargs):
         if self.request.user.is_anonymous():
