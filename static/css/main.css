@@ -575,9 +575,14 @@ body {
   -moz-border-radius: 5px;
   border-radius: 5px;
   margin: 0 15px 30px;
-  padding: 5px 6px 75px;
-  height: 640px;
+  padding: 5px 6px 15px;
+  height: 670px;
   overflow: hidden;
+}
+.screencasts-list .screencasts-item > a {
+  text-align: center;
+  display: block;
+  position: relative;
 }
 .screencasts-list .screencasts-item .tags {
   padding-left: 0;
@@ -605,7 +610,6 @@ body {
   color: #CDCDD6;
 }
 .screencasts-list .screencasts-item .btn {
-  width: auto;
   left: auto;
   right: auto;
   background: #428cca;
@@ -614,7 +618,23 @@ body {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  bottom: 19px;
+  bottom: -20px;
+  width: 110px;
+  float: left;
+}
+.screencasts-list .art-img-pro {
+  width: 100%;
+}
+.screencasts-list .img-pro-transparent {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.text-pro img {
+  width: 35px;
 }
 .lesson-video {
   height: 300px;

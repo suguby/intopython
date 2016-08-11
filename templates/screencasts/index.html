@@ -14,9 +14,11 @@
                 {% else %}
                     <a href="{{ url('screencast_detail', article.slug) }}">
                     {%  if article.image %}
-                        <img src="{{ article.image.url }}" width="560" height="315">
+                        <img src="{{ article.image.url }}" class="art-img-pro">
+                        <img src="{{ static('blank_pro.png')}}" class="img-pro-transparent">
+
                     {% else %}
-                        <img src="{{ static('blank_pro.png')}}" width="560" height="315">
+                        <img src="{{ static('blank_pro.png')}}" >
                     {% endif %}
                     </a>
                 {% endif %}
@@ -24,7 +26,9 @@
 {#                <iframe width="250" height="190" src="https://www.youtube.com/embed/KsLHt3D_jsE" frameborder="0" allowfullscreen></iframe>#}
                 <div class="title">{{ article.title }}</div>
                 {% if article.by_subscription %}
-                    <span class="text-warning"> -> PRO <- </span>
+                    <span class="text-pro">
+                        <img src="{{ static('blank_pro_red.png')}}" >
+                    </span>
                 {% endif %}
                 <br /><br />
                 <div class="description">
