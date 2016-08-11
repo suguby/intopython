@@ -30,7 +30,7 @@ class Order(AbstractModel):
     user = models.ForeignKey(MyUser)
     tariff = models.ForeignKey(Tariff, on_delete=PROTECT)
     status = models.CharField(max_length=32, choices=STATUSES, default=STATUSES.new)
-    issue_date = models.DateField()  # TODO лучше переделать на DatetimeField
+    issue_date = models.DateTimeField()
     payment_date = models.DateField(null=True)
     amount = models.FloatField(null=True)
     external_payment_id = models.CharField(max_length=128, null=True)
