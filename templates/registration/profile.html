@@ -1,41 +1,9 @@
 {% extends 'registration/profile_base.html' %}
 
 {% block profile_content %}
-    {% if access_till %}
-        <p>У вас есть доступ к PRO-версии сайта до {{ access_till }}</p>
-    {% else %}
-        <p>У вас нет доступа к PRO-версии сайта</p>
-    {% endif %}
-    {% if orders %}
-        <br /><br />
-        Ваши счета:<br /><br />
-        <table class="t-bill">
-        <tbody>
-            <tr>
-                <td>Номер</td>
-                <td>Дата выставления</td>
-                <td>Сумма к оплате</td>
-                <td>Дней доступа</td>
-                <td>Статус</td>
-            </tr>
-            {% for order in orders %}
-                <tr>
-                    <td>{{ order.id }}</td>
-                    <td>{{ order.issue_date }}</td>
-                    <td>{{ order.tariff.cost }}</td>
-                    <td>{{ order.tariff.paid_days }}</td>
-                    <td>{{ order.get_status_display() }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-        </table>
-    {% endif %}
-
     <div class="profile-menu">
         <a href="{{ url('password_change') }}" class="">Сменить пароль</a>
-        <a href="">Общее</a>
-        <a href="">Счета</a>
-        <a href="">Управление</a>
+        <a href="{{ url('pro_access') }}">Состояние доступа к PRO-версии сайта</a>
     </div>
 
 {% endblock profile_content %}

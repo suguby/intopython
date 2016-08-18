@@ -49,6 +49,10 @@ class LogoutView(TemplateView):
 class ProfileView(TemplateView):
     template_name = 'registration/profile.html'
 
+
+class ProfileProAccessView(TemplateView):
+    template_name = 'registration/pro_access.html'
+
     def get_context_data(self, **kwargs):
         user = self.request.user
         context = {}
@@ -58,3 +62,4 @@ class ProfileView(TemplateView):
             orders = Order.objects.filter(user=user)
             context.update(orders=orders)
         return context
+
