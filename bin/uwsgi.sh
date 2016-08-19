@@ -3,7 +3,7 @@
 
 
 uwsgi_pids() {
-    PIDS=`ps -ef | grep 'uwsgi' | grep '/home/design' | grep -v grep | grep -v '.sh' | awk '{print($2)}'`
+    PIDS=`ps -ef | grep 'uwsgi' | grep ${HOME} | grep -v grep | grep -v '.sh' | awk '{print($2)}'`
 }
 
 
