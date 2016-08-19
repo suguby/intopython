@@ -7,16 +7,20 @@
     {% if DEBUG -%}
         <script src="{{ static('js/jquery_2_1_4.js') }}"></script>
         <script src="{{ static('js/bootstrap_3_3_2.js') }}"></script>
-        <script src="{{ static('js/jquery_1_11_1.js') }}"></script>
+        <!--<script src="{{ static('js/jquery_1_11_1.js') }}"></script>-->
+		<script src="{{ static('js/bootstrap-select.js') }}"></script>
         <link rel="stylesheet" href="{{ static('css/bootstrap_3_3_2.css') }}">
         <link rel="stylesheet" href="{{ static('css/bootstrap-theme_3_3_2.css') }}">
 	{% else -%}
         <script src="{{ static('js/jquery_2_1_4.min.js') }}"></script>
         <script src="{{ static('js/bootstrap_3_3_2.min.js') }}"></script>
-        <script src="{{ static('js/jquery_1_11_1.min.js') }}"></script>
+		<script src="{{ static('js/bootstrap-select.js') }}"></script>
+        <!--<script src="{{ static('js/jquery_1_11_1.min.js') }}"></script>-->
+		<script src="{{ static('js/bootstrap-select.js') }}"></script>
         <link rel="stylesheet" href="{{ static('css/bootstrap_3_3_2.min.css') }}">
         <link rel="stylesheet" href="{{ static('css/bootstrap-theme_3_3_2.min.css') }}">
     {% endif -%}
+    <script src="https://www.walletone.com/merchant/widget/1.0.2/script.js"></script>
     <!--<link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">-->
 
 	<script src="{{ static('js/script.js') }}"></script>
@@ -29,29 +33,33 @@
 
 <body class="{% block body_class %}p-main{% endblock %}">
 {% set navigation_bar = [
-('index', 'Начало'),
 ('screencasts', 'Скринкасты'),
 ('courses', 'Курсы'),
 ('blog', 'Блог'),
 ] -%}
 {% set active_page = active_page|default('') -%}
 
+{% macro left_menu() -%}
+    {% for url_name, caption in navigation_bar -%}
+        <li{% if url_name == active_page %} class="active"{% endif %}>
+            <a href="{{ url(url_name) }}">{{ caption }}</a>
+        </li>
+    {% endfor -%}
+{%- endmacro %}
+
 <div class="container-fluid b-main">
 	<div class="row b-main-row">
 		<div class="main-menu-hidden">
-			<img src="{{ static('img/logo-mobile.png') }}" alt="" class="logo logo-mobile">
+            <a href="{{ url('index') }}">
+                <img src="{{ static('img/logo-mobile.png') }}" alt="" class="logo logo-mobile">
+            </a>
 			<ul class="top-menu">
-                {% for url_name, caption in navigation_bar -%}
-                    <li{% if url_name == active_page %} class="active"{% endif %}>
-                        <a href="{{ url(url_name) }}">{{ caption }}</a>
-                    </li>
-                {% endfor -%}
+                {{ left_menu() }}
                 {% if request.user.is_authenticated() %}
-{#                    TODO высушить мобильное меню и основное меню - приходится повторять, неудобно#}
                     <div class="wrap-user-nav">
                         <a href="{{ url('profile') }}" class="user-profile">
                             <span class="glyphicon glyphicon-user"></span>
-                            {{ request.user.username }}
+                            {{ request.user.email }}
                         </a>
                         <a href="{{ url('logout') }}" class="exit">Выход</a>
                     </div>
@@ -65,15 +73,11 @@
 		<a href="#" class="main-menu-toggle"></a> <!-- mobile menu button -->
 		<div class="col-md-2 side-l main-menu">
 			<div class="main-menu-wrap">
-				<div class="logo"></div>
+				<a href="{{ url('index') }}"><div class="logo"></div></a>
 				<input type="text" placeholder="Поиск по сайту" class="form-control input-search">
 				<!-- левое боковое меню -->
 				<ul class="menu">
-                  {% for url_name, caption in navigation_bar -%}
-                    <li{% if url_name == active_page %} class="active"{% endif %}>
-                        <a href="{{ url(url_name) }}">{{ caption }}</a>
-                    </li>
-                  {% endfor -%}
+                    {{ left_menu() }}
 				</ul>
                 {% block left_menu_footer -%}
                 {% endblock left_menu_footer -%}
@@ -111,7 +115,7 @@
                         <div class="wrap-user-nav">
                             <a href="{{ url('profile') }}" class="user-profile">
                                 <span class="glyphicon glyphicon-user"></span>
-                                {{ request.user.username }}
+                                {{ request.user.email }}
                             </a>
                             <a href="{{ url('logout') }}?next={{ request.path }}" class="exit">Выход</a>
                         </div>
@@ -143,18 +147,18 @@
 				<h4 class="modal-title">Вход</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal" action="{{ url('login') }}" method="post">
+                <form class="form-horizontal" action="{{ url('login') }}{% if not request.path.startswith('/registration') %}?next={{ request.path }}{% endif %}" method="post">
                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                    {% if request.path.startswith('/registration') %}
-                        <input type="hidden" name="next" value="/" />
-                    {% else %}
-                        <input type="hidden" name="next" value="{{ request.path }}" />
-                    {% endif %}
+{#                    {% if request.path.startswith('/registration') %}#}
+{#                        <input type="hidden" name="next" value="/" />#}
+{#                    {% else %}#}
+{#                        <input type="hidden" name="next" value="{{ request.path }}" />#}
+{#                    {% endif %}#}
 					<fieldset>
 						<div class="form-group">
-							<label for="username" class="control-label col-xs-2">Имя пользователя</label>
+							<label for="email" class="control-label col-xs-2">Email</label>
 							<div class="col-xs-10">
-								<input type="text" class="form-control" id="username" name="username" placeholder="Имя пользователя">
+								<input type="email" class="form-control" id="username" name="username" placeholder="Email">
 							</div>
 						</div>
 						<div class="form-group">
@@ -190,16 +194,16 @@
 				<h4 class="modal-title" id="myModalLabel">Регистрация</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal" action="{{ url('registration') }}" method="post">
+                <form class="form-horizontal" action="{{ url('registration') }}{% if not request.path.startswith('/registration') %}?next={{ request.path }}{% endif %}" method="post">
                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                     <input type="hidden" name="next" value="{{ request.path_info }}">
-					<fieldset>
-						<div class="form-group">
-							<label for="username" class="control-label col-xs-2">Логин</label>
-							<div class="col-xs-10">
-								<input type="text" class="form-control" id="username" name="username" placeholder="[a-zA-Z0-9_]*">
-							</div>
-						</div>
+{#					<fieldset>#}
+{#						<div class="form-group">#}
+{#							<label for="username" class="control-label col-xs-2">Логин</label>#}
+{#							<div class="col-xs-10">#}
+{#								<input type="text" class="form-control" id="username" name="username" placeholder="[a-zA-Z0-9_]*">#}
+{#							</div>#}
+{#						</div>#}
 						<div class="form-group">
 							<label for="email" class="control-label col-xs-2">Email</label>
 							<div class="col-xs-10">

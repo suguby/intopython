@@ -26,14 +26,14 @@ def db_truncate():
         _truncate_db()
 
 
-def db_reinit(username='wad'):
+def db_reinit(email='intopython@gmail.ru'):
     u"""Пересоздать БД, накатить миграции, создать суперпользователя"""
 
     if _ask('Вы уверены что хотите пересоздать БД {db_name}?'.format(**env), exit_if_no=True):  # здесь нельзя юникод
         _truncate_db()
         call_command('migrate')
-        _message_ok('Enter superuser {username} password', username=username)
-        call_command('createsuperuser', username=username, email='user@domain.ru', noinput=1)
+        _message_ok('Enter superuser {email} password', email=email)
+        call_command('createsuperuser', email=email, noinput=1)
         _message_ok('Current {db_name} database purged', db_name=env.db_name)
 
 

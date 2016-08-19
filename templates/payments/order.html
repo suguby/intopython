@@ -1,0 +1,26 @@
+{% extends 'payments/base.html' %}
+
+{% block container %}
+    <div class="content-side">
+        <h1>Проверьте правильность выбора тарифа</h1>
+        <form method="post" action="https://wl.walletone.com/checkout/checkout/Index">
+            Сумма: {{ tariff.cost }} руб. Срок доступа: {{ tariff.paid_days }} дней с момента оплаты (или даты окончания текущего доступа).
+            {% for field in form %}
+                {{ field | safe }}
+            {% endfor %}
+            <input type="submit" class="btn btn-payment get-pay" value="Все правильно, оплатить"/>
+        </form>
+        <br />
+        <div id="w1widget"></div>
+        <script>
+            W1.widget({
+                "pt": "WalletOneRUB,CreditCardRUB,SberOnlineRUB,AlfaclickRUB,TinkoffRUB,MtsRUB,BeelineRUB,MegafonRUB,EurosetRUB,ContactRUB,QiwiWalletRUB,YandexMoneyRUB,SvyaznoyRUB",
+                "logosSize": "mid",
+                "grayscale": false,
+                "background": "black",
+                "fixWidth": "",
+                "container": "w1widget"
+            });
+        </script>
+    </div>
+{% endblock container %}

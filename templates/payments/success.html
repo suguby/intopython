@@ -1,0 +1,14 @@
+{% extends 'payments/base.html' %}
+
+{% block container %}
+    <div class="content-side">
+        <h1>{{ message }}</h1>
+        <h1>
+            {% if access_till %}
+                У вас есть PRO-доступ до {{ access_till }}
+            {% else %}
+                У вас нет PRO-доступа
+            {% endif %}
+        </h1>
+    </div>
+{% endblock container %}

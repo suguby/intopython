@@ -16,6 +16,8 @@ class Article(AbstractModel):
     title = models.CharField(verbose_name='Заголовок', max_length=128, default='')
     summary = models.TextField(verbose_name='Конспект', null=True, blank=True)
     body = models.TextField(verbose_name='Содержание статьи', null=True, blank=True)
+    by_subscription = models.BooleanField(verbose_name='Доступ по подписке', default=False)
+    image = models.ImageField(verbose_name='Изображение', null=True, blank=True, upload_to='images/%Y/%m/%d')
 
     slug = models.CharField(verbose_name='Слаг', max_length=128, db_index=True, blank=True)
     type = models.CharField(verbose_name='Тип', max_length=16, choices=TYPES, default=TYPES.screencast)
@@ -25,8 +27,11 @@ class Article(AbstractModel):
 
     class Meta:
         db_table = 'articles'
+        permissions = (
+            ("view_subscription_article", "Может видеть статьи по подписке"),
+        )
 
-    _str_template = ' "{title}" / {modified_at} / {status}'
+    _str_template = ' "{title}" / {modified_at} / {status} / PRO {by_subscription}'
 
     tags = TaggableManager()
 

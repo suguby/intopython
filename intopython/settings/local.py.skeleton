@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
 
+from .base import INSTALLED_APPS
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '...'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+INSTALLED_APPS += (
+    'debug_toolbar',
+)
 
 DATABASES = {
     'default': {
@@ -16,6 +22,8 @@ DATABASES = {
         # 'PORT': '5432',
     }
 }
+
+ALLOWED_HOSTS = ['127.0.0.1']
 
 FAB_SERVERS = {
     'prod': {
@@ -32,10 +40,20 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'noreply@intopython.ru'
+EMAIL_HOST_USER = 'noreplay@intopython.ru'
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = 'noreplay@intopython.ru'
 
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, "static"),
+# )
+# STATIC_ROOT = os.path.join(BASE_DIR, 'extra', 'static')
+#
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'extra', 'media')
 
+WALLETONE_MERCHANT_ID = '...'
+WALLETONE_TOKEN = '...'

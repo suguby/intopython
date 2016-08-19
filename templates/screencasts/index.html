@@ -2,17 +2,35 @@
 
 {% block container %}
     <div class="content-side">
-    <h1>Скринкасты о Джанго
+    <h1>Скринкасты о {% if current_section %}{{ current_section.title }}{% else %}Джанго{% endif %}
     <span>Коротко о главном</span>
     </h1>
     <div class="screencasts-list row">
         <div class="row">
     {% for article in articles -%}
             <div class="screencasts-item col-md-4">
-                {{ article.video|safe }}
+                {% if article.user_can_view %}
+                    {{ article.video|safe }}
+                {% else %}
+                    <a href="{{ url('screencast_detail', article.slug) }}">
+                    {%  if article.image %}
+                        <img src="{{ article.image.url }}" class="art-img-pro">
+                        <img src="{{ static('blank_pro.png')}}" class="img-pro-transparent">
+
+                    {% else %}
+                        <img src="{{ static('blank_pro.png')}}" >
+                    {% endif %}
+                    </a>
+                {% endif %}
 {#                TODO сделать вызов некоего метода, который выдаст правильный iframe#}
 {#                <iframe width="250" height="190" src="https://www.youtube.com/embed/KsLHt3D_jsE" frameborder="0" allowfullscreen></iframe>#}
                 <div class="title">{{ article.title }}</div>
+                {% if article.by_subscription %}
+                    <span class="text-pro">
+                        <img src="{{ static('blank_pro_red.png')}}" >
+                    </span>
+                {% endif %}
+                <br /><br />
                 <div class="description">
                     <p>{{ article.summary }} </p><br />
                     <time class="date-lesson"><i class="fa fa-clock-o"></i>{{ article.modified_at }}</time>

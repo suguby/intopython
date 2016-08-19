@@ -19,10 +19,12 @@ $(document).ready(
         });
 
 
-
+        $('select').selectpicker();
 
         if($(window).innerWidth() <= 800) {
-            var fixmeTop = $('.wrap_lesson-video').offset().top;       // get initial position of the element
+            if ($('.wrap_lesson-video').length) {
+                var fixmeTop = $('.wrap_lesson-video').offset().top;
+            }
             $(window).scroll(function() {                  // assign scroll event listener
                 var currentScroll = $(window).scrollTop(); // get current position
                 if (currentScroll >= fixmeTop) {           // apply position: fixed if you
@@ -41,7 +43,9 @@ $(document).ready(
                 console.log(fixmeTop);
             });
         } else {
-            var fixmeTop = $('.wrap_lesson-video').offset().top;       // get initial position of the element
+            if ($('.wrap_lesson-video').length) {
+                var fixmeTop = $('.wrap_lesson-video').offset().top;
+            }
             $(window).scroll(function() {                  // assign scroll event listener
                 var currentScroll = $(window).scrollTop(); // get current position
                 if (currentScroll >= fixmeTop) {           // apply position: fixed if you
@@ -58,6 +62,9 @@ $(document).ready(
                 }
             });
         }
+
+
+
     })
 );
 

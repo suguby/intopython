@@ -1,0 +1,36 @@
+{% extends 'payments/base.html' %}
+
+{% block container %}
+    <div class="content-side">
+        <h1>Запрошенный вами материал доступен только в PRO версии.</h1>
+        <p>
+            В PRO-версии публикуются материалы для угрубленного изучения Django/Python,
+            даются рекомендации и рецепты для профессионалов.
+        </p>
+        <p>
+            Вы можете купить доступ к PRO версии сайта за {{ first_tariff }}.
+        </p>
+        <p>
+            Если Вы проходите наш курс, доступ к PRO-версии дается автоматически.
+        </p>
+        <p>
+        <div id="w1widget"></div>
+        <script>
+            W1.widget({
+                "pt": "WalletOneRUB,CreditCardRUB,SberOnlineRUB,AlfaclickRUB,TinkoffRUB,MtsRUB,BeelineRUB,MegafonRUB,EurosetRUB,ContactRUB,QiwiWalletRUB,YandexMoneyRUB,SvyaznoyRUB",
+                "logosSize": "mid",
+                "grayscale": false,
+                "background": "black",
+                "fixWidth": "",
+                "container": "w1widget"
+            });
+        </script>
+        </p>
+        <form action="{{ url('order') }}">
+            {% csrf_token %}
+            {{ form.tariff.label }}&nbsp;&nbsp;{{ form.tariff | replace_css_class('size large')| safe }}
+
+            <button class="label-info btn btn-payment">К оплате</button>
+        </form>
+    </div>
+{% endblock container %}
