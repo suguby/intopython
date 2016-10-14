@@ -42,6 +42,7 @@ INSTALLED_APPS = (
 
     'taggit',
     # 'django_pygments',
+    'markdownx',
 
     'src.articles',
     'src.blog',
@@ -61,6 +62,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'intopython.urls'

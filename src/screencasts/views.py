@@ -74,3 +74,11 @@ class ProVersionView(ScreencastsListView):
         context = super().get_context_data(**kwargs)
         context['form'] = PreOrderForm()
         return context
+
+
+class ScreencastAddView(ScreencastsBaseView):
+    template_name = 'screencasts/add.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ScreencastAddView, self).get_context_data(**kwargs)
+        return context

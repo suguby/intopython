@@ -26,17 +26,16 @@ from intopython.views import IndexView
 
 urlpatterns = [
 
+    url(r'^$', IndexView.as_view(), name='index'),
     url(r'^screencasts/', include('src.screencasts.urls')),
     url(r'^blog/', include('src.blog.urls')),
-
-    url(r'^questions/', IndexView.as_view(), name='questions'),
-
     url(r'^courses/', include('src.courses.urls')),
     url(r'^landing/', include('src.landing.urls')),
-    url(r'^$', IndexView.as_view(), name='index'),
-
-    url(r'^nimda/', include(admin.site.urls)),
 
     url(r'^registration/', include('src.registration.urls')),
     url(r'^payments/', include('src.payments.urls')),
+
+    url(r'^nimda/', include(admin.site.urls)),
+    url(r'^markdownx/', include('markdownx.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

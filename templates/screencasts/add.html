@@ -1,0 +1,23 @@
+{% extends 'screencasts/base.html' %}
+
+{% block extra_head %}
+{% endblock extra_head %}
+
+{% block container %}
+    <div class="content-side">
+    <h1>Добавление скринкаста</h1>
+    <div class="content-side lesson-absolute-block">
+        <form method="POST" action="{{ url('screencast_add') }}">{% csrf_token %}
+            {{ form }}
+        </form>
+        {{ form.media }}
+    </div>
+
+    <ul class="pager">
+        <li class="previous">
+            <a href="{{ url('screencasts') }}">← обратно</a>
+        </li>
+    </ul>
+
+    </div>
+{% endblock container %}

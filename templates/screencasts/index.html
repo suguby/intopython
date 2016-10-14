@@ -5,6 +5,10 @@
     <h1>Скринкасты о {% if current_section %}{{ current_section.title }}{% else %}Джанго{% endif %}
     <span>Коротко о главном</span>
     </h1>
+    {% if is_admin %}
+        <a href="{{ url('screencast_add') }}">Добавить</a>
+        <br /><br />
+    {% endif %}
     <div class="screencasts-list row">
         <div class="row">
     {% for article in articles -%}
