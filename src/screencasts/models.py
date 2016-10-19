@@ -40,9 +40,3 @@ class Screencast(Article):
     def iframe(self):
         iframe = self.video.replace('<iframe', '<iframe class="lesson-video" ')
         return iframe
-
-
-class ScreencastEdit(Screencast):
-
-    class Meta:
-        pass

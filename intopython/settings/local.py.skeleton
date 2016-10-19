@@ -36,8 +36,6 @@ FAB_SERVERS = {
 }
 
 
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'noreplay@intopython.ru'

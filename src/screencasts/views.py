@@ -36,9 +36,12 @@ class ScreencastsListView(ScreencastsBaseView):
             section.link = reverse('screencasts') + '?section={}'.format(section.slug)
 
         context = super().get_context_data(**kwargs)
+        user = self.request.user
+        is_admin = False if isinstance(user, AnonymousUser) else user.is_admin
         context.update(
             sections=sections,
             current_section=current_section,
+            is_admin=is_admin,
         )
         return context
 
@@ -81,4 +84,7 @@ class ScreencastAddView(ScreencastsBaseView):
 
     def get_context_data(self, **kwargs):
         context = super(ScreencastAddView, self).get_context_data(**kwargs)
+        context.update(
+            form=None,
+        )
         return context
