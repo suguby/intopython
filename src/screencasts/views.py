@@ -10,6 +10,7 @@ from src.articles.views import ArticlesBaseView
 from src.common.views import HttpRedirectException, BaseTemplateView
 from src.payments.forms import PreOrderForm
 from src.payments.models import Tariff
+from src.screencasts.forms import ScreencastForm
 from .models import Screencast, ScreencastSection
 
 
@@ -37,11 +38,9 @@ class ScreencastsListView(ScreencastsBaseView):
 
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        is_admin = False if isinstance(user, AnonymousUser) else user.is_admin
         context.update(
             sections=sections,
             current_section=current_section,
-            is_admin=is_admin,
         )
         return context
 
@@ -79,12 +78,18 @@ class ProVersionView(ScreencastsListView):
         return context
 
 
-class ScreencastAddView(ScreencastsBaseView):
-    template_name = 'screencasts/add.html'
+class ScreencastEditView(ScreencastsBaseView):
+    template_name = 'screencasts/edit.html'
 
     def get_context_data(self, **kwargs):
-        context = super(ScreencastAddView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
+        slug = kwargs.get('slug')
+        if slug:
+            sc = get_object_or_404(Screencast, slug=slug)
+            form = ScreencastForm(instance=sc)
+        else:
+            form = ScreencastForm()
         context.update(
-            form=None,
+            form=form,
         )
         return context

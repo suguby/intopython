@@ -21,6 +21,11 @@
         <div class="description-lesson">
             <p>{{ sc.title }}</p>
             <p>{{ sc.pygmented_markdown() | safe }}</p>
+            {% if is_admin %}
+                <a href="{{ url('screencast_edit', sc.slug) }}">Редактировать</a>
+            {% else %}
+                NO ADMIN
+            {% endif %}
         </div>
     </div>
 

@@ -46,6 +46,10 @@
                     </ul>
                 </div>
                 <a href="{{ url('screencast_detail', article.slug) }}" class="btn btn-default">Посмотреть</a>
+                {% if is_admin %}
+                    <br>
+                    <a href="{{ url('screencast_edit', article.slug) }}">Редактировать</a>
+                {% endif %}
             </div>
         {% if loop.index %3 == 0 -%}
             </div>
