@@ -127,12 +127,14 @@
 				</menu>
 			</nav>
             {% block container %}
+            {# TODO разбить блок контейнер на два, а это 30 вхождений #}
 			<div class="b-tagline">
 				<div class="text">
                     Здесь весь контент
 				</div>
 			</div>
             {% endblock container %}
+            {% block paginator %}{% endblock %}
 		</div>
 	</div>
 </div>

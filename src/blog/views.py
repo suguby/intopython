@@ -7,11 +7,11 @@ from .models import Blog
 class BlogBaseView(ArticlesBaseView):
     model = Blog
     list_url_name = 'blog'
-    PAGE_SIZE = 3
 
 
 class BlogView(BlogBaseView):
     template_name = 'blog/index.html'
+    PAGE_SIZE = 7
 
 
 class BlogDetailView(BlogBaseView):
