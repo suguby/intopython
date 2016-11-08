@@ -2,68 +2,54 @@
 
 {% block container %}
     <div class="content-side">
-    <h1>Скринкасты о {% if current_section %}{{ current_section.title }}{% else %}Джанго{% endif %}
-    <span>Коротко о главном</span>
-    </h1>
-    <div class="screencasts-list row">
-        <div class="row">
-    {% for article in articles -%}
-            <div class="screencasts-item col-md-4">
-                {% if article.user_can_view %}
-                    {{ article.video|safe }}
-                {% else %}
-                    <a href="{{ url('screencast_detail', article.slug) }}">
-                    {%  if article.image %}
-                        <img src="{{ article.image.url }}" class="art-img-pro">
-                        <img src="{{ static('blank_pro.png')}}" class="img-pro-transparent">
-
-                    {% else %}
-                        <img src="{{ static('blank_pro.png')}}" >
-                    {% endif %}
-                    </a>
-                {% endif %}
-{#                TODO сделать вызов некоего метода, который выдаст правильный iframe#}
-{#                <iframe width="250" height="190" src="https://www.youtube.com/embed/KsLHt3D_jsE" frameborder="0" allowfullscreen></iframe>#}
-                <div class="title">{{ article.title }}</div>
-                {% if article.by_subscription %}
-                    <span class="text-pro">
-                        <img src="{{ static('blank_pro_red.png')}}" >
-                    </span>
-                {% endif %}
-                <br /><br />
-                <div class="description">
-                    <p>{{ article.summary }} </p><br />
-                    <time class="date-lesson"><i class="fa fa-clock-o"></i>{{ article.modified_at }}</time>
-                    <ul class="tags">
-                        <i class="fa fa-tags fa-lg"></i>
-                        {% for tag in article.tags_as_list -%}
-                            <li class="top_4"><a href="{{ url(list_url_name) }}?tag={{ tag.slug }}">{{ tag.name }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <a href="{{ url('screencast_detail', article.slug) }}" class="btn btn-default">Посмотреть</a>
-            </div>
-        {% if loop.index %3 == 0 -%}
-            </div>
+        <h1>Скринкасты о {% if current_section %}{{ current_section.title }}{% else %}Джанго{% endif %}
+        <span>Коротко о главном</span>
+        </h1>
+        <div class="screencasts-list row">
             <div class="row">
-        {%  endif -%}
+        {% for article in articles -%}
+                <div class="screencasts-item col-md-4">
+                    {% if article.user_can_view %}
+                        {{ article.video|safe }}
+                    {% else %}
+                        <a href="{{ url('screencast_detail', article.slug) }}">
+                        {%  if article.image %}
+                            <img src="{{ article.image.url }}" class="art-img-pro">
+                            <img src="{{ static('blank_pro.png')}}" class="img-pro-transparent">
 
-    {% endfor -%}
+                        {% else %}
+                            <img src="{{ static('blank_pro.png')}}" >
+                        {% endif %}
+                        </a>
+                    {% endif %}
+    {#                TODO сделать вызов некоего метода, который выдаст правильный iframe#}
+    {#                <iframe width="250" height="190" src="https://www.youtube.com/embed/KsLHt3D_jsE" frameborder="0" allowfullscreen></iframe>#}
+                    <div class="title">{{ article.title }}</div>
+                    {% if article.by_subscription %}
+                        <span class="text-pro">
+                            <img src="{{ static('blank_pro_red.png')}}" >
+                        </span>
+                    {% endif %}
+                    <br /><br />
+                    <div class="description">
+                        <p>{{ article.summary }} </p><br />
+                        <time class="date-lesson"><i class="fa fa-clock-o"></i>{{ article.modified_at }}</time>
+                        <ul class="tags">
+                            <i class="fa fa-tags fa-lg"></i>
+                            {% for tag in article.tags_as_list -%}
+                                <li class="top_4"><a href="{{ url(list_url_name) }}?tag={{ tag.slug }}">{{ tag.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <a href="{{ url('screencast_detail', article.slug) }}" class="btn btn-default">Посмотреть</a>
+                </div>
+            {% if loop.index %3 == 0 -%}
+                </div>
+                <div class="row">
+            {%  endif -%}
+
+        {% endfor -%}
+            </div>
         </div>
-
-    <!-- TODO вынести в базовый для articles -->
-    <ul class="pager">
-        {% if articles.has_previous() %}
-            <li class="previous">
-                <a href="{{ url(list_url_name) }}?{{ url_filter }}page={{ articles.previous_page_number() }}">← сюда</a>
-            </li>
-        {% endif %}
-        {% if articles.has_next() %}
-            <li class="next">
-                <a href="{{ url(list_url_name) }}?{{ url_filter }}page={{ articles.next_page_number() }}">туда →</a>
-            </li>
-        {% endif %}
-    </ul>
-    </div>
     </div>
 {% endblock %}
