@@ -247,3 +247,5 @@ LOGGING = {
         },
     }
 }
+
+FAB_NOTIFY_TASK_ENDS = True
