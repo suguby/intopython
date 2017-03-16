@@ -8,9 +8,32 @@
     <h1>Добавление скринкаста</h1>
     <div class="content-side">
         <form method="POST" action="{{ url('screencast_add') }}">
-            {% csrf_token %}
-            {{ form.as_p() }}
-            <input type="submit" value="Сохранить" />
+		{% csrf_token %}
+		<fieldset>
+			<div class="form-group">
+				<label for="input_title" class="control-label col-xs-4">{{ form.title.label }}</label>
+				<div class="col-xs-8">
+					{{ form.title | replace_css_class('form-control') | safe }}
+					{% if form.title.errors %}
+						<div class="text-warning">{{ form.title.errors }}</div>
+					{% endif %}
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input_summary" class="control-label col-xs-4">{{ form.summary.label }}</label>
+				<div class="col-xs-8">
+					{{ form.summary | replace_css_class('form-control') | safe }}
+					{% if form.summary.errors %}
+						<div class="text-warning">{{ form.summary.errors }}</div>
+					{% endif %}
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-12">
+					<button type="submit" class="btn btn-primary">Сохранить</button>
+				</div>
+			</div>
+		</fieldset>
         </form>
         {{ form.media }}
     </div>
