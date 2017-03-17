@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from django.forms import EmailField, CharField
+from django.forms import Textarea
+
+from src.landing.models import LendingRegistration
 
 
-class SignForm(forms.Form):
-    name = CharField(label='Ваше имя')
-    email = EmailField(label='Ваш email')
-    phone = CharField(label='Ваш номер телефона или skype-логин (необязательно)', required=False)
+class SignForm(forms.ModelForm):
+    class Meta:
+        model = LendingRegistration
+        exclude = ('status', 'registered_at', )
+        widgets = {
+            'details': Textarea(attrs=dict(rows='3', cols='50')),
+        }
