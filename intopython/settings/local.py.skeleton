@@ -46,14 +46,9 @@ EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = 'noreplay@intopython.ru'
 
-# STATIC_URL = '/static/'
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, "static"),
-# )
-# STATIC_ROOT = os.path.join(BASE_DIR, 'extra', 'static')
-#
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'extra', 'media')
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+    EMAIL_FILE_PATH = '/tmp/app-messages'
 
 WALLETONE_MERCHANT_ID = '...'
 WALLETONE_TOKEN = '...'
