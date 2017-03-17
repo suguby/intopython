@@ -219,3 +219,7 @@ LOGGING = {
         },
     }
 }
+
+FAB_NOTIFY_TASK_ENDS = True
+
+LENDING_REGISTER_EMAIL = 'intopython@intopython.ru'

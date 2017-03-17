@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
+from django.core import mail
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.utils.html import escape
 
 from src.common.views import BaseTemplateView
 from src.courses.forms import SignForm
-from src.landing.models import LendingRegistration
 
 
 class CoursesView(BaseTemplateView):
@@ -32,9 +34,16 @@ class CoursesSignView(BaseTemplateView):
         form = SignForm(data=self.request.POST)
         context = dict(form=form)
         if form.is_valid():
-            data = form.cleaned_data
-            LendingRegistration.objects.get_or_create(
-                email=data['email'], defaults=dict(name=data['name'], phone=data['phone']))
+            form.save()
+            message = ['Someone registered on lending: ']
+            for field, value in form.cleaned_data.items():
+                message.append('{}: {}'.format(field, escape(value)))
+            mail.send_mail(
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[settings.LENDING_REGISTER_EMAIL, ],
+                subject='Lending registration',
+                message='\n'.join(message),
+            )
             return HttpResponseRedirect(reverse('courses_signed'))
         return self.render_to_response(context=context)
 
