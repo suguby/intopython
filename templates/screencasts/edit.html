@@ -6,38 +6,33 @@
 {% block container %}
     <div class="content-side">
     <h1>Добавление скринкаста</h1>
-    <div class="content-side">
-        <form method="POST" action="{{ url('screencast_add') }}">
-		{% csrf_token %}
-		<fieldset>
-			<div class="form-group">
-				<label for="input_title" class="control-label col-xs-4">{{ form.title.label }}</label>
-				<div class="col-xs-8">
-					{{ form.title | replace_css_class('form-control') | safe }}
-					{% if form.title.errors %}
-						<div class="text-warning">{{ form.title.errors }}</div>
-					{% endif %}
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="input_summary" class="control-label col-xs-4">{{ form.summary.label }}</label>
-				<div class="col-xs-8">
-					{{ form.summary | replace_css_class('form-control') | safe }}
-					{% if form.summary.errors %}
-						<div class="text-warning">{{ form.summary.errors }}</div>
-					{% endif %}
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-xs-12">
-					<button type="submit" class="btn btn-primary">Сохранить</button>
-				</div>
-			</div>
-		</fieldset>
-        </form>
-        {{ form.media }}
-    </div>
-
+    <form class="form-horizontal" method="POST" action="{{ url('screencast_add') }}">
+        {% csrf_token %}
+        <fieldset>
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}" class="control-label col-xs-2">{{ field.label }}</label>
+                <div class="col-xs-7">
+                    {% if field.name == 'body' %}
+                        {{ field }}
+                    {%  else %}
+                        {{ field | replace_css_class('form-control') | safe }}
+                    {% endif %}
+                </div>
+                {% if field.errors %}
+                    <div class="text-warning">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+            <div class="form-group">
+                <label class="control-label col-xs-2"></label>
+                <div class="col-xs-7">
+                    <input type="submit" value="Сохранить" />
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    {{ form.media }}
     <ul class="pager">
         <li class="previous">
             <a href="{{ url('screencasts') }}">← обратно</a>

@@ -6,7 +6,7 @@
     <div class="content-side">
         <h1>Регистрация в системе</h1>
     <form class="form-horizontal" action="{{ url('registration') }}" method="post">
-        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        {% csrf_token %}
         <input type="hidden" name="next" value="{{ next }}" />
 {#        {{ form.errors }}#}
         <fieldset>

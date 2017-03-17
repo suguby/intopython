@@ -156,5 +156,5 @@ def notified(wrapped):
 
 
 def _notify(message):
-    if django_settings.FAB_NOTIFY_TASK_ENDS:
+    if hasattr(django_settings, 'FAB_NOTIFY_TASK_ENDS') and django_settings.FAB_NOTIFY_TASK_ENDS:
         local(u'notify-send --expire-time=10000 --icon=alarm-clock "Fabric notify" "{}"'.format(message), capture=True)

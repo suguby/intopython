@@ -53,7 +53,7 @@ INSTALLED_APPS = (
     'src.payments'
 )
 
-MIDDLEWARE = (
+MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -247,3 +247,7 @@ LOGGING = {
         },
     }
 }
+
+FAB_NOTIFY_TASK_ENDS = True
+
+LENDING_REGISTER_EMAIL = 'intopython@intopython.ru'
