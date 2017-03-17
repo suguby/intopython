@@ -31,10 +31,12 @@
 
     <ul class="pager">
         <li class="previous">
-            <a href="{{ url('screencasts') }}">← обратно</a>
+            <a href="{{ url(list_url_name) }}">← обратно</a>
         </li>
     </ul>
 
     {% include('comments.html') %}
 
 {% endblock container %}
+
+{% block paginator %}{% endblock %}
