@@ -40,7 +40,7 @@ class CoursesSignView(BaseTemplateView):
                 message.append('{}: {}'.format(field, escape(value)))
             mail.send_mail(
                 from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=['itogo@mail.ru', ],
+                recipient_list=[settings.LENDING_REGISTER_EMAIL, ],
                 subject='Lending registration',
                 message='\n'.join(message),
             )
