@@ -53,7 +53,7 @@ INSTALLED_APPS = (
     'src.payments'
 )
 
-MIDDLEWARE = (
+MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
