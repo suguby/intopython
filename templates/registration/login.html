@@ -6,7 +6,7 @@
     <div class="content-side">
         <h1>Вход в систему</h1>
     <form class="form-horizontal" action="{{ url('login') }}?next={{ request.GET['next']}}" method="post">
-        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        {% csrf_token %}
         <fieldset>
             {% if form.non_field_errors() %}
                 <div class="form-group">

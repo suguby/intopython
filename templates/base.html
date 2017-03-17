@@ -150,7 +150,7 @@
 			</div>
 			<div class="modal-body">
                 <form class="form-horizontal" action="{{ url('login') }}{% if not request.path.startswith('/registration') %}?next={{ request.path }}{% endif %}" method="post">
-                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    {% csrf_token %}
 {#                    {% if request.path.startswith('/registration') %}#}
 {#                        <input type="hidden" name="next" value="/" />#}
 {#                    {% else %}#}
@@ -197,7 +197,7 @@
 			</div>
 			<div class="modal-body">
                 <form class="form-horizontal" action="{{ url('registration') }}{% if not request.path.startswith('/registration') %}?next={{ request.path }}{% endif %}" method="post">
-                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    {% csrf_token %}
                     <input type="hidden" name="next" value="{{ request.path_info }}">
 {#					<fieldset>#}
 {#						<div class="form-group">#}
