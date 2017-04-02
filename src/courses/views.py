@@ -40,8 +40,8 @@ class CoursesSignView(BaseTemplateView):
                 message.append('{}: {}'.format(field, escape(value)))
             mail.send_mail(
                 from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=['itogo@mail.ru', ],
-                subject='Lending registration',
+                recipient_list=[settings.COURSES_REGISTRATION_EMAIL, ],
+                subject='Courses registration',
                 message='\n'.join(message),
             )
             return HttpResponseRedirect(reverse('courses_signed'))

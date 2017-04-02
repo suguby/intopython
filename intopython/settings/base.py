@@ -245,3 +245,6 @@ LOGGING = {
         },
     }
 }
+
+
+COURSES_REGISTRATION_EMAIL = 'intopython@gmail.com'
