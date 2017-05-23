@@ -168,20 +168,6 @@ LOG_FILE_NAME = os.path.join(LOG_DIR, 'intopython.log')
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
-        },
-    },
-    'loggers': {
-    },
-}
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
@@ -204,13 +190,6 @@ LOGGING = {
             'class': 'django.utils.log.AdminEmailHandler',
             'formatter': 'standard',
         },
-        'django_log': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'maxBytes': 20000000,
-            'backupCount': 30,
-            'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
-        },
         'logfile': {
             'level': 'INFO',
             # 'class': 'logging.FileHandler',
@@ -227,11 +206,6 @@ LOGGING = {
         },
     },
     'loggers': {
-        'django': {
-            'handlers': ['django_log', ],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
         'intopython_error': {
             'handlers': ['mail_admins', ],
             'level': 'ERROR',
@@ -250,4 +224,4 @@ LOGGING = {
 
 FAB_NOTIFY_TASK_ENDS = True
 
-LENDING_REGISTER_EMAIL = 'intopython@intopython.ru'
+COURSES_REGISTRATION_EMAIL = 'intopython@intopython.ru'
