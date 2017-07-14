@@ -23,7 +23,8 @@ class ScreencastForm(ModelForm):
         )
         widgets = dict(
             title=TextInput(attrs={'size': 60}),
-            summary=Textarea(attrs=dict(rows='10', cols='50')),
+            summary=Textarea(attrs=dict(rows='5', cols='50')),
+            video=Textarea(attrs=dict(rows='3', cols='50')),
             body=MarkdownxWidget(attrs=dict(rows='10', cols='50')),
         )
 

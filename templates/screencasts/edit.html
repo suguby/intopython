@@ -14,7 +14,8 @@
                 <label for="{{ field.id_for_label }}" class="control-label col-xs-2">{{ field.label }}</label>
                 <div class="col-xs-7">
                     {% if field.name == 'body' %}
-                        {{ field }}
+						{# TODO переопределить шаблон http://neutronx.github.io/django-markdownx/customization.html#templates#}
+                        <div style="color: #000">{{ field }}</div>
                     {%  else %}
                         {{ field | replace_css_class('form-control') | safe }}
                     {% endif %}

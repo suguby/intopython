@@ -4,6 +4,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from django.views.generic import UpdateView
 
 from src.articles.views import ArticlesBaseView
 from src.common.views import HttpRedirectException
@@ -78,18 +79,17 @@ class ProVersionView(ScreencastsListView):
         return context
 
 
-class ScreencastEditView(ScreencastsBaseView):
+class ScreencastEditView(UpdateView, ScreencastsBaseView):
     template_name = 'screencasts/edit.html'
+    form_class = ScreencastForm
+    model = Screencast
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
         slug = kwargs.get('slug')
         if slug:
-            sc = get_object_or_404(Screencast, slug=slug)
-            form = ScreencastForm(instance=sc)
+            self.object =get_object_or_404(Screencast, slug=slug)
         else:
-            form = ScreencastForm()
-        context.update(
-            form=form,
-        )
+            section = ScreencastSection.objects.first()
+            self.object = Screencast.objects.create(section=section)
+        context = super().get_context_data(**kwargs)
         return context
