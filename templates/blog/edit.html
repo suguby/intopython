@@ -5,8 +5,8 @@
 
 {% block container %}
     <div class="content-side">
-    <h1>Добавление блога</h1>
-    <form class="form-horizontal" method="POST" action="{{ url('blog_add') }}">
+    <h1>{{ title }}</h1>
+    <form class="form-horizontal" method="POST" action="">
         {% csrf_token %}
         <fieldset>
         {% for field in form %}

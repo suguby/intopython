@@ -89,13 +89,13 @@ class ScreencastEditView(UpdateView, ScreencastsBaseView):
     model = Screencast
     title = 'Редактирование скринкаста'
 
+    def get(self, request, *args, **kwargs):
+        if not self.user_is_admin():
+            return HttpResponseRedirect(reverse('login') + '?next=' + reverse('screencast_edit', kwargs=dict(slug=kwargs.get('slug'))))
+        self.object = get_object_or_404(self.model, slug=kwargs.get('slug'))
+        return super().get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
-        slug = kwargs.get('slug')
-        if slug:
-            self.object =get_object_or_404(Screencast, slug=slug)
-        else:
-            section = ScreencastSection.objects.first()
-            self.object = Screencast.objects.create(section=section)
         context = super().get_context_data(**kwargs)
         context.update(
             title=self.title,
@@ -106,11 +106,25 @@ class ScreencastEditView(UpdateView, ScreencastsBaseView):
         return reverse('screencast_detail', kwargs=dict(slug=self.kwargs.get('slug')))
 
 
-class ScreencastAddView(ScreencastsBaseView, CreateView):
+class ScreencastCreateView(CreateView, ScreencastsBaseView):
     template_name = 'screencasts/edit.html'
     form_class = ScreencastForm
     model = Screencast
     title = 'Добавление скринкаста'
+
+    def get(self, request, *args, **kwargs):
+        if not self.user_is_admin():
+            return HttpResponseRedirect(reverse('login') + '?next=' + reverse('screencast_add'))
+        section = ScreencastSection.objects.first()
+        self.object = Screencast.objects.create(section=section)
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(
+            title=self.title,
+        )
+        return context
 
     def get_success_url(self):
         return reverse('screencasts')

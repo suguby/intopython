@@ -60,7 +60,7 @@ class OrderView(BaseTemplateView):
 
     def get(self, request, *args, **kwargs):
         if self.request.user.is_anonymous():
-            redirect_to = reverse('registration') + '?next=' + reverse('payments')
+            redirect_to = reverse('login') + '?next=' + reverse('payments')
             # TODO сделать перенаправление если оно по ридеректу залогинится
             return HttpResponseRedirect(redirect_to)
         return super().get(request, *args, **kwargs)
@@ -176,7 +176,7 @@ class PaymentSuccessView(NoCSRFCheckTemplateView):
 
     def get(self, request, *args, **kwargs):
         if self.request.user.is_anonymous():
-            redirect_to = reverse('registration') + '?next=' + reverse('payments')
+            redirect_to = reverse('login') + '?next=' + reverse('payments')
             # TODO сделать перенаправление если оно по ридеректу залогинится
             return HttpResponseRedirect(redirect_to)
         return super().get(request, *args, **kwargs)

@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AnonymousUser
 from django.shortcuts import get_object_or_404
-from django.views.generic import UpdateView
+from django.urls import reverse
+from django.views.generic import UpdateView, CreateView
 
 from src.articles.views import ArticlesBaseView
 from src.blog.forms import BlogForm
@@ -36,14 +37,37 @@ class BlogEditView(UpdateView, BlogBaseView):
     form_class = BlogForm
     model = Blog
 
-    def get_object(self, queryset=None):
-        pass
+    def get(self, request, *args, **kwargs):
+        self.object = get_object_or_404(self.model, slug=kwargs.get('slug'))
+        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        slug = kwargs.get('slug')
-        if slug:
-            self.object =get_object_or_404(Blog, slug=slug)
-        else:
-            self.object = Blog.objects.create()
         context = super().get_context_data(**kwargs)
+        context.update(
+            title='Редактирование записи блога'
+        )
         return context
+
+    def get_success_url(self):
+        return reverse('blog_detail', kwargs=dict(slug=self.kwargs.get('slug')))
+
+
+class BlogCreateView(CreateView, BlogBaseView):
+    template_name = 'blog/edit.html'
+    form_class = BlogForm
+    model = Blog
+    # __mro__ = CreateView, BlogBaseView
+
+    def get(self, request, *args, **kwargs):
+        self.object = None
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(
+            title='Добавление записи блога'
+        )
+        return context
+
+    def get_success_url(self):
+        return reverse('blog')
