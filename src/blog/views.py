@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AnonymousUser
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views.generic import UpdateView, CreateView
@@ -38,6 +39,8 @@ class BlogEditView(UpdateView, BlogBaseView):
     model = Blog
 
     def get(self, request, *args, **kwargs):
+        if not self.user_is_admin():
+            return HttpResponseRedirect(reverse('login') + '?next=' + reverse('blog_edit'))
         self.object = get_object_or_404(self.model, slug=kwargs.get('slug'))
         return super().get(request, *args, **kwargs)
 
@@ -56,9 +59,10 @@ class BlogCreateView(CreateView, BlogBaseView):
     template_name = 'blog/edit.html'
     form_class = BlogForm
     model = Blog
-    # __mro__ = CreateView, BlogBaseView
 
     def get(self, request, *args, **kwargs):
+        if not self.user_is_admin():
+            return HttpResponseRedirect(reverse('login') + '?next=' + reverse('blog_add'))
         self.object = None
         return super().get(request, *args, **kwargs)
 
