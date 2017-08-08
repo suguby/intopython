@@ -7,6 +7,11 @@
             <small>понемногу обо всем</small>
         </h1>
         <div class="lessons-list">
+			{% if is_admin %}
+				<a href="{{ url('blog_add') }}">Добавить</a>
+				<br />
+				<br />
+			{% endif %}
             {% for article in articles %}
                 <div class="lessons-item">
                     <a href="{{ url('blog_detail', article.slug) }}" class="title">{{ article.title }}</a>

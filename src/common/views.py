@@ -20,8 +20,8 @@ class BaseTemplateView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         self.request = request
+        self.object = None  # костыль, что бы CreateView работал
         try:
-            context = self.get_context_data(**kwargs)
+            return super().get(request, *args, **kwargs)
         except HttpRedirectException as exc:
             return HttpResponseRedirect(redirect_to=exc.redirect_to)
-        return self.render_to_response(context)

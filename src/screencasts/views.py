@@ -4,7 +4,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, CreateView
 
 from src.articles.views import ArticlesBaseView
 from src.common.views import HttpRedirectException
@@ -55,7 +55,8 @@ class ScreencastDetailView(ScreencastsBaseView):
             has_perm = self.request.user.has_perm(perm='view_subscription_article', obj=sc)
         if not has_perm:
             raise HttpRedirectException(redirect_to=reverse('payments'))
-        context = dict(
+        context = super().get_context_data(**kwargs)
+        context.update(
             sc=sc,
             list_url_name=self.list_url_name,
         )
@@ -83,6 +84,7 @@ class ScreencastEditView(UpdateView, ScreencastsBaseView):
     template_name = 'screencasts/edit.html'
     form_class = ScreencastForm
     model = Screencast
+    title = 'Редактирование скринкаста'
 
     def get_context_data(self, **kwargs):
         slug = kwargs.get('slug')
@@ -92,4 +94,20 @@ class ScreencastEditView(UpdateView, ScreencastsBaseView):
             section = ScreencastSection.objects.first()
             self.object = Screencast.objects.create(section=section)
         context = super().get_context_data(**kwargs)
+        context.update(
+            title=self.title,
+        )
         return context
+
+    def get_success_url(self):
+        return reverse('screencast_detail', kwargs=dict(slug=self.kwargs.get('slug')))
+
+
+class ScreencastAddView(ScreencastsBaseView, CreateView):
+    template_name = 'screencasts/edit.html'
+    form_class = ScreencastForm
+    model = Screencast
+    title = 'Добавление скринкаста'
+
+    def get_success_url(self):
+        return reverse('screencasts')

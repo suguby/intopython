@@ -11,6 +11,9 @@
 {% block container %}
     <div class="content-side">
         <h1>{{ article.title }}</h1>
+		{% if is_admin %}
+			<a href="{{ url('blog_edit', article.slug) }}">Редактировать</a>
+		{% endif %}
         <time class="date-lesson"><i></i> Изменено {{ article.modified_at }}</time>
         <ul class="tags">
             {% for tag in article.tags_as_list %}
