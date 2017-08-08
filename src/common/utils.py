@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 import datetime
 
+from django.utils.text import slugify
+from unidecode import unidecode
+
+
 def dt(src):
     u"""
         Преобразовать строку-дату в дату
@@ -21,3 +25,7 @@ def limit_str(txt, limit=50):
     if len(txt) > limit:
         return txt[:limit] + '...'
     return txt
+
+
+def get_slug(text):
+    return slugify(unidecode(text))

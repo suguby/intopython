@@ -1,12 +1,11 @@
 from django.db import models
 from django.db.models import Manager
-from django.utils.text import slugify
 from markdown import markdown
 from model_utils import Choices
 from taggit.managers import TaggableManager
-from unidecode import unidecode
 
 from src.common.models import AbstractModel
+from src.common.utils import get_slug
 
 
 class Article(AbstractModel):
@@ -19,7 +18,7 @@ class Article(AbstractModel):
     by_subscription = models.BooleanField(verbose_name='Доступ по подписке', default=False)
     image = models.ImageField(verbose_name='Изображение', null=True, blank=True, upload_to='images/%Y/%m/%d')
 
-    slug = models.CharField(verbose_name='Слаг', max_length=128, db_index=True, blank=True)
+    slug = models.CharField(verbose_name='Слаг', max_length=128, db_index=True, blank=True, unique=True)
     type = models.CharField(verbose_name='Тип', max_length=16, choices=TYPES, default=TYPES.screencast)
     status = models.CharField(verbose_name='Статус', max_length=16, choices=STATUSES, default=STATUSES.draft)
     created_at = models.DateTimeField(verbose_name='Создано', auto_now_add=True, null=True)
@@ -36,7 +35,7 @@ class Article(AbstractModel):
     tags = TaggableManager()
 
     def save(self, **kwargs):
-        self.slug = slugify(unidecode(self.title))
+        self.slug = get_slug(self.title)
         super().save(**kwargs)
 
     @property

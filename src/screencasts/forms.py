@@ -3,10 +3,11 @@ from django.forms import ModelForm, TextInput, Textarea
 from markdownx.fields import MarkdownxFormField
 from markdownx.widgets import MarkdownxWidget
 
+from src.common.forms import FormCheckSlugMixin
 from src.screencasts.models import Screencast
 
 
-class ScreencastForm(ModelForm):
+class ScreencastForm(ModelForm, FormCheckSlugMixin):
     body = MarkdownxFormField()
 
     class Meta:

@@ -116,7 +116,7 @@ class ScreencastCreateView(CreateView, ScreencastsBaseView):
         if not self.user_is_admin():
             return HttpResponseRedirect(reverse('login') + '?next=' + reverse('screencast_add'))
         section = ScreencastSection.objects.first()
-        self.object = Screencast.objects.create(section=section)
+        self.object = Screencast(section=section)
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):

@@ -4,9 +4,10 @@ from markdownx.fields import MarkdownxFormField
 from markdownx.widgets import MarkdownxWidget
 
 from src.blog.models import Blog
+from src.common.forms import FormCheckSlugMixin
 
 
-class BlogForm(ModelForm):
+class BlogForm(ModelForm, FormCheckSlugMixin):
     body = MarkdownxFormField()
 
     class Meta:

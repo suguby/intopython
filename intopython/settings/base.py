@@ -227,3 +227,6 @@ FAB_NOTIFY_TASK_ENDS = True
 COURSES_REGISTRATION_EMAIL = 'intopython@intopython.ru'
 
 MARKDOWNX_EDITOR_RESIZABLE = True
+
+FORM_RENDERER = 'django.forms.renderers.Jinja2'
+CSRF_USE_SESSIONS = True

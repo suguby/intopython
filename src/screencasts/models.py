@@ -19,7 +19,7 @@ class ScreencastSection(AbstractModel):
     class Meta:
         db_table = 'screencast_sections'
 
-    _str_template = ' "{title}" / {modified_at} / {status}'
+    _str_template = ' "{title}" / {status}'
 
     def save(self, **kwargs):
         self.slug = slugify(unidecode(self.title))
