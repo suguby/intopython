@@ -42,6 +42,7 @@ INSTALLED_APPS = (
 
     'taggit',
     # 'django_pygments',
+    'markdownx',
 
     'src.articles',
     'src.blog',
@@ -61,6 +62,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'intopython.urls'
@@ -223,3 +225,5 @@ LOGGING = {
 FAB_NOTIFY_TASK_ENDS = True
 
 COURSES_REGISTRATION_EMAIL = 'intopython@intopython.ru'
+
+MARKDOWNX_EDITOR_RESIZABLE = True

@@ -9,11 +9,12 @@ from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.urlresolvers import reverse
 from django.db import transaction
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
-from src.common.views import BaseTemplateView, HttpRedirectException
+from src.common.views import BaseTemplateView
 from src.payments.forms import PreOrderForm, OrderForm, tariff_choices
 from src.payments.models import Tariff, Order
 
@@ -57,11 +58,14 @@ def get_signature(params, secret_key):
 class OrderView(BaseTemplateView):
     template_name = 'payments/order.html'
 
-    def get_context_data(self, **kwargs):
+    def get(self, request, *args, **kwargs):
         if self.request.user.is_anonymous():
-            redirect_to = reverse('registration') + '?next=' + reverse('payments')
+            redirect_to = reverse('login') + '?next=' + reverse('payments')
             # TODO сделать перенаправление если оно по ридеректу залогинится
-            raise HttpRedirectException(redirect_to=redirect_to)
+            return HttpResponseRedirect(redirect_to)
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
         tariff_id = self.request.GET.get('tariff', None)
         tariff = get_object_or_404(Tariff, id=tariff_id)
         order, created = Order.objects.get_or_create(
@@ -170,10 +174,14 @@ class PaymentSuccessView(NoCSRFCheckTemplateView):
 
     post = NoCSRFCheckTemplateView.get
 
-    def get_context_data(self, **kwargs):
+    def get(self, request, *args, **kwargs):
         if self.request.user.is_anonymous():
-            redirect_to = reverse('registration')
-            raise HttpRedirectException(redirect_to=redirect_to)
+            redirect_to = reverse('login') + '?next=' + reverse('payments')
+            # TODO сделать перенаправление если оно по ридеректу залогинится
+            return HttpResponseRedirect(redirect_to)
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
         context = super(PaymentSuccessView, self).get_context_data(**kwargs)
         access_till = self.request.user.access_till
         if access_till:

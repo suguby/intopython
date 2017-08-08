@@ -5,6 +5,10 @@
         <h1>Скринкасты о {% if current_section %}{{ current_section.title }}{% else %}Джанго{% endif %}
         <span>Коротко о главном</span>
         </h1>
+        {% if is_admin %}
+            <a href="{{ url('screencast_add') }}">Добавить</a>
+            <br /><br />
+        {% endif %}
         <div class="screencasts-list row">
             <div class="row">
         {% for article in articles -%}
@@ -42,6 +46,10 @@
                         </ul>
                     </div>
                     <a href="{{ url('screencast_detail', article.slug) }}" class="btn btn-default">Посмотреть</a>
+                    {% if is_admin %}
+                        <br>
+                        <a href="{{ url('screencast_edit', article.slug) }}">Редактировать</a>
+                    {% endif %}
                 </div>
             {% if loop.index %3 == 0 -%}
                 </div>

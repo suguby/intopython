@@ -56,5 +56,9 @@ class ArticlesBaseView(BaseTemplateView):
             tags=tags,
             url_filter=self.articles_url_filter,
             list_url_name=self.list_url_name,
+            is_admin=self.user_is_admin(),
         )
         return context
+
+    def user_is_admin(self):
+        return False if isinstance(self.request.user, AnonymousUser) else self.request.user.is_admin

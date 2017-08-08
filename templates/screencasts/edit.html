@@ -1,0 +1,46 @@
+{% extends 'screencasts/base.html' %}
+
+{% block extra_head %}
+{% endblock extra_head %}
+
+{% block container %}
+    <div class="content-side">
+    <h1>{{ title }}</h1>
+    <form class="form-horizontal" method="POST" action="">
+        {% csrf_token %}
+        <fieldset>
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}" class="control-label col-xs-2">{{ field.label }}</label>
+                <div class="col-xs-7">
+                    {% if field.name == 'body' %}
+						{# TODO переопределить шаблон http://neutronx.github.io/django-markdownx/customization.html#templates#}
+                        <div style="color: #000">{{ field }}</div>
+                    {%  else %}
+                        {{ field | replace_css_class('form-control') | safe }}
+                    {% endif %}
+                </div>
+                {% if field.errors %}
+                    <div class="text-warning">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+            <div class="form-group">
+                <label class="control-label col-xs-2"></label>
+                <div class="col-xs-7">
+                    <input type="submit" value="Сохранить" />
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    {{ form.media }}
+    <ul class="pager">
+        <li class="previous">
+            <a href="{{ url('screencasts') }}">← обратно</a>
+        </li>
+    </ul>
+
+    </div>
+{% endblock container %}
+
+{% block paginator %}{% endblock %}

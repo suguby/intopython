@@ -6,7 +6,7 @@
         <h1>Укажите как с вами связаться</h1>
 
     <form class="form-horizontal" action="{{ url('courses_sign') }}" method="post">
-        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        {% csrf_token %}
         <fieldset>
             {% for field in form %}
                 <div class="form-group">

@@ -22,6 +22,9 @@
             <p>{{ sc.title }}</p>
             <p>{{ sc.pygmented_markdown() | safe }}</p>
         </div>
+		{% if is_admin %}
+			<a href="{{ url('screencast_edit', sc.slug) }}">Редактировать</a>
+		{% endif %}
     </div>
 
     <ul class="pager">
