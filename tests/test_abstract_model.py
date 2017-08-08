@@ -11,7 +11,8 @@ from src.blog import models as blog_models
 
 class AbstractTest(TestCase):
 
-    def test_models_unicode(self):
+    @staticmethod
+    def test_models_unicode():
         for mod in (sc_models, land_models, blog_models, ):
             for name in dir(mod):
                 if name.startswith('__') or name == 'AbstractModel':
