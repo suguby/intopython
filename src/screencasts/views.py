@@ -3,11 +3,11 @@
 from django.contrib.auth.models import AnonymousUser
 from django.core.urlresolvers import reverse
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.views.generic import UpdateView, CreateView
 
 from src.articles.views import ArticlesBaseView
-from src.common.views import HttpRedirectException
 from src.payments.forms import PreOrderForm
 from src.screencasts.forms import ScreencastForm
 from .models import Screencast, ScreencastSection
@@ -47,17 +47,20 @@ class ScreencastsListView(ScreencastsBaseView):
 class ScreencastDetailView(ScreencastsBaseView):
     template_name = 'screencasts/detail.html'
 
-    def get_context_data(self, **kwargs):
-        sc = get_object_or_404(Screencast, slug=kwargs['slug'])
+    def get(self, request, *args, **kwargs):
+        self.sc = get_object_or_404(Screencast, slug=kwargs['slug'])
         if isinstance(self.request.user, AnonymousUser):
-            has_perm = not sc.by_subscription
+            has_perm = not self.sc.by_subscription
         else:
-            has_perm = self.request.user.has_perm(perm='view_subscription_article', obj=sc)
+            has_perm = self.request.user.has_perm(perm='view_subscription_article', obj=self.sc)
         if not has_perm:
-            raise HttpRedirectException(redirect_to=reverse('payments'))
+            return HttpResponseRedirect(redirect_to=reverse('payments'))
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(
-            sc=sc,
+            sc=self.sc,
             list_url_name=self.list_url_name,
         )
         return context
