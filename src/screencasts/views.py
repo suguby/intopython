@@ -36,7 +36,6 @@ class ScreencastsListView(ScreencastsBaseView):
             section.link = reverse('screencasts') + '?section={}'.format(section.slug)
 
         context = super().get_context_data(**kwargs)
-        user = self.request.user
         context.update(
             sections=sections,
             current_section=current_section,
