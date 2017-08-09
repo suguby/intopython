@@ -17,7 +17,7 @@
 						{# TODO переопределить шаблон http://neutronx.github.io/django-markdownx/customization.html#templates#}
                         <div style="color: #000">{{ field }}</div>
                     {%  else %}
-                        {{ field | replace_css_class('form-control') | safe }}
+                        {{ field | set_css_class('form-control') | safe }}
                     {% endif %}
                 </div>
                 {% if field.errors %}

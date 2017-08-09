@@ -34,8 +34,16 @@ _css_changer = CssChanger()
 
 
 def add_css_class(elem, klass):
+    """
+        Add given klass to existing tag class definition
+        class='cls1, cls2' -> class='cls1, cls2, klass'
+    """
     return _css_changer.do(elem, klass, _css_changer.add)
 
 
-def replace_css_class(elem, klass):
+def set_css_class(elem, klass):
+    """
+        Whole replace tag class definition with given klass
+        class='cls1, cls2, ...' -> class='klass'
+    """
     return _css_changer.do(elem, klass, _css_changer.replace)

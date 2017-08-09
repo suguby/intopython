@@ -16,7 +16,7 @@
             <div class="form-group">
                 <label for="inputEmail" class="control-label col-xs-2">Email</label>
                 <div class="col-xs-3">
-                    {{ form.username | replace_css_class('form-control') | safe }}
+                    {{ form.username | set_css_class('form-control') | safe }}
                 </div>
                 {% if form.username.errors %}
                     <div class="text-warning">{{ form.username.errors }}</div>
@@ -25,7 +25,7 @@
             <div class="form-group">
                 <label for="inputPassword" class="control-label col-xs-2">Пароль</label>
                 <div class="col-xs-3">
-                    {{ form.password | replace_css_class('form-control') | safe }}
+                    {{ form.password | set_css_class('form-control') | safe }}
                 </div>
                 {% if form.password.errors %}
                     <div class="text-warning">{{ form.password.errors }}</div>

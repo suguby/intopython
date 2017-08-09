@@ -22,7 +22,7 @@
         Так же, если Вы проходите у нас курсы, то имеете доступ ко всем материалам сайта без исключения.
         <form action="{{ url('order') }}">
             {% csrf_token %}
-            {{ form.tariff.label }}&nbsp;{{ form.tariff | replace_css_class('size large')| safe }}
+            {{ form.tariff.label }}&nbsp;{{ form.tariff | set_css_class('size large')| safe }}
             <button class="label-info btn btn-payment">К оплате</button>
         </form>
     </div>

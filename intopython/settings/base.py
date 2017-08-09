@@ -83,7 +83,7 @@ TEMPLATES = [
             # "autoescape": True,
             # "auto_reload": DEBUG,
             "filters": {
-                "replace_css_class": "src.common.css_filters.replace_css_class",
+                "set_css_class": "src.common.css_filters.set_css_class",
             },
             'context_processors': (
                 'src.common.context_processors.common_variables_to_context',
