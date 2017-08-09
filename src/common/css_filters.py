@@ -10,11 +10,13 @@ class CssChanger:
 
     def add(self, matched, elem, klass):
         pos = matched.end(1)
-        elem = '{}, {}{}'.format(elem[:pos], klass, elem[pos:])
+        elem = '{tag_begin} {klass}{tag_end}'.format(
+            tag_begin=elem[:pos], klass=klass, tag_end=elem[pos:])
         return elem
 
     def replace(self, matched, elem, klass):
-        elem = '{}{}{}'.format(elem[:matched.start(1)], klass, elem[matched.end(1):])
+        elem = '{tag_begin}{klass}{tag_end}'.format(
+            tag_begin=elem[:matched.start(1)], klass=klass, tag_end=elem[matched.end(1):])
         return elem
 
     def do(self, elem, klass, action):
@@ -27,7 +29,8 @@ class CssChanger:
             if not matched:
                 return elem
             pos = matched.end(1)
-            elem = u'{} class="{}"{}'.format(elem[:pos], klass, elem[pos:])
+            elem = u'{tag_begin} class="{klass}"{tag_end}'.format(
+                tag_begin=elem[:pos], klass=klass, tag_end=elem[pos:])
             return elem
 
 _css_changer = CssChanger()
@@ -36,7 +39,7 @@ _css_changer = CssChanger()
 def add_css_class(elem, klass):
     """
         Add given klass to existing tag class definition
-        class='cls1, cls2' -> class='cls1, cls2, klass'
+        class='cls1 cls2' -> class='cls1 cls2 klass'
     """
     return _css_changer.do(elem, klass, _css_changer.add)
 
@@ -44,6 +47,6 @@ def add_css_class(elem, klass):
 def set_css_class(elem, klass):
     """
         Whole replace tag class definition with given klass
-        class='cls1, cls2, ...' -> class='klass'
+        class='cls1 cls2' -> class='klass'
     """
     return _css_changer.do(elem, klass, _css_changer.replace)
