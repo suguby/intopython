@@ -3,11 +3,11 @@ from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-from src.screencasts.models import Screencast, ScreencastSection
-from src.screencasts.views import ScreencastCreateView, ScreencastEditView
+from src.blog.models import Blog
+from src.blog.views import BlogCreateView, BlogEditView
 
 
-class TestScreencastsEdit(TestCase):
+class TestBlogEdit(TestCase):
 
     def setUp(self):
         UserModel = get_user_model()
@@ -21,90 +21,77 @@ class TestScreencastsEdit(TestCase):
         self.admin.is_admin = True
         self.admin.save()
 
-        self.section = ScreencastSection.objects.create(title='test')
-
-        self.exists_sc = Screencast.objects.create(
-            section=self.section,
-            video='<iframe width="560" height="315" src="" frameborder="0" allowfullscreen>pro video</iframe>',
-            title='SC by_subscription',
-            by_subscription=True,
-            body='PRO ONLY',
-            status=Screencast.STATUSES.publ,
+        self.exists_blog = Blog.objects.create(
+            title='Blog title',
+            body='some text',
+            status=Blog.STATUSES.publ,
         )
-        self.exists_sc_edit_url = reverse('screencast_edit', kwargs=dict(slug=self.exists_sc.slug))
+        self.exists_blog_edit_url = reverse('blog_edit', kwargs=dict(slug=self.exists_blog.slug))
 
-    def test_sc_new_by_anonymous(self):
-        response = self.client.get(reverse('screencast_add'))
+    def test_new_by_anonymous(self):
+        response = self.client.get(reverse('blog_add'))
         self.assertEqual(response.status_code, 302)
         self.assertIn(reverse('login'), response.url)
 
-    def test_sc_new_by_usual_user(self):
+    def test_new_by_usual_user(self):
         self.client.login(username=self.user_email, password=self.user_password)
-        response = self.client.get(reverse('screencast_add'))
+        response = self.client.get(reverse('blog_add'))
         self.assertEqual(response.status_code, 302)
         self.assertIn(reverse('login'), response.url)
 
-    def test_sc_new_by_admin(self):
+    def test_new_by_admin(self):
         self.client.login(username=self.admin_email, password=self.admin_password)
-        response = self.client.get(reverse('screencast_add'))
+        response = self.client.get(reverse('blog_add'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, ScreencastCreateView.title)
+        self.assertContains(response, BlogCreateView.title)
 
-    def test_sc_new_by_admin_post(self):
+    def test_new_by_admin_post(self):
         self.client.login(username=self.admin_email, password=self.admin_password)
         response = self.client.post(
-            reverse('screencast_add'),
+            reverse('blog_add'),
             data=dict(
-                title='test sc',
-                section=self.section.id,
-                video='test_video',
+                title='test blog',
                 body='bla-bla',
                 status="draft",
             ),
         )
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(reverse('screencasts'), response.url)
-        sc = Screencast.objects.get(slug='test-sc')
-        self.assertEqual(sc.title, 'test sc')
-        self.assertEqual(sc.section, self.section)
-        self.assertEqual(sc.video, 'test_video')
-        self.assertEqual(sc.body, 'bla-bla')
-        self.assertEqual(sc.status, "draft")
+        self.assertEqual(reverse('blog'), response.url)
+        blog = Blog.objects.get(slug='test-blog')
+        self.assertEqual(blog.title, 'test sc')
+        self.assertEqual(blog.body, 'bla-bla')
+        self.assertEqual(blog.status, "draft")
 
-    def test_sc_edit_by_anonymous(self):
-        response = self.client.get(self.exists_sc_edit_url)
+    def test_edit_by_anonymous(self):
+        response = self.client.get(self.exists_blog_edit_url)
         self.assertEqual(response.status_code, 302)
         self.assertIn(reverse('login'), response.url)
 
-    def test_sc_edit_by_usual_user(self):
+    def test_edit_by_usual_user(self):
         self.client.login(username=self.user_email, password=self.user_password)
-        response = self.client.get(self.exists_sc_edit_url)
+        response = self.client.get(self.exists_blog_edit_url)
         self.assertEqual(response.status_code, 302)
         self.assertIn(reverse('login'), response.url)
 
-    def test_sc_edit_by_admin(self):
+    def test_edit_by_admin(self):
         self.client.login(username=self.admin_email, password=self.admin_password)
-        response = self.client.get(self.exists_sc_edit_url)
+        response = self.client.get(self.exists_blog_edit_url)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, ScreencastEditView.title)
+        self.assertContains(response, BlogEditView.title)
 
-    def test_sc_new_by_admin_post(self):
+    def test_new_by_admin_post(self):
         self.client.login(username=self.admin_email, password=self.admin_password)
         response = self.client.post(
-            self.exists_sc_edit_url,
+            self.exists_blog_edit_url,
             data=dict(
-                title=self.exists_sc.title,
-                section=self.section.id,
-                video='test_video',
+                title=self.exists_blog.title,
                 body='bla-bla',
-                status="draft",
+                status=Blog.STATUSES.draft,
             ),
         )
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(reverse('screencast_detail', kwargs=dict(slug=self.exists_sc.slug)), response.url)
-        sc = Screencast.objects.get(slug=self.exists_sc.slug)
-        self.assertEqual(sc.section, self.section)
-        self.assertEqual(sc.video, 'test_video')
-        self.assertEqual(sc.body, 'bla-bla')
-        self.assertEqual(sc.status, "draft")
+        self.assertEqual(reverse('blog_detail', kwargs=dict(slug=self.exists_blog.slug)), response.url)
+        blog = Blog.objects.get(slug=self.exists_blog.slug)
+        self.assertEqual(blog.body, 'bla-bla')
+        self.assertEqual(blog.status, Blog.STATUSES.draft)
 

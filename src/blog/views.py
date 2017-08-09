@@ -37,17 +37,19 @@ class BlogEditView(UpdateView, BlogBaseView):
     template_name = 'blog/edit.html'
     form_class = BlogForm
     model = Blog
+    title = 'Редактирование записи блога'
 
     def get(self, request, *args, **kwargs):
+        slug = kwargs.get('slug')
         if not self.user_is_admin():
-            return HttpResponseRedirect(reverse('login') + '?next=' + reverse('blog_edit'))
-        self.object = get_object_or_404(self.model, slug=kwargs.get('slug'))
+            return HttpResponseRedirect(reverse('login') + '?next=' + reverse('blog_edit', kwargs=dict(slug=slug)))
+        self.object = get_object_or_404(self.model, slug=slug)
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(
-            title='Редактирование записи блога'
+            title=self.title
         )
         return context
 
@@ -59,6 +61,7 @@ class BlogCreateView(CreateView, BlogBaseView):
     template_name = 'blog/edit.html'
     form_class = BlogForm
     model = Blog
+    title = 'Добавление записи блога'
 
     def get(self, request, *args, **kwargs):
         if not self.user_is_admin():
@@ -69,7 +72,7 @@ class BlogCreateView(CreateView, BlogBaseView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(
-            title='Добавление записи блога'
+            title=self.title
         )
         return context
 

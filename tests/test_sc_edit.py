@@ -33,24 +33,24 @@ class TestScreencastsEdit(TestCase):
         )
         self.exists_sc_edit_url = reverse('screencast_edit', kwargs=dict(slug=self.exists_sc.slug))
 
-    def test_sc_new_by_anonymous(self):
+    def test_new_by_anonymous(self):
         response = self.client.get(reverse('screencast_add'))
         self.assertEqual(response.status_code, 302)
         self.assertIn(reverse('login'), response.url)
 
-    def test_sc_new_by_usual_user(self):
+    def test_new_by_usual_user(self):
         self.client.login(username=self.user_email, password=self.user_password)
         response = self.client.get(reverse('screencast_add'))
         self.assertEqual(response.status_code, 302)
         self.assertIn(reverse('login'), response.url)
 
-    def test_sc_new_by_admin(self):
+    def test_new_by_admin(self):
         self.client.login(username=self.admin_email, password=self.admin_password)
         response = self.client.get(reverse('screencast_add'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, ScreencastCreateView.title)
 
-    def test_sc_new_by_admin_post(self):
+    def test_new_by_admin_post(self):
         self.client.login(username=self.admin_email, password=self.admin_password)
         response = self.client.post(
             reverse('screencast_add'),
@@ -71,24 +71,24 @@ class TestScreencastsEdit(TestCase):
         self.assertEqual(sc.body, 'bla-bla')
         self.assertEqual(sc.status, "draft")
 
-    def test_sc_edit_by_anonymous(self):
+    def test_edit_by_anonymous(self):
         response = self.client.get(self.exists_sc_edit_url)
         self.assertEqual(response.status_code, 302)
         self.assertIn(reverse('login'), response.url)
 
-    def test_sc_edit_by_usual_user(self):
+    def test_edit_by_usual_user(self):
         self.client.login(username=self.user_email, password=self.user_password)
         response = self.client.get(self.exists_sc_edit_url)
         self.assertEqual(response.status_code, 302)
         self.assertIn(reverse('login'), response.url)
 
-    def test_sc_edit_by_admin(self):
+    def test_edit_by_admin(self):
         self.client.login(username=self.admin_email, password=self.admin_password)
         response = self.client.get(self.exists_sc_edit_url)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, ScreencastEditView.title)
 
-    def test_sc_new_by_admin_post(self):
+    def test_new_by_admin_post(self):
         self.client.login(username=self.admin_email, password=self.admin_password)
         response = self.client.post(
             self.exists_sc_edit_url,
