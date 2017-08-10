@@ -87,6 +87,7 @@ class TestBlogEdit(TestCase):
                 title=self.exists_blog.title,
                 body='bla-bla',
                 status=Blog.STATUSES.draft,
+                tags='tag1, tag2',
             ),
         )
         self.assertEqual(response.status_code, 302)

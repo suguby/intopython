@@ -96,8 +96,9 @@ class TestScreencastsEdit(TestCase):
                 title=self.exists_sc.title,
                 section=self.section.id,
                 video='test_video',
-                body='bla-bla',
-                status="draft",
+                body='Тут должна быть рыба',
+                status='draft',
+                tags='квайн, python',
             ),
         )
         self.assertEqual(response.status_code, 302)
@@ -105,6 +106,6 @@ class TestScreencastsEdit(TestCase):
         sc = Screencast.objects.get(slug=self.exists_sc.slug)
         self.assertEqual(sc.section, self.section)
         self.assertEqual(sc.video, 'test_video')
-        self.assertEqual(sc.body, 'bla-bla')
-        self.assertEqual(sc.status, "draft")
+        self.assertEqual(sc.body, 'Тут должна быть рыба')
+        self.assertEqual(sc.status, 'draft')
 

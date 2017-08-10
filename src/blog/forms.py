@@ -17,6 +17,7 @@ class BlogForm(ModelForm, FormCheckSlugMixin):
             'summary',
             'image',
             'body',
+            'tags',
             'status',
         )
         widgets = dict(

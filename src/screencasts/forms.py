@@ -18,9 +18,10 @@ class ScreencastForm(ModelForm, FormCheckSlugMixin):
             'video',
             'image',
             'body',
-            'status',
+            'tags',
             'by_subscription',
             'section',
+            'status',
         )
         widgets = dict(
             title=TextInput(attrs={'size': 60}),
