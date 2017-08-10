@@ -28,4 +28,3 @@ class ScreencastForm(ModelForm, FormCheckSlugMixin):
             video=Textarea(attrs=dict(rows='3', cols='50')),
             body=MarkdownxWidget(attrs=dict(rows='10', cols='50')),
         )
-
