@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# import social_core.backends.google
+# import social_core.backends.yandex
 
 
 AUTHENTICATION_BACKENDS = (
@@ -8,6 +8,7 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.vk.VKOAuth2',
     # 'social_core.backends.github.GithubOAuth2',  # TODO обработка нет емейла от сервиса
     'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.yandex.YandexOAuth2',
 
     # 'social_core.backends.open_id.OpenIdAuth',
     # 'social_core.backends.twitter.TwitterBackend',
@@ -41,6 +42,11 @@ SOCIAL_AUTH_GITHUB_SECRET = '...'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '...'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '...'
+
+SOCIAL_AUTH_YANDEX_OAUTH2_KEY = '...'
+SOCIAL_AUTH_YANDEX_OAUTH2_SECRET = '...'
+SOCIAL_AUTH_YANDEX_OAUTH2_SCOPE = ['login:email']
+# https://tech.yandex.ru/oauth/doc/dg/reference/web-client-docpage/
 
 try:
     from .local_oauth import *
