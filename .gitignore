@@ -2,6 +2,8 @@ extra/
 logs/
 .idea/
 intopython/settings/local.py
+intopython/settings/local_oauth.py
+
 bin/profile
 src/run_command.py
 

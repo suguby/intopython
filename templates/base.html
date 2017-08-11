@@ -7,7 +7,6 @@
     {% if DEBUG -%}
         <script src="{{ static('js/jquery_2_1_4.js') }}"></script>
         <script src="{{ static('js/bootstrap_3_3_2.js') }}"></script>
-        <!--<script src="{{ static('js/jquery_1_11_1.js') }}"></script>-->
 		<script src="{{ static('js/bootstrap-select.js') }}"></script>
         <link rel="stylesheet" href="{{ static('css/bootstrap_3_3_2.css') }}">
         <link rel="stylesheet" href="{{ static('css/bootstrap-theme_3_3_2.css') }}">
@@ -15,18 +14,15 @@
         <script src="{{ static('js/jquery_2_1_4.min.js') }}"></script>
         <script src="{{ static('js/bootstrap_3_3_2.min.js') }}"></script>
 		<script src="{{ static('js/bootstrap-select.js') }}"></script>
-        <!--<script src="{{ static('js/jquery_1_11_1.min.js') }}"></script>-->
 		<script src="{{ static('js/bootstrap-select.js') }}"></script>
         <link rel="stylesheet" href="{{ static('css/bootstrap_3_3_2.min.css') }}">
         <link rel="stylesheet" href="{{ static('css/bootstrap-theme_3_3_2.min.css') }}">
     {% endif -%}
-    <script src="https://www.walletone.com/merchant/widget/1.0.2/script.js"></script>
-    <!--<link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">-->
-
 	<script src="{{ static('js/script.js') }}"></script>
 	<link rel="stylesheet" type="text/css" href="{{ static('css/main.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ static('css/pygments.css') }}">
-    {% block extra_head %}
+	<link rel="stylesheet" type="text/css" href="{{ static('css/bootstrap-social.css') }}">
+	{% block extra_head %}
     {% endblock extra_head %}
     <meta name="w1-verification" content="189564152569" />
 </head>
@@ -173,11 +169,11 @@
 							<div class="col-xs-offset-2 col-xs-10">
 								<button type="submit" class="btn btn-primary">Войти</button>
     							<a href="{{ url('password_reset') }}">Забыли пароль?</a>
-{#								<div class="social-links">#}
-{#									<a href="" class="vk"></a>#}
-{#									<a href="" class="fb"></a>#}
-{#									<a href="" class="tw"></a>#}
-{#								</div>#}
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-10">
+								{% include "registration/oauth_buttons.html" %}
 							</div>
 						</div>
 					</fieldset>
@@ -206,6 +202,7 @@
 {#								<input type="text" class="form-control" id="username" name="username" placeholder="[a-zA-Z0-9_]*">#}
 {#							</div>#}
 {#						</div>#}
+					<fieldset>
 						<div class="form-group">
 							<label for="email" class="control-label col-xs-2">Email</label>
 							<div class="col-xs-10">
@@ -234,11 +231,11 @@
 						<div class="form-group">
 							<div class="col-xs-offset-2 col-xs-10">
 								<button type="submit" class="btn btn-primary">Зарегестрироваться</button>
-{#								<div class="social-links">#}
-{#									<a href="" class="vk"></a>#}
-{#									<a href="" class="fb"></a>#}
-{#									<a href="" class="tw"></a>#}
-{#								</div>#}
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-10">
+								{% include "registration/oauth_buttons.html" %}
 							</div>
 						</div>
 					</fieldset>

@@ -2,6 +2,8 @@
 import sys
 
 from .base import *
+from .oauth import *
+from .logging import *
 
 try:
     from .local import *
