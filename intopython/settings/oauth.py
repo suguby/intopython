@@ -29,6 +29,7 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '...'
 #     'locale': 'ru_RU',
 #     'fields': 'email'
 # }
+#SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.9'
 
 
 # http://python-social-auth.readthedocs.io/en/latest/backends/vk.html

@@ -52,7 +52,7 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'intopython': {
+        'django': {
             'handlers': ['logfile', ],
             'level': 'INFO',
         },
