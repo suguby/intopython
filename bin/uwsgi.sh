@@ -1,9 +1,9 @@
 #!/bin/bash
 
-
+source `dirname $0`/set_enviroment.sh
 
 uwsgi_pids() {
-    PIDS=`ps -ef | grep 'uwsgi' | grep ${HOME} | grep -v grep | grep -v '.sh' | awk '{print($2)}'`
+    PIDS=`ps -ef | grep 'uwsgi' | grep ${PROJECT_PATH} | grep -v grep | grep -v '.sh' | awk '{print($2)}'`
 }
 
 
@@ -16,8 +16,7 @@ action_stop() {
 }
 
 action_start() {
-    source ~/python_enviroments/intopython_env/bin/activate
-    uwsgi --ini ~/intopython/extra/uwsgi.ini
+    uwsgi --ini ${PROJECT_PATH}/extra/uwsgi.ini
 }
 
 case "$1" in
@@ -29,7 +28,7 @@ case "$1" in
 	echo Uwsgi stopped
         ;;
   reload)
-	touch ~/intopython/extra/uwsgi.reload
+	touch ${PROJECT_PATH}/extra/uwsgi.reload
         ;;
   restart)
 	action_stop
