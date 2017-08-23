@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /registration/
+Disallow: *tag=
+Disallow: *section=
+Crawl-Delay: 2
+Host: https://intopython.ru
+# https://yandex.ru/support/webmaster/controlling-robot/robots-txt.xml
+# http://seogio.ru/robots-txt/
