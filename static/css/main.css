@@ -13,7 +13,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:100,400,400,700,500&subset=latin,cyrillic-ext);
 @import "custombox.min.css";
 @import "bootstrap-select.min.css";
-@import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
 input:focus,
 select:focus,
 textarea:focus,
