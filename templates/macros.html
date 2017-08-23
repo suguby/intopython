@@ -1,0 +1,12 @@
+{% macro render_tags(url_composer, tags) -%}
+	{% if tags -%}
+		<ul class="tags">
+			<i class="fa fa-tags fa-lg"></i>
+			{% for tag in tags -%}
+				<li  class="top_{{ tag.range }}">
+					<a href="{{ url_composer.get_list_url(clear=True, tag=tag.slug) }}">{{ tag.name }}</a>
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+{%- endmacro %}

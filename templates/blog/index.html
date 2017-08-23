@@ -17,12 +17,8 @@
                     <a href="{{ url_composer.get_url(url('blog_detail', article.slug)) }}" class="title">{{ article.title }}</a>
                     <div class="lesson">{{ article.summary }}</div>
                     <time class="date-lesson"><i class="fa fa-clock-o"></i>Изменено {{ article.modified_at }}</time>
-                    <ul class="tags">
-                        <i class="fa fa-tags fa-lg"></i>
-                        {% for tag in article.tags_as_list %}
-                            <li class="top_4"><a href="{{ url_composer.get_list_url(clear=True, tag=tag.slug) }}">{{ tag.name }}</a></li>
-                        {% endfor %}
-                    </ul>
+					{% import 'macros.html' as macros %}
+					{{ macros.render_tags(url_composer=url_composer, tags=article.tags_as_list) }}
                 </div>
             {% endfor %}
         </div>

@@ -40,7 +40,10 @@ class Article(AbstractModel):
 
     @property
     def tags_as_list(self):
-        return self.tags.all()
+        tags = list(self.tags.all())
+        for tag in tags:
+            tag.range = 4
+        return tags
 
     def pygmented_markdown(self):
         res = markdown(self.body, extensions=["markdown.extensions.codehilite"])

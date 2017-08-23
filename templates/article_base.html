@@ -1,11 +1,8 @@
 {% extends 'base.html' %}
 
 {% block left_menu_footer -%}
-    <ul class="tags">
-        {% for tag in tags -%}
-            <li class="top_{{ tag.range }}"><a href="{{ url_composer.get_list_url(clear=True, tag=tag.slug) }}">{{ tag.name }}</a></li>
-        {% endfor %}
-    </ul>
+	{% import 'macros.html' as macros %}
+	{{ macros.render_tags(url_composer=url_composer, tags=tags) }}
 {% endblock left_menu_footer -%}
 
 {% block paginator %}

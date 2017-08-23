@@ -15,12 +15,9 @@
 			<a href="{{ url('blog_edit', article.slug) }}">Редактировать</a>
 		{% endif %}
         <time class="date-lesson"><i></i> Изменено {{ article.modified_at }}</time>
-        <ul class="tags">
-            {% for tag in article.tags_as_list %}
-                <li class="top_4"><a href="{{ url_composer.get_list_url(clear=True, tag=tag.slug) }}">{{ tag.name }}</a></li>
-            {% endfor %}
-        </ul>
-
+		{% import 'macros.html' as macros %}
+		{{ macros.render_tags(url_composer=url_composer, tags=article.tags_as_list) }}
+		<br>
         <div class="description-lesson">
             {{ article.pygmented_markdown() | safe }}
         </div>
