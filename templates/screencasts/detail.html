@@ -13,7 +13,7 @@
             <ul class="tags">
                 <i class="fa fa-tags fa-lg"></i>
                 {% for tag in sc.tags.all() -%}
-                    <li class="top_4"><a href="{{ url('screencasts') }}?tag={{ tag.slug }}">{{ tag.name }}</a></li>
+                    <li class="top_4"><a href="{{ url_composer.get_list_url(clear=True, tag=tag.slug) }}">{{ tag.name }}</a></li>
                 {% endfor %}
             </ul>
         </div>
@@ -29,7 +29,7 @@
 
     <ul class="pager">
         <li class="previous">
-            <a href="{{ url(list_url_name) }}">← обратно</a>
+            <a href="{{ url_composer.get_list_url() }}">← обратно</a>
         </li>
     </ul>
 

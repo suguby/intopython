@@ -40,11 +40,11 @@
                         <ul class="tags">
                             <i class="fa fa-tags fa-lg"></i>
                             {% for tag in article.tags_as_list -%}
-                                <li class="top_4"><a href="{{ url(list_url_name) }}?tag={{ tag.slug }}">{{ tag.name }}</a></li>
+                                <li class="top_4"><a href="{{ url_composer.get_list_url(clear=True, tag=tag.slug) }}">{{ tag.name }}</a></li>
                             {% endfor %}
                         </ul>
                     </div>
-                    <a href="{{ url('screencast_detail', article.slug) }}" class="btn btn-default">Посмотреть</a>
+                    <a href="{{ url_composer.get_url(url('screencast_detail', article.slug)) }}" class="btn btn-default">Посмотреть</a>
                     {% if is_admin %}
                         <br>
                         <a href="{{ url('screencast_edit', article.slug) }}">Редактировать</a>

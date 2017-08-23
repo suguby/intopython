@@ -1,4 +1,3 @@
-from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -24,11 +23,11 @@ class BlogDetailView(BlogBaseView):
 
     def get_context_data(self, **kwargs):
         article = get_object_or_404(Blog, slug=kwargs['slug'])
-        is_admin = False if isinstance(self.request.user, AnonymousUser) else self.request.user.is_admin
         context = dict(
             article=article,
-            list_url_name=self.list_url_name,
-            is_admin=is_admin,
+            url_composer=self.url_composer,
+            is_admin=self.user_is_admin(),
+            tags=self.get_tags(),
         )
         return context
 

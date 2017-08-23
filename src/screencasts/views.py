@@ -57,10 +57,11 @@ class ScreencastDetailView(ScreencastsBaseView):
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update(
+        context = dict(
             sc=self.sc,
-            list_url_name=self.list_url_name,
+            url_composer=self.url_composer,
+            is_admin=self.user_is_admin(),
+            tags=self.get_tags(),
         )
         return context
 

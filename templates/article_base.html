@@ -3,7 +3,7 @@
 {% block left_menu_footer -%}
     <ul class="tags">
         {% for tag in tags -%}
-            <li class="top_{{ tag.range }}"><a href="{{ url(list_url_name) }}?tag={{ tag.slug }}">{{ tag.name }}</a></li>
+            <li class="top_{{ tag.range }}"><a href="{{ url_composer.get_list_url(clear=True, tag=tag.slug) }}">{{ tag.name }}</a></li>
         {% endfor %}
     </ul>
 {% endblock left_menu_footer -%}
@@ -12,12 +12,12 @@
     <ul class="pager">
         {% if articles.has_previous() %}
             <li class="previous">
-                <a href="{{ url(list_url_name) }}?{{ url_filter }}page={{ articles.previous_page_number() }}">← сюда</a>
+				<a href="{{ url_composer.get_list_url(page=articles.previous_page_number()) }}">← сюда</a>
             </li>
         {% endif %}
         {% if articles.has_next() %}
             <li class="next">
-                <a href="{{ url(list_url_name) }}?{{ url_filter }}page={{ articles.next_page_number() }}">туда →</a>
+                <a href="{{ url_composer.get_list_url(page=articles.next_page_number()) }}">туда →</a>
             </li>
         {% endif %}
     </ul>

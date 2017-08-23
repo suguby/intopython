@@ -17,7 +17,7 @@
         <time class="date-lesson"><i></i> Изменено {{ article.modified_at }}</time>
         <ul class="tags">
             {% for tag in article.tags_as_list %}
-                <li class="top_4"><a href="{{ url(list_url_name) }}?tag={{ tag.slug }}">{{ tag.name }}</a></li>
+                <li class="top_4"><a href="{{ url_composer.get_list_url(clear=True, tag=tag.slug) }}">{{ tag.name }}</a></li>
             {% endfor %}
         </ul>
 
@@ -27,7 +27,7 @@
 
         <ul class="pager">
             <li class="previous">
-                <a href="{{ url(list_url_name) }}">← обратно</a>
+                <a href="{{ url_composer.get_list_url() }}">← обратно</a>
             </li>
         </ul>
     </div>
